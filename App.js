@@ -4,7 +4,9 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>HELLO</Text>
+
+      <Text>I love HEAP</Text>
+
       <StatusBar style="auto" />
     </View>
   );
