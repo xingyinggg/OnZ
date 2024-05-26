@@ -19,6 +19,9 @@ yarn global add expo-cli
 ```
 git clone https://github.com/xingyinggg/OnZ.git
 ```
+```
+cd OnZ
+```
 
 **Install Dependencies**:
 ```
