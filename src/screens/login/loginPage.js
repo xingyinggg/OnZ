@@ -1,5 +1,8 @@
 // Standard imports
-import { React, useState, useRef, useContext } from "react";
+import { 
+    React, 
+    useState,
+} from "react";
 import {
     View,
     Text,
@@ -24,6 +27,7 @@ export default LoginPage = ({ navigation }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    // Functions
     const handleUsernameInput = (text) => {
         setUsername(text);
     };
@@ -38,6 +42,7 @@ export default LoginPage = ({ navigation }) => {
         console.log("Password: " + password);
     }
 
+    // Return statement, what the component will render
     return (
 
         // Dismiss keyboard when user taps outside of the text input field
@@ -99,7 +104,7 @@ export default LoginPage = ({ navigation }) => {
 // Styles
 const styles = StyleSheet.create({
 
-    // Add different styles here
+    // Add different styles here, each item is a style object
     container: {
         flex: 1,
         backgroundColor: '#fff',
