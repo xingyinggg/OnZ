@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
     fieldBox: {
         height: 56,
         width: '86%',
-        borderRadius: 10,
-        borderColor: '#D2D6DA',
+        borderRadius: 20,
+        borderColor: '#DBE5E7',
         borderWidth: 1,
         justifyContent: 'center',
     },
@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
         left: '5%',
         fontSize: 18,
         // TODO: Add font family
-        // fontFamily: <INSERT FONT HERE>,
-        color: '#8F8F8F',
+        fontFamily: "Inter, sans-serif",
+        color: '#585858',
         paddingRight: 35,
     },
 });
