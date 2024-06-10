@@ -5,6 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 
 // Login
 import LoginPage from "./src/screens/login/loginPage";
+import RegisterPage from "./src/screens/login/registerPage";
+import ForgetPasswordPage from "./src/screens/forgetPasswordPage";
+import TermsOfServicePage from "./src/screens/termsOfServicePage";
 
 export default function App() {
 
@@ -23,6 +26,21 @@ export default function App() {
         <Stack.Screen 
           name="loginPage" 
           component={LoginPage} 
+        />
+
+        <Stack.Screen
+          name="registerPage"
+          component={RegisterPage}
+        />
+
+        <Stack.Screen
+          name="forgetPasswordPage"
+          component={ForgetPasswordPage}
+        />
+
+        <Stack.Screen
+          name="termsOfServicePage"
+          component={TermsOfServicePage}
         />
 
       </Stack.Navigator>

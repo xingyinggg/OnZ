@@ -7,18 +7,22 @@ import {
     View,
     Text,
     StyleSheet,
-    Button,
+    // Button,
     TouchableWithoutFeedback,
     SafeAreaView,
     Keyboard,
     Image,
 } from "react-native";
+// import CheckBox from "@react-native-community/checkbox";
+import CheckBox from "expo-checkbox";
+
 
 // Component imports
 import TextInputField from "../../components/textInputField";
 
 // Asset imports
-import OnZLogo from "../../assets/OnZ_logo.png";
+import OnZLogo from "../../assets/commons/OnZ_logo.png";
+import { TouchableOpacity } from "react-native";
 
 // Main Component
 export default LoginPage = ({ navigation }) => {
@@ -26,6 +30,7 @@ export default LoginPage = ({ navigation }) => {
     // State variables
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [isSelected, setSelection] = useState(false);
 
     // Functions
     const handleUsernameInput = (text) => {
@@ -58,43 +63,100 @@ export default LoginPage = ({ navigation }) => {
                 />
 
                 {/* Add space between the logo and the title */}
-                <View style={{ height: 16 }}></View>
+                {/* <View style={{ height: 16 }}></View> */}
+                <View style={{ height: 16 }} />
 
                 {/* Title */}
-                <Text style={styles.headerText}>Login</Text>
+                <Text style={styles.headerText}>LOGIN</Text>
 
                 {/* Username Input Field */}
                 <TextInputField
                     value={username}
-                    placeholder={"Username"}
+                    placeholder={"USERNAME"}
                     onChangeTextFunction = {(text) => { 
                         handleUsernameInput(text); 
                     }}
+                    style={styles.inputField}
                 />
 
                 {/* Add space between the two input fields */}
-                <View style={{ height: 16 }}></View>
+                {/* <View style={{ height: 16 }}></View> */}
+                <View style={{ height: 16 }} />
+
 
                 {/* Password Input Field */}
                 <TextInputField
                     value={password}
-                    placeholder={"Password"}
+                    placeholder={"PASSWORD"}
                     onChangeTextFunction = {(text) => { 
                         handlePasswordInput(text); 
                     }}
-                />
+                    style={styles.inputField}
+                />  
 
-                {/* Add space between the input field and the button */}
-                <View style={{ height: 16 }}></View>
+                {/* Add space between remember me, forget password and login */}
+                {/* <View style={{ height: 10 }}></View> */}
+                <View style={{ height: 10 }} />
+
+                {/* Remember Me and Forgot Password */}
+                <View style={styles.alignment}>
+                    <View style={styles.rememberMe}>
+                        <CheckBox
+                        value={isSelected}
+                        onValueChange={setSelection}
+                        style={styles.checkbox}
+                        />
+                        <Text style={styles.rememberMeText}>Remember Me</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => navigation.navigate('forgetPasswordPage')}>
+                        <Text style={styles.forgotPassword}>Forgot Password?</Text>
+                    </TouchableOpacity>
+                </View>
+                
+
+                {/* Add space between Remember Me, Forget Password and Login */}
+                {/* <View>View style={{ height: 10 }}</View> */}
+                <View style={{ height: 10 }} />
 
                 {/* Login Button */}
                 {/* TODO: create custom button if yall want? */}
-                <Button
+                <View style={styles.loginButton}>
+                    <TouchableOpacity onPress={() => handleLogin()}>
+                        <Text style={styles.loginText}>LOGIN</Text>
+                    </TouchableOpacity>
+                </View>
+
+                {/* <Button
                     title={"Login"}
                     onPress={() => {
                         handleLogin();
                     }}
-                />
+                /> */}
+
+                {/* Terms of Services and Privacy Policy */}
+                <Text style={styles.termsOfService}>
+                    By clicking login, you agree to our{' '}
+                    <TouchableOpacity onPress={() => navigation.navigate('termsOfServicePage')}>
+                        <Text style={styles.termsOfService1}>Terms of Service and Privacy Policy</Text>
+                    </TouchableOpacity>
+                </Text>
+
+
+                {/* Add space between Terms of Services and Register */}
+                {/* <View>View style={{ height: 60 }}</View> */}
+                <View style={{ height: 80 }} />
+
+                {/* Register */}      
+                <View style={ {flexDirection: 'row',justifyContent: 'center'} }>
+                    <Text style={styles.register}>
+                        Don't Have An Account?{' '}
+                        <TouchableOpacity onPress={() => navigation.navigate('registerPage')}>
+                            <Text style={styles.register}> Register!</Text>
+                        </TouchableOpacity>
+                    </Text>
+                </View>         
+
+
 
             </SafeAreaView>
         </TouchableWithoutFeedback>
@@ -110,9 +172,69 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingHorizontal: 12,
     },
     headerText: {
-        fontSize: 24,
-        marginBottom: 24,
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginBottom: 20,
     },
+    inputField: {
+        width: '100%',
+        paddingHorizontal: 10,
+        paddingVertical: 12,
+        // dk why this isnt working (KIV)
+        borderRadius: 8,
+        backgroundColor: '#DBE5E7',
+        marginBottom: 16,
+      },
+    checkbox: {
+        marginRight: 8,
+        // change colour of checkbox when tick (KIV)
+    },
+    rememberMe: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    rememberMeText: {
+        fontSize: 14,
+    },
+    forgotPassword: {
+        color: '#000000',
+    },
+    alignment: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '90%',
+        paddingHorizontal: 16,
+      },
+    loginButton: {
+        backgroundColor: '#DBE5E7',
+        width: '35%',
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 20,
+    },
+    loginText: {
+        color: '585858',
+        fontSize: 16,
+    },
+    termsOfService: {
+        color: '#000000',
+        fontSize: 15,
+        textAlign: 'center',
+        marginTop: 20,
+    },
+    termsOfService1: {
+        color: '#000000',
+        fontSize: 15,
+        textAlign: 'center',
+        fontWeight: 'bold',
+    },
+    register: {
+        color: '#000000',
+        fontSize: 12,
+        fontWeight: 'bold',
+      },
 });
