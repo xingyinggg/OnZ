@@ -147,13 +147,12 @@ export default LoginPage = ({ navigation }) => {
                 <View style={{ height: 80 }} />
 
                 {/* Register */}      
-                <View style={ {flexDirection: 'row',justifyContent: 'center'} }>
+                <View style={ {flexDirection: 'row',justifyContent: 'center', alignItems: 'center'} }>
+                <TouchableOpacity onPress={() => navigation.navigate('registerPage')}>
                     <Text style={styles.register}>
-                        Don't Have An Account?{' '}
-                        <TouchableOpacity onPress={() => navigation.navigate('registerPage')}>
-                            <Text style={styles.register}> Register!</Text>
-                        </TouchableOpacity>
+                        Don't Have An Account? Register now!
                     </Text>
+                    </TouchableOpacity>
                 </View>         
 
 

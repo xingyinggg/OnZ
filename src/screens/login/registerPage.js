@@ -7,27 +7,57 @@ import {
     View,
     Text,
     StyleSheet,
-    Button,
+    // Button,
     TouchableWithoutFeedback,
     SafeAreaView,
     Keyboard,
     Image,
 } from "react-native";
-import CheckBox from "@react-native-community/checkbox";
+// import CheckBox from "@react-native-community/checkbox";
+import CheckBox from "expo-checkbox";
+
 
 // Component imports
 import TextInputField from "../../components/textInputField";
 
 // Asset imports
 import OnZLogo from "../../assets/commons/OnZ_logo.png";
-
-// Component imports
-
+import { TouchableOpacity } from "react-native";
 
 // Main Component
 export default LoginPage = ({ navigation }) => {
 
+    // State variables
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [isSelected, setSelection] = useState(false);
 
+    // Functions
+    const handleEmailInput = (text) => {
+        setEmail(text);
+    };
+
+    const handleUsernameInput = (text) => {
+        setUsername(text);
+    };
+
+    const handlePasswordInput = (text) => {
+        setPassword(text);
+    };
+
+    const handleConfirmPassword = (text) => {
+        setConfirmPassword(text);
+    };
+
+    const handleRegister = () => {
+        // TODO: Add login functionality here, link to backend, navigate to home page
+        console.log("Email: " + email);
+        console.log("Username: " + username);
+        console.log("Password: " + password);
+        console.log("Confirm Password: " + confirmPassword);
+    }
 
     // Return statement, what the component will render
     return (
@@ -43,6 +73,114 @@ export default LoginPage = ({ navigation }) => {
                     source={OnZLogo} 
                     style={{ width: 150, height: 150 }} 
                 />
+
+                {/* Add space between the logo and the title */}
+                {/* <View style={{ height: 16 }}></View> */}
+                <View style={{ height: 16 }} />
+
+                {/* Title */}
+                <Text style={styles.headerText}>REGISTER</Text>
+
+                {/* Email Input Field */}
+                <TextInputField
+                    value={email}
+                    placeholder={"EMAIL"}
+                    onChangeTextFunction = {(text) => { 
+                        handleEmailInput(text); 
+                    }}
+                    style={styles.inputField}
+                />
+
+                {/* Add space between the email and username*/}
+                <View style={{ height: 16 }} />
+
+                {/* Username Input Field */}
+                <TextInputField
+                    value={username}
+                    placeholder={"USERNAME"}
+                    onChangeTextFunction = {(text) => { 
+                        handleUsernameInput(text); 
+                    }}
+                    style={styles.inputField}
+                />
+
+                {/* Add space between username and password*/}
+                <View style={{ height: 16 }} />
+
+
+                {/* Password Input Field */}
+                <TextInputField
+                    value={password}
+                    placeholder={"PASSWORD"}
+                    onChangeTextFunction = {(text) => { 
+                        handlePasswordInput(text); 
+                    }}
+                    style={styles.inputField}
+                />  
+
+                {/* Add space between password and confirm password*/}
+                <View style={{ height: 16 }} />
+
+                {/* Password Input Field */}
+                <TextInputField
+                    value={confirmPassword}
+                    placeholder={"CONFIRM PASSWORD"}
+                    onChangeTextFunction = {(text) => { 
+                        handleConfirmPassword(text); 
+                    }}
+                    style={styles.inputField}
+                />
+
+                {/* Add space between remember me, forget password and login */}
+                {/* <View style={{ height: 10 }}></View> */}
+                <View style={{ height: 10 }} />
+
+                {/* Remember Me and Forgot Password */}
+                <View style={styles.alignment}>
+                    <View style={styles.rememberMe}>
+                        <CheckBox
+                        value={isSelected}
+                        onValueChange={setSelection}
+                        style={styles.checkbox}
+                        />
+                        <Text style={styles.rememberMeText}>Remember Me</Text>
+                    </View>
+                </View>
+                
+
+                {/* Add space between Remember Me, Forget Password and Login */}
+                {/* <View>View style={{ height: 10 }}</View> */}
+                <View style={{ height: 10 }} />
+
+                {/* Login Button */}
+                {/* TODO: create custom button if yall want? */}
+                <View style={styles.loginButton}>
+                    <TouchableOpacity onPress={() => handleRegister()}>
+                        <Text style={styles.loginText}>REGISTER</Text>
+                    </TouchableOpacity>
+                </View>
+
+                {/* Terms of Services and Privacy Policy */}
+                <Text style={styles.termsOfService}>
+                    By clicking login, you agree to our{' '}
+                    <TouchableOpacity onPress={() => navigation.navigate('termsOfServicePage')}>
+                        <Text style={styles.termsOfService1}>Terms of Service and Privacy Policy</Text>
+                    </TouchableOpacity>
+                </Text>
+
+
+                {/* Add space between Terms of Services and Register */}
+                {/* <View>View style={{ height: 60 }}</View> */}
+                <View style={{ height: 80 }} />
+
+                {/* Register */}      
+                <View style={ {flexDirection: 'row',justifyContent: 'center', alignItems: 'center'} }>
+                <TouchableOpacity onPress={() => navigation.navigate('loginPage')}>
+                    <Text style={styles.register}>
+                        Have An Account? Login!
+                    </Text>
+                    </TouchableOpacity>
+                </View>         
 
 
 
@@ -60,28 +198,69 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingHorizontal: 12,
     },
     headerText: {
-        fontSize: 20,
-        marginBottom: 12,
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginBottom: 20,
+    },
+    inputField: {
+        width: '100%',
+        paddingHorizontal: 10,
+        paddingVertical: 12,
+        // dk why this isnt working (KIV)
+        borderRadius: 8,
+        backgroundColor: '#DBE5E7',
+        marginBottom: 16,
+      },
+    checkbox: {
+        marginRight: 8,
+        // change colour of checkbox when tick (KIV)
     },
     rememberMe: {
-    flexDirection: 'row',
-    alignItems: 'left',
-    color: '585858'
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    rememberMeText: {
+        fontSize: 14,
     },
     forgotPassword: {
-    fontSize: 12,
-    alignItems: 'right',
-    color: '#000000',
+        color: '#000000',
+    },
+    alignment: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '90%',
+        paddingHorizontal: 16,
+      },
+    loginButton: {
+        backgroundColor: '#DBE5E7',
+        width: '35%',
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 20,
+    },
+    loginText: {
+        color: '585858',
+        fontSize: 16,
     },
     termsOfService: {
-    color: '#000000',
-    fontSize: 12,
+        color: '#000000',
+        fontSize: 15,
+        textAlign: 'center',
+        marginTop: 20,
+    },
+    termsOfService1: {
+        color: '#000000',
+        fontSize: 15,
+        textAlign: 'center',
+        fontWeight: 'bold',
     },
     register: {
-    color: '#000000',
-    fontSize: 12,
-    fontWeight: "bold",
-    },
+        color: '#000000',
+        fontSize: 12,
+        fontWeight: 'bold',
+      },
 });
