@@ -5,9 +5,15 @@ import { NavigationContainer } from "@react-navigation/native";
 
 // Login
 import LoginPage from "./src/screens/login/loginPage";
+import { useFonts } from 'expo-font';
 
 export default function App() {
-
+  const [loaded] = useFonts({
+    Karma: require('./src/assets/fonts/Karma-Bold.ttf'),
+  });
+  if (!loaded) {
+    return null;
+  }
   // Create a stack navigator
   const Stack = createNativeStackNavigator();
 

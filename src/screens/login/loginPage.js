@@ -18,7 +18,7 @@ import {
 import TextInputField from "../../components/textInputField";
 
 // Asset imports
-import OnZLogo from "../../assets/OnZ_logo.png";
+import OnZLogo from "../../assets/commons/OnZ_logo.png";
 
 // Main Component
 export default LoginPage = ({ navigation }) => {
@@ -61,7 +61,7 @@ export default LoginPage = ({ navigation }) => {
                 <View style={{ height: 16 }}></View>
 
                 {/* Title */}
-                <Text style={styles.headerText}>Login</Text>
+                <Text style={styles.headerText}>LOGIN</Text>
 
                 {/* Username Input Field */}
                 <TextInputField
@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontSize: 24,
+        fontFamily: 'Karma',
         marginBottom: 24,
     },
 });

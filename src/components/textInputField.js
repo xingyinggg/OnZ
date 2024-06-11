@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         left: '5%',
         fontSize: 18,
         // TODO: Add font family
-        fontFamily: "Inter, sans-serif",
+        fontFamily: "sans-serif",
         color: '#585858',
         paddingRight: 35,
     },
