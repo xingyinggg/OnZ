@@ -3,6 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 
+//fonts
+import { useFonts } from 'expo-font';
+
 // Login
 import LoginPage from "./src/screens/login/loginPage";
 import RegisterPage from "./src/screens/login/registerPage";
@@ -10,6 +13,14 @@ import ForgetPasswordPage from "./src/screens/forgetPasswordPage";
 import TermsOfServicePage from "./src/screens/termsOfServicePage";
 
 export default function App() {
+
+  //karma bold font
+  const [loaded] = useFonts({
+    Karma: require('./src/assets/fonts/Karma-Bold.ttf'),
+  });
+  if (!loaded) {
+    return null;
+  }
 
   // Create a stack navigator
   const Stack = createNativeStackNavigator();

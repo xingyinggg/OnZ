@@ -202,8 +202,9 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontSize: 22,
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         marginBottom: 20,
+        fontFamily: 'Karma-Bold',
     },
     inputField: {
         width: '100%',
