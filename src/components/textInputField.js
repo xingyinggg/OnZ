@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
     fieldText: {
         left: '5%',
-        fontSize: 18,
+        fontSize: 16,
         // TODO: Add font family
         // fontFamily: <INSERT FONT HERE>,
         color: '#8F8F8F',

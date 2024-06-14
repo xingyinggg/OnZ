@@ -10,6 +10,7 @@ import LoginPage from "./src/screens/login/loginPage";
 import RegisterPage from "./src/screens/login/registerPage";
 import ForgetPasswordPage from "./src/screens/forgetPasswordPage";
 import TermsOfServicePage from "./src/screens/termsOfServicePage";
+import VerifyEmailPage from './src/screens/verifyEmail';
 
 export default function App() {
 
@@ -55,6 +56,11 @@ export default function App() {
             // headerTitle: "Terms of Services and Privacy Policy",
             // headerTitleAlign: 'center',
           })}
+        />
+
+        <Stack.Screen
+          name="verifyEmailPage"
+          component={VerifyEmailPage}
         />
 
       </Stack.Navigator>

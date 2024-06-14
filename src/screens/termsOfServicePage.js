@@ -27,8 +27,6 @@ import back_button from "../assets/commons/back_logo.png";
 // Main Component
 export default TermsOfService = ({ navigation }) => {
 
-
-
     // Return statement, what the component will render
     return (
 
