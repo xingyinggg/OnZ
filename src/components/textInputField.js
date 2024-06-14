@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
     fieldBox: {
         height: 56,
         width: '86%',
-        borderRadius: 10,
+        borderRadius: 15,
         borderColor: '#D2D6DA',
         borderWidth: 1,
         justifyContent: 'center',
     },
     fieldText: {
         left: '5%',
-        fontSize: 18,
+        fontSize: 16,
         // TODO: Add font family
         // fontFamily: <INSERT FONT HERE>,
         color: '#8F8F8F',

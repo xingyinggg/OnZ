@@ -26,8 +26,6 @@ import OnZLogo from "../assets/commons/OnZ_logo.png";
 // Main Component
 export default LoginPage = ({ navigation }) => {
 
-
-
     // Return statement, what the component will render
     return (
 
