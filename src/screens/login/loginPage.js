@@ -76,7 +76,6 @@ export default LoginPage = ({ navigation }) => {
                     onChangeTextFunction = {(text) => { 
                         handleUsernameInput(text); 
                     }}
-                    style={styles.inputField}
                 />
 
                 {/* Add space between the two input fields */}
@@ -178,15 +177,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20,
     },
-    inputField: {
-        width: '100%',
-        paddingHorizontal: 10,
-        paddingVertical: 12,
-        // dk why this isnt working (KIV)
-        borderRadius: 8,
-        backgroundColor: '#DBE5E7',
-        marginBottom: 16,
-      },
     checkbox: {
         marginRight: 8,
         // change colour of checkbox when tick (KIV)

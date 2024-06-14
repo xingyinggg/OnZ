@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from '@react-navigation/stack';
+
 
 // Login
 import LoginPage from "./src/screens/login/loginPage";
@@ -41,6 +43,18 @@ export default function App() {
         <Stack.Screen
           name="termsOfServicePage"
           component={TermsOfServicePage}
+          options={({ navigation }) => ({
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Image
+                  source={require('./src/assets/commons/back_logo.png')} 
+                  style={styles.backButtonImage}
+                />
+              </TouchableOpacity>
+            ),
+            // headerTitle: "Terms of Services and Privacy Policy",
+            // headerTitleAlign: 'center',
+          })}
         />
 
       </Stack.Navigator>
@@ -54,5 +68,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  backButtonImage: {
+    width: 25, 
+    height: 25 
+
   },
 });

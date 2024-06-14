@@ -25,7 +25,7 @@ import OnZLogo from "../../assets/commons/OnZ_logo.png";
 import { TouchableOpacity } from "react-native";
 
 // Main Component
-export default LoginPage = ({ navigation }) => {
+export default RegisterPage = ({ navigation }) => {
 
     // State variables
     const [email, setEmail] = useState("");
@@ -88,7 +88,6 @@ export default LoginPage = ({ navigation }) => {
                     onChangeTextFunction = {(text) => { 
                         handleEmailInput(text); 
                     }}
-                    style={styles.inputField}
                 />
 
                 {/* Add space between the email and username*/}
@@ -179,7 +178,7 @@ export default LoginPage = ({ navigation }) => {
                     <Text style={styles.register}>
                         Have An Account? Login!
                     </Text>
-                    </TouchableOpacity>
+                </TouchableOpacity>
                 </View>         
 
 
@@ -205,15 +204,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20,
     },
-    inputField: {
-        width: '100%',
-        paddingHorizontal: 10,
-        paddingVertical: 12,
-        // dk why this isnt working (KIV)
-        borderRadius: 8,
-        backgroundColor: '#DBE5E7',
-        marginBottom: 16,
-      },
     checkbox: {
         marginRight: 8,
         // change colour of checkbox when tick (KIV)
