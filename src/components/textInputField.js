@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     fieldBox: {
         height: 56,
         width: '86%',
-        borderRadius: 10,
+        borderRadius: 15,
         borderColor: '#D2D6DA',
         borderWidth: 1,
         justifyContent: 'center',
