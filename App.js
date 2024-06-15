@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { useFonts } from "expo-font";
 
 // Login
 import LoginPage from "./src/screens/login/loginPage";
@@ -24,6 +24,20 @@ import EntertainmentCategoryPage from './src/screens/categories/entertainmentCat
 import CulturesCategoryPage from './src/screens/categories/culturesCategoryPage';
 
 export default function App() {
+
+  // Declare fonts to be used
+  const [fontsLoaded, fontError] = useFonts({
+    "Karma-Regular": require("./src/assets/fonts/Karma-Regular.ttf"),
+    "Karma-Bold": require("./src/assets/fonts/Karma-Bold.ttf"),
+    "Karma-Light": require("./src/assets/fonts/Karma-Light.ttf"),
+    "Karma-Medium": require("./src/assets/fonts/Karma-Medium.ttf"),
+    "Karma-SemiBold": require("./src/assets/fonts/Karma-SemiBold.ttf"),
+  });
+
+  // Check if fonts are loaded
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   // Create a stack navigator
   const Stack = createNativeStackNavigator();
