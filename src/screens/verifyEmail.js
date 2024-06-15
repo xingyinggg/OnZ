@@ -21,7 +21,7 @@ import { useRoute } from '@react-navigation/native';
 export default VerifyEmailPage = ({ navigation }) => {
 
     const route = useRoute();
-    const { email } = route.params; // Retrieve the email passed from the previous screen
+    const email = route.params?.email;// Retrieve the email passed from the previous screen
 
     const maskEmail = (email) => {
         const [username, domain] = email.split('@');
@@ -60,9 +60,8 @@ export default VerifyEmailPage = ({ navigation }) => {
           };
         
           const handleConfirmCode = () => {
-            // Add logic to confirm the entered code here
-            navigation.navigate('newPasswordPage')
-
+            // Add logic to confirm the entered code here and link to backend
+            navigation.navigate('newPasswordPage', {email});
           };
         
           const formatTime = (seconds) => {
