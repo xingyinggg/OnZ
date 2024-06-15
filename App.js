@@ -10,6 +10,10 @@ import LoginPage from "./src/screens/login/loginPage";
 import RegisterPage from "./src/screens/login/registerPage";
 import ForgetPasswordPage from "./src/screens/forgetPasswordPage";
 import TermsOfServicePage from "./src/screens/termsOfServicePage";
+import VerifyEmailPage from './src/screens/verifyEmail';
+import NewPasswordPage from './src/screens/newPasswordPage';
+
+//  Home pages
 import HomePage from './src/screens/homePage';
 import FoodCategoryPage from './src/screens/categories/foodCategoryPage';
 import CraftsCategoryPage from './src/screens/categories/craftsCategoryPage';
@@ -103,6 +107,16 @@ export default function App() {
         <Stack.Screen
           name="culturesCategoryPage"
           component={CulturesCategoryPage}
+        />
+
+        <Stack.Screen
+          name="verifyEmailPage"
+          component={VerifyEmailPage}
+        />
+
+        <Stack.Screen
+          name="newPasswordPage"
+          component={NewPasswordPage}
         />
 
       </Stack.Navigator>

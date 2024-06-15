@@ -1,20 +1,37 @@
 import { 
     View, 
     TextInput, 
-    StyleSheet 
+    StyleSheet,
+    TouchableOpacity,
+    Text
 } from "react-native";
+import
+    React, {
+    useState
+    }
+from "react";
 
 // main component
-export default TextInputField = ({ value, placeholder, onChangeTextFunction }) => {
+export default PassswordField = ({ value, placeholder, onChangeTextFunction }) => {
+
+    const [secureText, setSecureText] = useState(true);
+
     return (
         <View style={styles.fieldBox}>
             <TextInput
                 style={styles.fieldText}
-                onChangeText={(text) => { onChangeTextFunction(text); }}
+                secureTextEntry={secureText}
                 value={value}
+                onChangeText={(text) => { onChangeTextFunction(text); }}
                 placeholder={placeholder}
+                
             />
+
+            <TouchableOpacity onPress={() => setSecureText(!secureText)}>
+                <Text style={styles.toggleText}>{secureText}</Text>
+            </TouchableOpacity>
         </View>
+        
     );
 }
 
@@ -35,5 +52,10 @@ const styles = StyleSheet.create({
         // fontFamily: <INSERT FONT HERE>,
         color: '#8F8F8F',
         paddingRight: 35,
+        textAlignVertical: 'center'
+    },
+    toggleText: {
+        color: '#1e90ff',
+        marginLeft: 10,
     },
 });
