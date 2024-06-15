@@ -11,6 +11,7 @@ import RegisterPage from "./src/screens/login/registerPage";
 import ForgetPasswordPage from "./src/screens/forgetPasswordPage";
 import TermsOfServicePage from "./src/screens/termsOfServicePage";
 import VerifyEmailPage from './src/screens/verifyEmail';
+import NewPasswordPage from './src/screens/newPasswordPage';
 
 export default function App() {
 
@@ -61,6 +62,11 @@ export default function App() {
         <Stack.Screen
           name="verifyEmailPage"
           component={VerifyEmailPage}
+        />
+
+        <Stack.Screen
+          name="newPasswordPage"
+          component={NewPasswordPage}
         />
 
       </Stack.Navigator>
