@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
 import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 // Login
 import LoginPage from "./src/screens/login/loginPage";
@@ -26,7 +27,7 @@ import CulturesCategoryPage from './src/screens/categories/culturesCategoryPage'
 export default function App() {
 
   // Declare fonts to be used
-  const [fontsLoaded, fontError] = useFonts({
+  const [fontsLoaded] = useFonts({
     "Karma-Regular": require("./src/assets/fonts/Karma-Regular.ttf"),
     "Karma-Bold": require("./src/assets/fonts/Karma-Bold.ttf"),
     "Karma-Light": require("./src/assets/fonts/Karma-Light.ttf"),
@@ -35,7 +36,14 @@ export default function App() {
   });
 
   // Check if fonts are loaded
-  if (!fontsLoaded && !fontError) {
+  if (fontsLoaded) {
+    console.log("fonts loaded");
+    const hideSplash = async () => {
+      await SplashScreen.hideAsync();
+    };
+    hideSplash();
+  } else {
+    console.log("font not loaded");
     return null;
   }
 
