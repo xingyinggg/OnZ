@@ -120,7 +120,9 @@ export default LoginPage = ({ navigation }) => {
                 {/* Login Button */}
                 {/* TODO: create custom button if yall want? */}
                 <View style={styles.loginButton}>
-                    <TouchableOpacity onPress={() => handleLogin()}>
+                    {/* <TouchableOpacity onPress={() => handleLogin()}> */}
+                    <TouchableOpacity 
+                        onPress={() => navigation.navigate('homePage')}>
                         <Text style={styles.loginText}>LOGIN</Text>
                     </TouchableOpacity>
                 </View>

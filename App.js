@@ -13,6 +13,16 @@ import TermsOfServicePage from "./src/screens/termsOfServicePage";
 import VerifyEmailPage from './src/screens/verifyEmail';
 import NewPasswordPage from './src/screens/newPasswordPage';
 
+//  Home pages
+import HomePage from './src/screens/homePage';
+import FoodCategoryPage from './src/screens/categories/foodCategoryPage';
+import CraftsCategoryPage from './src/screens/categories/craftsCategoryPage';
+import PetsCategoryPage from './src/screens/categories/petsCategoryPage';
+import OutdoorsCategoryPage from './src/screens/categories/outdoorsCategoryPage';
+import SportsCategoryPage from './src/screens/categories/sportsCategoryPage';
+import EntertainmentCategoryPage from './src/screens/categories/entertainmentCategoryPage';
+import CulturesCategoryPage from './src/screens/categories/culturesCategoryPage';
+
 export default function App() {
 
   // Create a stack navigator
@@ -57,6 +67,46 @@ export default function App() {
             // headerTitle: "Terms of Services and Privacy Policy",
             // headerTitleAlign: 'center',
           })}
+        />
+
+        <Stack.Screen
+          name="homePage"
+          component={HomePage}
+        />
+
+        <Stack.Screen
+          name="foodCategoryPage"
+          component={FoodCategoryPage}
+        />
+
+        <Stack.Screen
+          name="craftsCategoryPage"
+          component={CraftsCategoryPage}
+        />
+
+        <Stack.Screen
+          name="petsCategoryPage"
+          component={PetsCategoryPage}
+        />
+
+        <Stack.Screen
+          name="outdoorsCategoryPage"
+          component={OutdoorsCategoryPage}
+        />
+
+        <Stack.Screen
+          name="sportsCategoryPage"
+          component={SportsCategoryPage}
+        />
+
+        <Stack.Screen
+          name="entertainmentCategoryPage"
+          component={EntertainmentCategoryPage}
+        />
+
+        <Stack.Screen
+          name="culturesCategoryPage"
+          component={CulturesCategoryPage}
         />
 
         <Stack.Screen
