@@ -21,6 +21,7 @@ import TextInputField from "../../components/textInputField";
 import CheckBox from "expo-checkbox";
 import Header1 from "../../components/texts/header1";
 import PasswordField from "../../components/passwordField"
+import ButtonField from "../../components/buttonField";
 
 // Asset imports
 import OnZLogo from "../../assets/commons/OnZ_logo.png";

@@ -138,9 +138,10 @@ export default VerifyEmailPage = ({ navigation }) => {
                 <View style={{ height: 10 }} />
                 
                 {/*confirm button*/}
-                <TouchableOpacity style={styles.confirmButton} onPress={handleConfirmCode}>
-                    <Text style={styles.confirmButtonText}>CONFIRM CODE</Text>
-                </TouchableOpacity>
+                <ButtonField
+                    onPress={handleConfirmCode} 
+                    title= 'VERIFY CODE'
+                />
 
                 {/* space between continue button and timer*/}
                 <View style={{ height: 10 }} />

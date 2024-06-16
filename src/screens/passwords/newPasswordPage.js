@@ -17,6 +17,7 @@ import {
 import PasswordField from "../../components/passwordField";
 import { useRoute } from '@react-navigation/native';
 import Header1 from "../../components/texts/header1";
+import ButtonField from "../../components/buttonField";
 
 export default NewPassword = ({ navigation }) => {
 
@@ -78,6 +79,12 @@ export default NewPassword = ({ navigation }) => {
                 >
                 </PasswordField>
 
+                <View style={{ height: 16 }} />
+
+                <ButtonField
+                onPress={handleNewPassword} 
+                title= 'CONFIRM'
+                />
 
 
 
@@ -105,7 +112,6 @@ const styles = StyleSheet.create({
     },
     subHeaderText: {
         fontsize: 12,
-        marginLeft: 2,
         textAlign: 'left',
         width: '80%', 
         marginBottom: 8
