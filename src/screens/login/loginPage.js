@@ -20,6 +20,7 @@ import {
 import TextInputField from "../../components/textInputField";
 import CheckBox from "expo-checkbox";
 import Header1 from "../../components/texts/header1";
+import PasswordField from "../../components/passwordField"
 
 // Asset imports
 import OnZLogo from "../../assets/commons/OnZ_logo.png";
@@ -46,6 +47,7 @@ export default LoginPage = ({ navigation }) => {
         // TODO: Add login functionality here, link to backend, navigate to home page
         console.log("Username: " + username);
         console.log("Password: " + password);
+        navigation.navigate('homePage')
     }
 
     // Return statement, what the component will render
@@ -89,17 +91,14 @@ export default LoginPage = ({ navigation }) => {
 
 
                 {/* Password Input Field */}
-                <TextInputField
-                    value={password}
-                    placeholder={"PASSWORD"}
-                    onChangeTextFunction = {(text) => { 
-                        handlePasswordInput(text); 
-                    }}
-                    style={styles.inputField}
-                />  
+                <PasswordField 
+                    onChangeTextFunction={(text) => { 
+                    handlePasswordInput(text)}}
+                    value={password} 
+                    placeholder={'PASSWORD'}
+                />
 
                 {/* Add space between remember me, forget password and login */}
-                {/* <View style={{ height: 10 }}></View> */}
                 <View style={{ height: 10 }} />
 
                 {/* Remember Me and Forgot Password */}
@@ -120,24 +119,14 @@ export default LoginPage = ({ navigation }) => {
 
                 {/* Add space between Remember Me, Forget Password and Login */}
                 {/* <View>View style={{ height: 10 }}</View> */}
-                <View style={{ height: 10 }} />
+                <View style={{ height: 16 }} />
 
                 {/* Login Button */}
-                {/* TODO: create custom button if yall want? */}
-                <View style={styles.loginButton}>
-                    {/* <TouchableOpacity onPress={() => handleLogin()}> */}
-                    <TouchableOpacity 
-                        onPress={() => navigation.navigate('homePage')}>
-                        <Text style={styles.loginText}>LOGIN</Text>
-                    </TouchableOpacity>
-                </View>
-
-                {/* <Button
-                    title={"Login"}
-                    onPress={() => {
-                        handleLogin();
-                    }}
-                /> */}
+                <ButtonField
+                    onPress={handleLogin} 
+                    title= 'LOGIN'
+                />
+                
 
                 {/* Terms of Services and Privacy Policy */}
                 <Text style={styles.termsOfService}>
@@ -204,18 +193,6 @@ const styles = StyleSheet.create({
         width: '90%',
         paddingHorizontal: 16,
       },
-    loginButton: {
-        backgroundColor: '#DBE5E7',
-        width: '35%',
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 20,
-    },
-    loginText: {
-        color: '585858',
-        fontSize: 16,
-    },
     termsOfService: {
         color: '#000000',
         fontSize: 15,

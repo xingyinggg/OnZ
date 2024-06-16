@@ -98,13 +98,11 @@ export default forgetPasswordPage = ({ navigation }) => {
                 {/* space between email input and continue button*/}
                 <View style={{ height: 10 }} />
                 
-                {/*continue button*/}
-                <View style={styles.continueButton}>
-                {/* <TouchableOpacity onPress={() => handleContinue()}> */}
-                <TouchableOpacity onPress={handleContinue}>
-                    <Text style={styles.continueButtonText}>CONTINUE</Text>
-                </TouchableOpacity>
-                </View>
+                {/*continue button */}
+                <ButtonField
+                onPress={handleContinue} 
+                title= 'CONTINUE'
+                />
 
             </SafeAreaView>
         </TouchableWithoutFeedback>
@@ -122,8 +120,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     headerText: {
-        fontSize: 24,
+        fontSize: 25,
         marginBottom: 10,
+        fontFamily: 'Karma-Bold',
     },
     bodyText: {
         fontsize: 12,
