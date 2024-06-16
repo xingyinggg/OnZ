@@ -153,7 +153,7 @@ export default LoginPage = ({ navigation }) => {
                     <Text style={styles.register}>
                         Don't Have An Account? Register now!
                     </Text>
-                    </TouchableOpacity>
+                </TouchableOpacity>
                 </View>         
 
 

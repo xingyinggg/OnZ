@@ -9,7 +9,8 @@
     "splash": {
       "image": "./src/assets/commons/OnZ_logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "width": 100
     },
     "ios": {
       "supportsTablet": true

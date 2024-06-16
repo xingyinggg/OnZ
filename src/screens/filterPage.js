@@ -15,10 +15,10 @@ import {
 } from "react-native";
 
 // Component imports
-import TextInputField from "../../components/textInputField";
+import TextInputField from "../components/textInputField";
 
 // Asset imports
-import OnZLogo from "../../assets/commons/OnZ_logo.png";
+import OnZLogo from "../assets/commons/OnZ_logo.png";
 
 // Component imports
 
