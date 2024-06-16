@@ -19,6 +19,7 @@ import CheckBox from "expo-checkbox";
 
 // Component imports
 import TextInputField from "../../components/textInputField";
+import PasswordField from "../../components/passwordField";
 
 // Asset imports
 import OnZLogo from "../../assets/commons/OnZ_logo.png";
@@ -100,7 +101,6 @@ export default RegisterPage = ({ navigation }) => {
                     onChangeTextFunction = {(text) => { 
                         handleUsernameInput(text); 
                     }}
-                    style={styles.inputField}
                 />
 
                 {/* Add space between username and password*/}
@@ -108,26 +108,31 @@ export default RegisterPage = ({ navigation }) => {
 
 
                 {/* Password Input Field */}
-                <TextInputField
-                    value={password}
-                    placeholder={"PASSWORD"}
-                    onChangeTextFunction = {(text) => { 
-                        handlePasswordInput(text); 
-                    }}
-                    style={styles.inputField}
-                />  
+                <PasswordField 
+                    onChangeTextFunction={(text) => { 
+                    handlePasswordInput(text)}}
+                    value={password} 
+                    placeholder={'PASSWORD'}
+                />
 
                 {/* Add space between password and confirm password*/}
                 <View style={{ height: 16 }} />
 
                 {/* Password Input Field */}
-                <TextInputField
+                {/* <TextInputField
                     value={confirmPassword}
                     placeholder={"CONFIRM PASSWORD"}
                     onChangeTextFunction = {(text) => { 
                         handleConfirmPassword(text); 
                     }}
                     style={styles.inputField}
+                /> */}
+
+                <PasswordField 
+                    onChangeTextFunction={(text) => { 
+                    handleConfirmPassword(text)}}
+                    value={confirmPassword} 
+                    placeholder={'CONFIRM PASSWORD'}
                 />
 
                 {/* Add space between remember me, forget password and login */}
@@ -151,13 +156,10 @@ export default RegisterPage = ({ navigation }) => {
                 {/* <View>View style={{ height: 10 }}</View> */}
                 <View style={{ height: 10 }} />
 
-                {/* Login Button */}
-                {/* TODO: create custom button if yall want? */}
-                <View style={styles.loginButton}>
-                    <TouchableOpacity onPress={() => handleRegister()}>
-                        <Text style={styles.loginText}>REGISTER</Text>
-                    </TouchableOpacity>
-                </View>
+                <ButtonField
+                onPress={handleRegister} 
+                title= 'REGISTER'
+                />
 
                 {/* Terms of Services and Privacy Policy */}
                 <Text style={styles.termsOfService}>
@@ -180,7 +182,6 @@ export default RegisterPage = ({ navigation }) => {
                     </Text>
                 </TouchableOpacity>
                 </View>         
-
 
 
             </SafeAreaView>
@@ -224,18 +225,6 @@ const styles = StyleSheet.create({
         width: '90%',
         paddingHorizontal: 16,
       },
-    loginButton: {
-        backgroundColor: '#DBE5E7',
-        width: '35%',
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 20,
-    },
-    loginText: {
-        color: '585858',
-        fontSize: 16,
-    },
     termsOfService: {
         color: '#000000',
         fontSize: 15,

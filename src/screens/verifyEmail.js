@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { useRoute } from '@react-navigation/native';
+import ButtonField from "../components/buttonField";
 
 // Main Component
 export default VerifyEmailPage = ({ navigation }) => {
@@ -135,12 +136,13 @@ export default VerifyEmailPage = ({ navigation }) => {
                 <View style={{ height: 10 }} />
                 
                 {/*confirm button*/}
-                <TouchableOpacity style={styles.confirmButton} onPress={handleConfirmCode}>
-                    <Text style={styles.confirmButtonText}>CONFIRM CODE</Text>
-                </TouchableOpacity>
+                <ButtonField
+                    onPress={handleConfirmCode} 
+                    title= 'CONFIRM CODE'
+                />
 
                 {/* space between continue button and timer*/}
-                <View style={{ height: 10 }} />
+                <View style={{ height: 15 }} />
                 
 
                 <View style={styles.resendCodeContainer}>
@@ -196,8 +198,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#DBE5E7',
         borderRadius: 8,
-        width: 40,
-        height: 40,
+        width: 45,
+        height: 45,
         textAlign: 'center',
         fontSize: 18,
         marginHorizontal: 15,
