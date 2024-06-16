@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { useRoute } from '@react-navigation/native';
+import Header1 from "../../components/texts/header1";
 
 // Main Component
 export default VerifyEmailPage = ({ navigation }) => {
@@ -83,7 +84,9 @@ export default VerifyEmailPage = ({ navigation }) => {
             <SafeAreaView style={styles.container}>
 
                 {/*title*/}
-                <Text style={styles.headerText}>Verify Email Address</Text>
+                <Header1
+                    text='Verify Email Address'
+                />
 
                 {/*instruction*/}
                 <Text style={styles.bodyText}>Verification code has been sent to</Text>

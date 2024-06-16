@@ -15,6 +15,8 @@ import {
 // Component imports
 import RowDescription from "../components/rowDescription.js";
 import BottomBar from "../components/bottomBar.js";
+import Header1 from "../components/texts/header1.js";
+import Header2 from "../components/texts/header2.js";
 
 // Asset imports
 import FilterLogo from "../assets/filter_logo.png";
@@ -101,9 +103,15 @@ const HomePage = ({ navigation }) => {
                     ListHeaderComponent={
                         <>
                             <View style={styles.welcome}>
-                                <Text style={styles.welcomeText}>Welcome back
-                                    <Text style={{ fontWeight: 'bold' }}> username</Text>
-                                !</Text>
+                                <Header2
+                                    text='Welcome back '
+                                />
+                                <Header1
+                                    text='username'
+                                />
+                                <Header2
+                                    text='!'
+                                />
                             </View>
 
                             <View style={styles.searchContainer}>
@@ -155,7 +163,9 @@ const HomePage = ({ navigation }) => {
                             </TouchableOpacity>
 
                             <View style={styles.popularNowContainer}>
-                                <Text style={styles.popularNowText}>Popular Now</Text>
+                                <Header1
+                                    text='Popular Now'
+                                />
                             </View>
                         </>
                     }
@@ -195,11 +205,7 @@ const styles = StyleSheet.create({
     welcome: {
         marginTop: 20,
         flexDirection: 'row',
-        alignItems: 'center',
-    },
-    welcomeText: {
-        fontSize: 22,
-        marginBottom: 10,
+        // alignItems: 'center',
     },
     searchContainer: {
         backgroundColor: '#DBE5E7',
@@ -249,10 +255,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     popularNowContainer: {
-        marginVertical: 10,
-    },
-    popularNowText: {
-        fontSize: 22,
-        fontWeight: 'bold',
+        marginTop: 10,
+        justifyContent: 'left',
     },
 });

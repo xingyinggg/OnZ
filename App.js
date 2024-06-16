@@ -11,10 +11,10 @@ import * as SplashScreen from "expo-splash-screen";
 // Login
 import LoginPage from "./src/screens/login/loginPage";
 import RegisterPage from "./src/screens/login/registerPage";
-import ForgetPasswordPage from "./src/screens/forgetPasswordPage";
+import ForgetPasswordPage from "./src/screens/passwords/forgetPasswordPage";
 import TermsOfServicePage from "./src/screens/termsOfServicePage";
-import VerifyEmailPage from './src/screens/verifyEmail';
-import NewPasswordPage from './src/screens/newPasswordPage';
+import VerifyEmailPage from './src/screens/passwords/verifyEmail';
+import NewPasswordPage from './src/screens/passwords/newPasswordPage';
 
 //  Home pages
 import HomePage from './src/screens/homePage';

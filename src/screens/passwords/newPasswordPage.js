@@ -14,8 +14,9 @@ import {
 } from "react-native";
 
 //import password field component
-import PasswordField from "../components/passwordField";
+import PasswordField from "../../components/passwordField";
 import { useRoute } from '@react-navigation/native';
+import Header1 from "../../components/texts/header1";
 
 export default NewPassword = ({ navigation }) => {
 
@@ -48,7 +49,9 @@ export default NewPassword = ({ navigation }) => {
             <SafeAreaView style={styles.container}>  
 
                 {/* Title */}
-                <Text style={styles.headerText}>New Password</Text>
+                <Header1
+                    text='New Password'
+                />
 
                 {/*description*/}
                 <Text style={styles.subHeaderText}> Enter a new password</Text>
