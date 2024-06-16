@@ -5,7 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
 
 // Splash screen
-// import SplashPage from "./src/screens/splashPage";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 // Login
 import LoginPage from "./src/screens/login/loginPage";
@@ -29,6 +30,27 @@ import FilterPage from './src/screens/filterPage';
 
 
 export default function App() {
+
+  // Declare fonts to be used
+  const [fontsLoaded] = useFonts({
+    "Karma-Regular": require("./src/assets/fonts/Karma-Regular.ttf"),
+    "Karma-Bold": require("./src/assets/fonts/Karma-Bold.ttf"),
+    "Karma-Light": require("./src/assets/fonts/Karma-Light.ttf"),
+    "Karma-Medium": require("./src/assets/fonts/Karma-Medium.ttf"),
+    "Karma-SemiBold": require("./src/assets/fonts/Karma-SemiBold.ttf"),
+  });
+
+  // Check if fonts are loaded
+  if (fontsLoaded) {
+    console.log("fonts loaded");
+    const hideSplash = async () => {
+      await SplashScreen.hideAsync();
+    };
+    hideSplash();
+  } else {
+    console.log("font not loaded");
+    return null;
+  }
 
   // Create a stack navigator
   const Stack = createNativeStackNavigator();

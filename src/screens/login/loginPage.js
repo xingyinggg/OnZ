@@ -175,9 +175,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
     },
     headerText: {
-        fontSize: 22,
-        fontWeight: 'bold',
+        fontSize: 25,
         marginBottom: 20,
+        fontFamily: 'Karma-Bold',
     },
     checkbox: {
         marginRight: 8,
