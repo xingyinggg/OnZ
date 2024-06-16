@@ -14,11 +14,12 @@ import {
     Image,
 } from "react-native";
 // import CheckBox from "@react-native-community/checkbox";
-import CheckBox from "expo-checkbox";
 
 
 // Component imports
 import TextInputField from "../../components/textInputField";
+import CheckBox from "expo-checkbox";
+import Header1 from "../../components/texts/header1";
 
 // Asset imports
 import OnZLogo from "../../assets/commons/OnZ_logo.png";
@@ -67,7 +68,11 @@ export default LoginPage = ({ navigation }) => {
                 <View style={{ height: 16 }} />
 
                 {/* Title */}
-                <Text style={styles.headerText}>LOGIN</Text>
+                <Header1
+                    text='LOGIN'
+                />
+
+                <View style={{ height: 16 }} />
 
                 {/* Username Input Field */}
                 <TextInputField
