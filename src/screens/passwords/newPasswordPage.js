@@ -14,9 +14,9 @@ import {
 } from "react-native";
 
 //import password field component
-import PasswordField from "../components/passwordField";
+import PasswordField from "../../components/passwordField";
 import { useRoute } from '@react-navigation/native';
-// import ButtonField from "../components/buttonField";
+import Header1 from "../../components/texts/header1";
 
 export default NewPassword = ({ navigation }) => {
 
@@ -39,9 +39,6 @@ export default NewPassword = ({ navigation }) => {
         // TODO: Add login functionality here, link to backend, navigate to home page
         console.log("password: " + password);
         console.log("confirmPassword: " + confirmPassword);
-        if (password === confirmPassword) {
-            navigation.navigate('login')
-        }
     }
 
     return (
@@ -52,39 +49,42 @@ export default NewPassword = ({ navigation }) => {
             <SafeAreaView style={styles.container}>  
 
                 {/* Title */}
-                <Text style={styles.headerText}>New Password</Text>
+                <Header1
+                    text='New Password'
+                />
 
                 {/*description*/}
                 <Text style={styles.subHeaderText}> Enter a new password</Text>
                 {/*new password */}
                 <PasswordField 
+                    value={password} 
                     onChangeTextFunction={(text) => { 
                         handlePasswordInput(text)}}
-                    value={password} 
                     placeholder= {"NEW PASSWORD"}
-                />
-                
-                {/* Add space between the password and the confirm password */}
-                <View style={{ height: 16 }} />
+                >
+                </PasswordField>
+
+                {/* space between code input and continue button*/}
+                <View style={{ height: 10 }} />
 
                 {/*confirm password description*/}
                 <Text style={styles.subHeaderText}> Confirm password</Text>
                 {/*new password */}
                 <PasswordField 
-                    onChangeTextFunction={(text) => { 
-                    handleConfirmPassword(text)}}
                     value={confirmPassword} 
+                    onChangeTextFunction={(text) => { 
+                        handleConfirmPassword(text)}}
                     placeholder={'CONFIRM PASSWORD'}
-                />
+                >
+                </PasswordField>
 
-                {/* Add space between the confirm pw and the continue button */}
-                <View style={{ height: 16 }} />
 
-                <ButtonField
-                    onPress={handleNewPassword} 
-                    title= 'CONTINUE'
-                />
+
+
             </SafeAreaView>
+
+
+
         </TouchableWithoutFeedback>
     )
 }
@@ -101,13 +101,14 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontSize: 24,
-        marginBottom: 20,
+        marginBottom: 10,
     },
     subHeaderText: {
         fontsize: 12,
-        //textAlign: 'left',
-        width: '85%', 
-        marginBottom: 5,
+        marginLeft: 2,
+        textAlign: 'left',
+        width: '80%', 
+        marginBottom: 8
 
     },
 })

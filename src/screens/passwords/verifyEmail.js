@@ -16,7 +16,7 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { useRoute } from '@react-navigation/native';
-import ButtonField from "../components/buttonField";
+import Header1 from "../../components/texts/header1";
 
 // Main Component
 export default VerifyEmailPage = ({ navigation }) => {
@@ -84,7 +84,9 @@ export default VerifyEmailPage = ({ navigation }) => {
             <SafeAreaView style={styles.container}>
 
                 {/*title*/}
-                <Text style={styles.headerText}>Verify Email Address</Text>
+                <Header1
+                    text='Verify Email Address'
+                />
 
                 {/*instruction*/}
                 <Text style={styles.bodyText}>Verification code has been sent to</Text>
@@ -136,13 +138,12 @@ export default VerifyEmailPage = ({ navigation }) => {
                 <View style={{ height: 10 }} />
                 
                 {/*confirm button*/}
-                <ButtonField
-                    onPress={handleConfirmCode} 
-                    title= 'CONFIRM CODE'
-                />
+                <TouchableOpacity style={styles.confirmButton} onPress={handleConfirmCode}>
+                    <Text style={styles.confirmButtonText}>CONFIRM CODE</Text>
+                </TouchableOpacity>
 
                 {/* space between continue button and timer*/}
-                <View style={{ height: 15 }} />
+                <View style={{ height: 10 }} />
                 
 
                 <View style={styles.resendCodeContainer}>
@@ -198,8 +199,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#DBE5E7',
         borderRadius: 8,
-        width: 45,
-        height: 45,
+        width: 40,
+        height: 40,
         textAlign: 'center',
         fontSize: 18,
         marginHorizontal: 15,

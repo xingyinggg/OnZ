@@ -15,8 +15,9 @@ import {
 } from "react-native";
 
 // Component imports
-import TextInputField from "../components/textInputField";
+import TextInputField from "../../components/textInputField";
 import { TouchableOpacity } from "react-native";
+import Header1 from "../../components/texts/header1";
 
 // Main Component
 export default forgetPasswordPage = ({ navigation }) => {
@@ -79,7 +80,9 @@ export default forgetPasswordPage = ({ navigation }) => {
                 />*/}
 
                 {/*title*/}
-                <Text style={styles.headerText}>Reset Password</Text>
+                <Header1
+                    text='Reset Password'
+                />
 
                 {/*instruction*/}
                 <Text style={styles.bodyText}>Please enter your email address linked 

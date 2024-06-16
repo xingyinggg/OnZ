@@ -15,10 +15,9 @@ import {
 } from "react-native";
 
 // Component imports
-import TextInputField from "../components/textInputField";
+import Header1 from "../components/texts/header1";
 
 // Asset imports
-import OnZLogo from "../assets/commons/OnZ_logo.png";
 import back_button from "../assets/commons/back_logo.png";
 
 // Component imports
@@ -47,8 +46,12 @@ export default TermsOfService = ({ navigation }) => {
 
                 <ScrollView contentContainerStyle={styles.contentContainer}>
                     <View style={styles.headerContainer}>
-                        <Text style={styles.headerText}>Terms of Services </Text>
-                        <Text style={styles.headerText}>and Privacy Policy</Text>
+                        <Header1
+                            text='Terms of Service'
+                        />
+                        <Header1
+                            text='and Privacy Policy'
+                        />
                     </View>
 
                     <Text style={styles.sectionTitle}>Privacy Policy</Text>
@@ -134,6 +137,7 @@ const styles = StyleSheet.create({
     },
     headerContainer: {
         backgroundColor: '#DBE5E7',
+        // width: '70%',
         padding: 15,
         borderRadius: 15,
         marginHorizontal: 40,
@@ -141,12 +145,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'stretch', // Make the header container stretch to fill its parent width
-    },
-    headerText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center', // Ensures the text is centered within the Text component
-    paddingHorizontal: 15,
     },
     sectionTitle: {
         fontSize: 16,

@@ -19,6 +19,7 @@ import CheckBox from "expo-checkbox";
 
 // Component imports
 import TextInputField from "../../components/textInputField";
+import Header1 from "../../components/texts/header1";
 import PasswordField from "../../components/passwordField";
 
 // Asset imports
@@ -80,7 +81,11 @@ export default RegisterPage = ({ navigation }) => {
                 <View style={{ height: 16 }} />
 
                 {/* Title */}
-                <Text style={styles.headerText}>REGISTER</Text>
+                <Header1 
+                    text='REGISTER'
+                />
+
+                <View style={{ height: 16 }} />
 
                 {/* Email Input Field */}
                 <TextInputField
