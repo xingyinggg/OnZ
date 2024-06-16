@@ -1,8 +1,4 @@
-// Standard imports
-import { 
-    React, 
-    useState,
-} from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
@@ -11,229 +7,192 @@ import {
     SafeAreaView,
     Keyboard,
     Image,
-    ScrollView,
-    FlatList
+    FlatList,
+    TouchableOpacity,
+    TextInput,
 } from "react-native";
-
 
 // Component imports
 import RowDescription from "../components/rowDescription.js";
+import BottomBar from "../components/bottomBar.js";
 
 // Asset imports
 import FilterLogo from "../assets/filter_logo.png";
 import SearchLogo from "../assets/search_logo.png";
+
 import FoodCatergoryLogo from "../assets/categories/food_logo.png";
 import CraftsCatergoryLogo from "../assets/categories/crafts_logo.png";
 import PetsCatergoryLogo from "../assets/categories/pets_logo.png";
 import OutdoorsCatergoryLogo from "../assets/categories/outdoors_logo.png";
-import SportsCatergoryLogo from "../assets/categories/sports_logo.svg";
+import SportsCatergoryLogo from "../assets/categories/sports_logo.png";
 import EntertainmentCatergoryLogo from "../assets/categories/entertainment_logo.png";
 import CultureCatergoryLogo from "../assets/categories/culture_logo.png";
 
 import swipeFeatureLogo from "../assets/swipeFeature_logo.png";
 
-
-import { TouchableOpacity } from "react-native";
-
-// Main Component
-export default HomePage = ({ navigation }) => {
-
+const HomePage = ({ navigation }) => {
     // State variables
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            () => {
+                setKeyboardVisible(true);
+            }
+        );
+        const keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            () => {
+                setKeyboardVisible(false);
+            }
+        );
+
+        return () => {
+            keyboardDidHideListener.remove();
+            keyboardDidShowListener.remove();
+        };
+    }, []);
+
     // TO DO: link to DB
     const popularPlaces = [
         {
-          id: '1',
-          imageSource: require('../assets/tuftClub.jpg'),
-          name: 'Tuft Club',
-          rating: '5.0',
-          location: 'Circular Road',
-          price: '$$',
+            id: '1',
+            imageSource: require('../assets/tuftClub.jpg'),
+            name: 'Tuft Club',
+            rating: '5.0',
+            location: 'Circular Road',
+            price: '$$',
+        },
+        {
+            id: '2',
+            imageSource: require('../assets/macRitchieReservoirTreetopLoop.jpg'),
+            name: 'MacRitchie Reservoir',
+            rating: '4.6',
+            location: 'Bukit Pierce',
+            price: 'FOC',
+        },
+        {
+            id: '3',
+            imageSource: require('../assets/isleEatingHouse.jpg'),
+            name: 'Isle Eating House',
+            rating: '4.3',
+            location: '35 Selgie Road',
+            price: '$',
         },
         // Add more items here
-      ];
+    ];
 
-    // Functions
+    const categoryData = [
+        { id: '1', name: 'Food', imageSource: FoodCatergoryLogo, page: 'listingPage' },
+        { id: '2', name: 'Crafts', imageSource: CraftsCatergoryLogo, page: 'listingPage' },
+        { id: '3', name: 'Pets', imageSource: PetsCatergoryLogo, page: 'listingPage' },
+        { id: '4', name: 'Outdoor', imageSource: OutdoorsCatergoryLogo, page: 'listingPage' },
+        { id: '5', name: 'Sports', imageSource: SportsCatergoryLogo, page: 'listingPage' },
+        { id: '6', name: 'Leisure', imageSource: EntertainmentCatergoryLogo, page: 'listingPage' },
+        { id: '7', name: 'Culture', imageSource: CultureCatergoryLogo, page: 'listingPage' },
+    ];
 
-
-    // Return statement, what the component will render
     return (
-
         // Dismiss keyboard when user taps outside of the text input field
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
-
-            {/* Main container, contains all the elements of the page */}
             <SafeAreaView style={styles.container}>
-                <View style={styles.welcome}>
-                    <Text style={styles.welcomeText}>Welcome back
-                        {/* TO DO: link the username to backend! */}
-                        <Text style={{fontWeight:'bold'}}> username</Text>
-                    !</Text>
-                </View>
+                <FlatList
+                    ListHeaderComponent={
+                        <>
+                            <View style={styles.welcome}>
+                                <Text style={styles.welcomeText}>Welcome back
+                                    <Text style={{ fontWeight: 'bold' }}> username</Text>
+                                !</Text>
+                            </View>
 
-                {/* <View style={{ height: 10 }} /> */}
-                
-                <View style={styles.searchContainer}>
-                    <Image
-                        source={SearchLogo}
-                        style={{ width: 20, height: 20, position: 'absolute', left: 20 }}
-                    />
+                            <View style={styles.searchContainer}>
+                                <Image
+                                    source={SearchLogo}
+                                    style={styles.searchIcon}
+                                />
 
-                    <Text style={styles.searchPlaceholder}>Search Places</Text>
+                                <TextInput
+                                    style={styles.searchInput}
+                                    placeholder="Search Places"
+                                    placeholderTextColor="#585858"
+                                    onSubmitEditing={() => navigation.navigate('listingPage')}
+                                />
 
-                    <Image
-                        source={FilterLogo}
-                        style={{ width: 25, height: 25, position: 'absolute', right: 20 }}
-                    />
-                </View>
+                                <TouchableOpacity onPress={() => navigation.navigate('filterPage')}>
+                                    <Image
+                                        source={FilterLogo}
+                                        style={styles.filterIcon}
+                                    />
+                                </TouchableOpacity>
+                            </View>
 
-                <View style={{ height: 10 }} />
+                            <View style={{ height: 10 }} />
 
-                {/* <ScrollView horizontal={styles.categoriesContainer}> */}
-                <ScrollView horizontal contentContainerStyle={styles.categoriesContainer}>
-                    <TouchableOpacity onPress={() => navigation.navigate('foodCategoryPage')}>
-                        <View style={styles.categoryItem}>
-                            <Image
-                                source={FoodCatergoryLogo}
-                                style={styles.categoryImage}
+                            <FlatList
+                                horizontal
+                                data={categoryData}
+                                renderItem={({ item }) => (
+                                    <TouchableOpacity onPress={() => navigation.navigate(item.page)}>
+                                        <View style={styles.categoryItem}>
+                                            <Image
+                                                source={item.imageSource}
+                                                style={styles.categoryImage}
+                                            />
+                                            <Text style={styles.categoryText}>{item.name}</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                )}
+                                keyExtractor={item => item.id}
+                                contentContainerStyle={styles.categoriesContainer}
+                                showsHorizontalScrollIndicator={false}
                             />
-                            <Text style={styles.categoryText}>Food</Text>
-                        </View>
-                    </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate('createOutingsPage')}>
+                                <Image
+                                    source={swipeFeatureLogo}
+                                    style={styles.swipeAlignment}
+                                />
+                            </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => navigation.navigate('craftsCategoryPage')}>
-                        <View style={styles.categoryItem}>
-                            <Image
-                                source={CraftsCatergoryLogo}
-                                style={styles.categoryImage}
+                            <View style={styles.popularNowContainer}>
+                                <Text style={styles.popularNowText}>Popular Now</Text>
+                            </View>
+                        </>
+                    }
+                    data={popularPlaces}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity onPress={() => navigation.navigate('placeDetailsPage')}>
+                            <RowDescription
+                                imageSource={item.imageSource}
+                                name={item.name}
+                                rating={item.rating}
+                                location={item.location}
+                                price={item.price}
                             />
-                            <Text style={styles.categoryText}>Crafts</Text>
-                        </View>
-                    </TouchableOpacity>
-                    
-                    <TouchableOpacity onPress={() => navigation.navigate('petsCategoryPage')}>
-                        <View style={styles.categoryItem}>
-                            <Image
-                                source={PetsCatergoryLogo}
-                                style={styles.categoryImage}
-                            />
-                            <Text style={styles.categoryText}>Pets</Text>
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => navigation.navigate('outdoorsCategoryPage')}>
-                        <View style={styles.categoryItem}>
-                            <Image
-                                source={OutdoorsCatergoryLogo}
-                                style={styles.categoryImage}
-                            />
-                            <Text style={styles.categoryText}>Outdoors</Text>
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => navigation.navigate('sportsCategoryPage')}>
-                        <View style={styles.categoryItem}>
-                            <Image
-                                source={SportsCatergoryLogo}
-                                style={styles.categoryImage}
-                            />
-                            <Text style={styles.categoryText}>Sports</Text>
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => navigation.navigate('entertainmentCategoryPage')}>
-                        <View style={styles.categoryItem}>
-                            <Image
-                                source={EntertainmentCatergoryLogo}
-                                style={styles.categoryImage}
-                            />
-                            <Text style={styles.categoryText}>Leisure</Text>
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => navigation.navigate('cultureCategoryPage')}>                            
-                        <View style={styles.categoryItem}>
-                            <Image
-                                source={CultureCatergoryLogo}
-                                style={styles.categoryImage}
-                            />
-                            <Text style={styles.categoryText}>Culture</Text>
-                        </View>
-                    </TouchableOpacity>
-                        
-
-                </ScrollView>
-
-                <Image 
-                    source={swipeFeatureLogo} 
-                    style={ styles.swipeAlignment}
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={item => item.id}
+                    contentContainerStyle={styles.contentContainer}
                 />
 
-                <View style={styles.popularNowContainer}>
-                    <Text style={styles.popularNowText}>Popular Now</Text>
-                    <FlatList
-                        data={popularPlaces}
-                        renderItem={({ item }) => (
-                        <RowDescription
-                            imageSource={item.imageSource}
-                            name={item.name}
-                            rating={item.rating}
-                            location={item.location}
-                            price={item.price}
-                        />
-                        )}
-                        keyExtractor={item => item.id}
-                    />
-
-                    <FlatList
-                        data={popularPlaces}
-                        renderItem={({ item }) => (
-                        <RowDescription
-                            imageSource={item.imageSource}
-                            name={item.name}
-                            rating={item.rating}
-                            location={item.location}
-                            price={item.price}
-                        />
-                        )}
-                        keyExtractor={item => item.id}
-                    />
-
-                    <FlatList
-                        data={popularPlaces}
-                        renderItem={({ item }) => (
-                        <RowDescription
-                            imageSource={item.imageSource}
-                            name={item.name}
-                            rating={item.rating}
-                            location={item.location}
-                            price={item.price}
-                        />
-                        )}
-                        keyExtractor={item => item.id}
-                    />
-
-
-
-                </View>
-
-
+                {!isKeyboardVisible && <BottomBar navigation={navigation} />}
             </SafeAreaView>
         </TouchableWithoutFeedback>
     );
 };
 
+export default HomePage;
+
 // Styles
 const styles = StyleSheet.create({
-
-    // Add different styles here, each item is a style object
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'left',
-        justifyContent: 'left',
+    },
+    contentContainer: {
         paddingHorizontal: 20,
     },
-    welcome:{
+    welcome: {
         marginTop: 20,
         flexDirection: 'row',
         alignItems: 'center',
@@ -245,27 +204,37 @@ const styles = StyleSheet.create({
     searchContainer: {
         backgroundColor: '#DBE5E7',
         borderRadius: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
         paddingHorizontal: 15,
-        paddingVertical: 15,
-        justifyContent: 'center',
+        paddingVertical: 10,
     },
-    searchPlaceholder: {
-        color: '585858',
-        paddingHorizontal: 30,
+    searchIcon: {
+        width: 20,
+        height: 20,
+        marginRight: 10,
+    },
+    searchInput: {
+        flex: 1,
+        color: '#000',
+    },
+    filterIcon: {
+        width: 25,
+        height: 25,
     },
     categoriesContainer: {
         flexDirection: 'row',
         marginVertical: 10,
-        marginBottom: 10,
+        marginBottom: 15,
     },
     categoryItem: {
         backgroundColor: '#E0F7FA',
-        borderRadius: 25,
-        padding: 20,
+        borderRadius: 100,
         alignItems: 'center',
-        marginHorizontal: 5,
-        width: 100,
-        height: 100,
+        marginHorizontal: 10,
+        width: 90,
+        height: 90,
+        justifyContent: 'center',
     },
     categoryImage: {
         width: 30,
@@ -277,21 +246,13 @@ const styles = StyleSheet.create({
     },
     swipeAlignment: {
         alignSelf: 'center',
-        marginTop: 10,
-        // width: 200,
-        marginBottom: 10, 
+        marginBottom: 10,
     },
     popularNowContainer: {
-        // flexDirection: 'row',
         marginVertical: 10,
-        // marginTop: 10,
     },
-    popularNowText:{
+    popularNowText: {
         fontSize: 22,
         fontWeight: 'bold',
-        // marginTop: 10,
-   },
-
-
-
+    },
 });

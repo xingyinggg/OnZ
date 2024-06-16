@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
 
+// Splash screen
+// import SplashPage from "./src/screens/splashPage";
 
 // Login
 import LoginPage from "./src/screens/login/loginPage";
@@ -15,13 +17,16 @@ import NewPasswordPage from './src/screens/newPasswordPage';
 
 //  Home pages
 import HomePage from './src/screens/homePage';
-import FoodCategoryPage from './src/screens/categories/foodCategoryPage';
-import CraftsCategoryPage from './src/screens/categories/craftsCategoryPage';
-import PetsCategoryPage from './src/screens/categories/petsCategoryPage';
-import OutdoorsCategoryPage from './src/screens/categories/outdoorsCategoryPage';
-import SportsCategoryPage from './src/screens/categories/sportsCategoryPage';
-import EntertainmentCategoryPage from './src/screens/categories/entertainmentCategoryPage';
-import CulturesCategoryPage from './src/screens/categories/culturesCategoryPage';
+import ListingPage from './src/screens/listingPage';
+
+// 
+import AccountPage from './src/screens/accountPage';
+import CreateOutingsPage from './src/screens/createOutingsPage';
+import LikesPage from './src/screens/likesPage';
+import OutingsPage from './src/screens/outingsPage';
+import PlaceDetailPage from './src/screens/placeDetailPage';
+import FilterPage from './src/screens/filterPage';
+
 
 export default function App() {
 
@@ -37,6 +42,11 @@ export default function App() {
       >
 
         {/* Insert your screens here */}
+        {/* <Stack.Screen 
+          name="splashPage" 
+          component={SplashPage} 
+        /> */}
+
         <Stack.Screen 
           name="loginPage" 
           component={LoginPage} 
@@ -75,38 +85,8 @@ export default function App() {
         />
 
         <Stack.Screen
-          name="foodCategoryPage"
-          component={FoodCategoryPage}
-        />
-
-        <Stack.Screen
-          name="craftsCategoryPage"
-          component={CraftsCategoryPage}
-        />
-
-        <Stack.Screen
-          name="petsCategoryPage"
-          component={PetsCategoryPage}
-        />
-
-        <Stack.Screen
-          name="outdoorsCategoryPage"
-          component={OutdoorsCategoryPage}
-        />
-
-        <Stack.Screen
-          name="sportsCategoryPage"
-          component={SportsCategoryPage}
-        />
-
-        <Stack.Screen
-          name="entertainmentCategoryPage"
-          component={EntertainmentCategoryPage}
-        />
-
-        <Stack.Screen
-          name="culturesCategoryPage"
-          component={CulturesCategoryPage}
+          name="listingPage"
+          component={ListingPage}
         />
 
         <Stack.Screen
@@ -117,6 +97,36 @@ export default function App() {
         <Stack.Screen
           name="newPasswordPage"
           component={NewPasswordPage}
+        />
+
+        <Stack.Screen
+          name="outingsPage"
+          component={OutingsPage}
+        />
+
+        <Stack.Screen
+          name="createOutingsPage"
+          component={CreateOutingsPage}
+        />
+
+        <Stack.Screen
+          name="likesPage"
+          component={LikesPage}
+        />
+
+        <Stack.Screen
+          name="accountPage"
+          component={AccountPage}
+        />
+
+        <Stack.Screen 
+          name="placeDetailsPage"
+          component={PlaceDetailPage}
+        />
+
+        <Stack.Screen 
+          name="filterPage"
+          component={FilterPage}
         />
 
       </Stack.Navigator>
