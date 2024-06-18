@@ -20,6 +20,7 @@ import NewPasswordPage from './src/screens/passwords/newPasswordPage';
 import HomePage from './src/screens/homePage';
 import ListingPage from './src/screens/listingPage';
 
+
 // 
 import AccountPage from './src/screens/accountPage';
 import CreateOutingsPage from './src/screens/createOutingsPage';
