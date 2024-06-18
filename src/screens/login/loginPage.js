@@ -75,7 +75,7 @@ export default LoginPage = ({ navigation }) => {
                     text='LOGIN'
                 />
 
-                <View style={{ height: 16 }} />
+                <View style={{ height: 10 }} />
 
                 {/* Username Input Field */}
                 <TextInputField
@@ -100,7 +100,7 @@ export default LoginPage = ({ navigation }) => {
                 />
 
                 {/* Add space between remember me, forget password and login */}
-                <View style={{ height: 10 }} />
+                <View style={{ height: 16 }} />
 
                 {/* Remember Me and Forgot Password */}
                 <View style={styles.alignment}>
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     },
     register: {
         color: '#000000',
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: 'bold',
       },
 });

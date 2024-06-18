@@ -73,16 +73,13 @@ export default forgetPasswordPage = ({ navigation }) => {
             {/* Main container, contains all the elements of the page */}
             <SafeAreaView style={styles.container}>
 
-                {/* Logo */}
-                {/*<Image 
-                    source={OnZLogo} 
-                    style={{ width: 150, height: 150 }} 
-                />*/}
-
                 {/*title*/}
                 <Header1
                     text='Reset Password'
                 />
+
+                {/* space between title and email input */}
+                <View style={{ height: 16 }} />
 
                 {/*instruction*/}
                 <Text style={styles.bodyText}>Please enter your email address linked 
@@ -96,12 +93,12 @@ export default forgetPasswordPage = ({ navigation }) => {
                 />  
 
                 {/* space between email input and continue button*/}
-                <View style={{ height: 10 }} />
+                <View style={{ height: 16 }} />
                 
                 {/*continue button */}
                 <ButtonField
-                onPress={handleContinue} 
-                title= 'CONTINUE'
+                    onPress={handleContinue} 
+                    title= 'CONTINUE'
                 />
 
             </SafeAreaView>
@@ -118,6 +115,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingHorizontal: 20,
     },
     headerText: {
         fontSize: 25,

@@ -85,7 +85,7 @@ export default RegisterPage = ({ navigation }) => {
                     text='REGISTER'
                 />
 
-                <View style={{ height: 16 }} />
+                <View style={{ height: 10 }} />
 
                 {/* Email Input Field */}
                 <TextInputField
@@ -142,7 +142,7 @@ export default RegisterPage = ({ navigation }) => {
 
                 {/* Add space between remember me, forget password and login */}
                 {/* <View style={{ height: 10 }}></View> */}
-                <View style={{ height: 10 }} />
+                <View style={{ height: 16 }} />
 
                 {/* Remember Me and Forgot Password */}
                 <View style={styles.alignment}>
@@ -159,7 +159,7 @@ export default RegisterPage = ({ navigation }) => {
 
                 {/* Add space between Remember Me, Forget Password and Login */}
                 {/* <View>View style={{ height: 10 }}</View> */}
-                <View style={{ height: 10 }} />
+                <View style={{ height: 16 }} />
 
                 <ButtonField
                 onPress={handleRegister} 

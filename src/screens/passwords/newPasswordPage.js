@@ -54,6 +54,9 @@ export default NewPassword = ({ navigation }) => {
                     text='New Password'
                 />
 
+                 {/* space between code input and continue button*/}
+                 <View style={{ height: 10 }} />
+
                 {/*description*/}
                 <Text style={styles.subHeaderText}> Enter a new password</Text>
                 {/*new password */}
@@ -66,7 +69,7 @@ export default NewPassword = ({ navigation }) => {
                 </PasswordField>
 
                 {/* space between code input and continue button*/}
-                <View style={{ height: 10 }} />
+                <View style={{ height: 16 }} />
 
                 {/*confirm password description*/}
                 <Text style={styles.subHeaderText}> Confirm password</Text>
@@ -82,8 +85,8 @@ export default NewPassword = ({ navigation }) => {
                 <View style={{ height: 16 }} />
 
                 <ButtonField
-                onPress={handleNewPassword} 
-                title= 'CONFIRM'
+                    onPress={handleNewPassword} 
+                    title= 'CONFIRM'
                 />
 
 
@@ -112,9 +115,8 @@ const styles = StyleSheet.create({
     },
     subHeaderText: {
         fontsize: 12,
-        textAlign: 'left',
-        width: '80%', 
-        marginBottom: 8
-
+        marginBottom: 8,
+        marginLeft: 30,
+        alignSelf: 'flex-start',
     },
 })
