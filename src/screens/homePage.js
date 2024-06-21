@@ -165,7 +165,7 @@ const HomePage = ({ navigation }) => {
                             </TouchableOpacity> */}
 
                             <OnzToggle
-                                
+                                targetScreen = 'createOutingsPage'
                             />
 
                             <View style={styles.popularNowContainer}>
