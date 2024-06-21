@@ -1,18 +1,33 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Animated, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default OnzToggle = ({ navigation }) => {
+export default OnzToggle = ({ targetScreen }) => {
     const [isOn, setIsOn] = useState(false);
     const moveAnim = useRef(new Animated.Value(0)).current;
+    const navigation = useNavigation();
 
     const toggleSwitch = () => {
-        setIsOn(!isOn);
         Animated.timing(moveAnim, {
             toValue: isOn ? 0 : 1,
-            duration: 500,
+            duration: 400,
             useNativeDriver: false,
-        }).start();
+        }).start(() => {
+            setIsOn(!isOn);
+            if (!isOn && targetScreen) {
+                navigation.navigate(targetScreen);
+            }
+        });
     };
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            // Reset the animation state when the component is focused (navigated back to)
+            moveAnim.setValue(0);
+            setIsOn(false);
+        });
+        return unsubscribe;
+    }, [navigation]);
 
     const translateX = moveAnim.interpolate({
         inputRange: [0, 1],

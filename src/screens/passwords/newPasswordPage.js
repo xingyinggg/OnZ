@@ -40,6 +40,7 @@ export default NewPassword = ({ navigation }) => {
         // TODO: Add login functionality here, link to backend, navigate to home page
         console.log("password: " + password);
         console.log("confirmPassword: " + confirmPassword);
+        navigation.navigate("loginPage")
     }
 
     return (
