@@ -27,7 +27,7 @@ import CreateOutingsPage from './src/screens/createOutingsPage';
 import LikesPage from './src/screens/likesPage';
 import OutingsPage from './src/screens/outingsPage';
 import PlaceDetailPage from './src/screens/placeDetailPage';
-import FilterPage from './src/screens/filterPage';
+import SearchFilterPage from './src/screens/searchFilterPage';
 
 
 export default function App() {
@@ -148,8 +148,8 @@ export default function App() {
         />
 
         <Stack.Screen 
-          name="filterPage"
-          component={FilterPage}
+          name="searchFilterPage"
+          component={SearchFilterPage}
         />
 
       </Stack.Navigator>
