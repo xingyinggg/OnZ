@@ -20,6 +20,7 @@ import NewPasswordPage from './src/screens/passwords/newPasswordPage';
 import HomePage from './src/screens/homePage';
 import ListingPage from './src/screens/listingPage';
 
+
 // 
 import AccountPage from './src/screens/accountPage';
 import CreateOutingsPage from './src/screens/createOutingsPage';
@@ -28,6 +29,7 @@ import OutingsPage from './src/screens/outingsPage';
 import PlaceDetailPage from './src/screens/placeDetailPage';
 import SearchFilterPage from './src/screens/searchFilterPage';
 // import FilterPage from './src/screens/filterPage'
+import CodePage from './src/screens/codePage';
 
 
 export default function App() {
@@ -150,6 +152,11 @@ export default function App() {
         <Stack.Screen 
           name="searchFilterPage"
           component={SearchFilterPage}
+        />
+
+        <Stack.Screen 
+          name="codePage"
+          component={CodePage}
         />
 
         {/* <Stack.Screen

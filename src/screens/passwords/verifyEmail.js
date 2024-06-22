@@ -135,7 +135,7 @@ export default VerifyEmailPage = ({ navigation }) => {
                 </View>
                 
                 {/* space between code input and continue button*/}
-                <View style={{ height: 10 }} />
+                <View style={{ height: 16 }} />
                 
                 {/*confirm button*/}
                 <ButtonField
@@ -144,7 +144,7 @@ export default VerifyEmailPage = ({ navigation }) => {
                 />
 
                 {/* space between continue button and timer*/}
-                <View style={{ height: 10 }} />
+                <View style={{ height: 16 }} />
                 
 
                 <View style={styles.resendCodeContainer}>
@@ -200,24 +200,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#DBE5E7',
         borderRadius: 8,
-        width: 40,
-        height: 40,
+        width: 45,
+        height: 45,
         textAlign: 'center',
         fontSize: 18,
         marginHorizontal: 15,
       },
-    confirmButtonText: {
-        color:'585858',
-        fontsize: 14,
-    },
-    confirmButton: {
-        backgroundColor: '#DBE5E7',
-        borderRadius: 20,
-        width: '35%',
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     resendText: {
         color: '#94A8AD',
         weight: 'bold',

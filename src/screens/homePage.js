@@ -17,6 +17,7 @@ import RowDescription from "../components/rowDescription.js";
 import BottomBar from "../components/bottomBar.js";
 import Header1 from "../components/texts/header1.js";
 import Header2 from "../components/texts/header2.js";
+import OnzToggle from "../components/onzToggleButton.js";
 
 // Asset imports
 import FilterLogo from "../assets/filter_logo.png";
@@ -30,7 +31,8 @@ import SportsCatergoryLogo from "../assets/categories/sports_logo.png";
 import EntertainmentCatergoryLogo from "../assets/categories/entertainment_logo.png";
 import CultureCatergoryLogo from "../assets/categories/culture_logo.png";
 
-import swipeFeatureLogo from "../assets/swipeFeature_logo.png";
+// import swipeFeatureLogo from "../assets/swipeFeature_logo.png";
+
 
 const HomePage = ({ navigation }) => {
     // State variables
@@ -155,12 +157,16 @@ const HomePage = ({ navigation }) => {
                                 contentContainerStyle={styles.categoriesContainer}
                                 showsHorizontalScrollIndicator={false}
                             />
-                            <TouchableOpacity onPress={() => navigation.navigate('createOutingsPage')}>
+                            {/* <TouchableOpacity onPress={() => navigation.navigate('createOutingsPage')}>
                                 <Image
                                     source={swipeFeatureLogo}
                                     style={styles.swipeAlignment}
                                 />
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
+
+                            <OnzToggle
+                                targetScreen = 'createOutingsPage'
+                            />
 
                             <View style={styles.popularNowContainer}>
                                 <Header1
