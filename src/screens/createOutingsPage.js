@@ -32,7 +32,7 @@ export default LoginPage = ({ navigation }) => {
             {/* Main container, contains all the elements of the page */}
             <SafeAreaView style={styles.container}>
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.button} >
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('codePage')}>
                         <Image source= {require('../assets/roomPage/createOuting_logo.png')} style={styles.icon}/>
                         <Text style={styles.buttonText} >Create Outing</Text>
                     </TouchableOpacity>
