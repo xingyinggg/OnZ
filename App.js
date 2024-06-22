@@ -28,6 +28,7 @@ import LikesPage from './src/screens/likesPage';
 import OutingsPage from './src/screens/outingsPage';
 import PlaceDetailPage from './src/screens/placeDetailPage';
 import SearchFilterPage from './src/screens/searchFilterPage';
+// import FilterPage from './src/screens/filterPage'
 import CodePage from './src/screens/codePage';
 
 
@@ -157,6 +158,11 @@ export default function App() {
           name="codePage"
           component={CodePage}
         />
+
+        {/* <Stack.Screen
+          name='filterPage'
+          component={FilterPage}
+        /> */}
 
       </Stack.Navigator>
     </NavigationContainer>

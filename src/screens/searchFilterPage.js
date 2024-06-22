@@ -7,44 +7,40 @@ import {
     View,
     Text,
     StyleSheet,
-    Button,
     TouchableWithoutFeedback,
     SafeAreaView,
     Keyboard,
-    Image,
+    onPress,
 } from "react-native";
 
 // Component imports
-import TextInputField from "../components/textInputField";
-
-// Asset imports
-import OnZLogo from "../assets/commons/OnZ_logo.png";
-
-// Component imports
-
+import Header1 from "../components/texts/header1";
+import CategorySection from "../components/filters/categorySection";
+import BudgetSection from "../components/filters/budgetSection";
+import DateSection from "../components/filters/dateSection";
+import NearestMRTSection from "../components/filters/nearestMRTSection";
+import ButtonsSection from "../components/filters/buttonsSection";
+import BottomBar from "../components/bottomBar";
 
 // Main Component
-export default LoginPage = ({ navigation }) => {
+const SearchFilterPage = ({ navigation }) => {
 
-
-
-    // Return statement, what the component will render
     return (
-
-        // Dismiss keyboard when user taps outside of the text input field
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
-
-            {/* Main container, contains all the elements of the page */}
             <SafeAreaView style={styles.container}>
-
-                {/* Logo */}
-                <Image 
-                    source={OnZLogo} 
-                    style={{ width: 150, height: 150 }} 
-                />
-
-
-
+                <View style={styles.contentContainer}>
+                    <Header1 text='Filter' />
+                    <CategorySection />
+                    <BudgetSection />
+                    <DateSection title="Date-time of the Outing" />
+                    <NearestMRTSection />
+                    <View style={styles.buttonsContainer}>
+                        <ButtonsSection title='Reset' onPress={() => { navigation.navigate('searchFilterPage') }} />
+                        <ButtonsSection title='Apply' onPress={() => { navigation.navigate('listingPage') }} />
+                    </View>
+                </View>
+                <BottomBar/>
+                          
             </SafeAreaView>
         </TouchableWithoutFeedback>
     );
@@ -52,17 +48,20 @@ export default LoginPage = ({ navigation }) => {
 
 // Styles
 const styles = StyleSheet.create({
-
-    // Add different styles here, each item is a style object
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
-    headerText: {
-        fontSize: 20,
-        marginBottom: 12,
+    contentContainer:{
+        paddingHorizontal: 10,
+        paddingVertical: 15,
     },
-
+    buttonsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 50,
+    },
 });
+
+export default SearchFilterPage;
+

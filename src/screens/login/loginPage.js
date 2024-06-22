@@ -22,6 +22,7 @@ import CheckBox from "expo-checkbox";
 import Header1 from "../../components/texts/header1";
 import PasswordField from "../../components/passwordField"
 import ButtonField from "../../components/buttonField";
+import Header3 from "../../components/texts/header3";
 
 // Asset imports
 import OnZLogo from "../../assets/commons/OnZ_logo.png";
@@ -145,9 +146,9 @@ export default LoginPage = ({ navigation }) => {
                 {/* Register */}      
                 <View style={ {flexDirection: 'row',justifyContent: 'center', alignItems: 'center'} }>
                 <TouchableOpacity onPress={() => navigation.navigate('registerPage')}>
-                    <Text style={styles.register}>
+                    <Header3>
                         Don't Have An Account? Register now!
-                    </Text>
+                    </Header3>
                 </TouchableOpacity>
                 </View>         
 

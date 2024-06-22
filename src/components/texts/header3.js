@@ -1,10 +1,10 @@
-// big karma light
+// small normal black bold
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 // Asset import
 
-const Header2 = ({text}) => {
+const Header3 = ({text}) => {
     return (
         <Text style={styles.headerText}>{text}</Text>
     );
@@ -12,9 +12,9 @@ const Header2 = ({text}) => {
 
 const styles = StyleSheet.create({
     headerText: {
-        fontSize: 25,
-        fontFamily: 'Karma-Light',
+        fontSize: 14,
+        fontWeight: 'bold',
     },
 });
 
-export default Header2;
+export default Header3;
