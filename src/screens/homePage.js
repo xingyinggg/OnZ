@@ -127,7 +127,7 @@ const HomePage = ({ navigation }) => {
                                     onSubmitEditing={() => navigation.navigate('listingPage')}
                                 />
 
-                                <TouchableOpacity onPress={() => navigation.navigate('filterPage')}>
+                                <TouchableOpacity onPress={() => navigation.navigate('searchFilterPage')}>
                                     <Image
                                         source={FilterLogo}
                                         style={styles.filterIcon}
