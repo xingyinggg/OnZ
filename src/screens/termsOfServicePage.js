@@ -1,61 +1,47 @@
 // Standard imports
-import { 
-    React, 
-    useState,
-} from "react";
+import React from "react";
 import {
     View,
     Text,
-    Image,
     StyleSheet,
     ScrollView,
     TouchableWithoutFeedback,
     TouchableOpacity,
-    Keyboard
+    Keyboard,
+    Image,
 } from "react-native";
 
 // Component imports
+import BackButtonLogo from "../assets/commons/back_logo.png";
 import Header1 from "../components/texts/header1";
 
-// Asset imports
-import back_button from "../assets/commons/back_logo.png";
-
-// Component imports
-
-
 // Main Component
-export default TermsOfService = ({ navigation }) => {
-
-    // Return statement, what the component will render
+const BackButton = ({ navigation }) => {
     return (
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Image 
+                source={BackButtonLogo} 
+                style={styles.backButtonImage} 
+            />
+        </TouchableOpacity>
+    );
+};
 
-        // Dismiss keyboard when user taps outside of the text input field
+export default TermsOfService = ({ navigation }) => {
+    return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
-
-            {/* Main container, contains all the elements of the page */}
             <View style={styles.container}>
-
-            <View style={styles.backButton}>
-                <TouchableOpacity onPress={() => navigation.goback()}>
-                    {/* <Image 
-                        source={back_button} 
-                        style={styles.backButtonImage} 
-                    /> */}
-                </TouchableOpacity>
-            </View>
-
                 <ScrollView contentContainerStyle={styles.contentContainer}>
-                    <View style={styles.headerContainer}>
-                        <Header1
-                            text='Terms of Service'
-                        />
-                        <Header1
-                            text='and Privacy Policy'
-                        />
+                    <View style={styles.headerRow}>
+                        <BackButton navigation={navigation} />
+                        <View style={styles.headerContainer}>
+                            <Header1 text='Terms of Service' />
+                            <Header1 text='and Privacy Policy' />
+                        </View>
                     </View>
 
-                    <Text style={styles.sectionTitle}>Privacy Policy</Text>
 
+                    <Text style={styles.sectionTitle}>Privacy Policy</Text>
                     <Text style={styles.text}>
                         Welcome to OnZ?! We are committed to protecting your privacy. This Privacy Policy outlines the data we collect, how we use it, and your rights.
                     </Text>
@@ -100,10 +86,7 @@ export default TermsOfService = ({ navigation }) => {
                         For questions or concerns, contact us at contact@onz.com. Our privacy team is here to help.
                         Thank you for trusting us with your personal information. Your privacy is our priority.
                     </Text>
-
                 </ScrollView>
-
-
             </View>
         </TouchableWithoutFeedback>
     );
@@ -111,40 +94,31 @@ export default TermsOfService = ({ navigation }) => {
 
 // Styles
 const styles = StyleSheet.create({
-
-    // Add different styles here, each item is a style object
     container: {
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    back_button:{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '90%',
-        paddingHorizontal: 16,
-    },
-    backButtonImage: {
-        width: 40, 
-        height: 40 
-
-    },
     contentContainer: {
         paddingTop: 10,
         paddingHorizontal: 20,
         paddingBottom: 20,
     },
+    headerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
     headerContainer: {
         backgroundColor: '#DBE5E7',
-        // width: '70%',
         padding: 15,
         borderRadius: 15,
-        marginHorizontal: 40,
+        marginHorizontal: 30,
         marginBottom: 20,
         alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'stretch', // Make the header container stretch to fill its parent width
+        // justifyContent: 'center',
+        // alignSelf: 'stretch', // Make the header container stretch to fill its parent width
     },
     sectionTitle: {
         fontSize: 16,
@@ -157,5 +131,11 @@ const styles = StyleSheet.create({
         color: '#585858',
         padding: 10,
     },
-
+    backButton: {
+        marginRight: 10,
+    },
+    backButtonImage: {
+        width: 30, 
+        height: 30,
+    },
 });

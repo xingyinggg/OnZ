@@ -96,7 +96,6 @@ const HomePage = ({ navigation }) => {
         { id: '6', name: 'Leisure', imageSource: EntertainmentCatergoryLogo, page: 'listingPage' },
         { id: '7', name: 'Culture', imageSource: CultureCatergoryLogo, page: 'listingPage' },
     ];
-
     return (
         // Dismiss keyboard when user taps outside of the text input field
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
@@ -168,7 +167,7 @@ const HomePage = ({ navigation }) => {
                                 targetScreen = 'createOutingsPage'
                             />
 
-                            <View style={styles.popularNowContainer}>
+<View style={styles.popularNowContainer}>
                                 <Header1
                                     text='Popular Now'
                                 />

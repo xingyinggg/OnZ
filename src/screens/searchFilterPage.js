@@ -1,16 +1,13 @@
-// Standard imports
-import { 
-    React, 
-    useState,
-} from "react";
+import React, { useState } from "react";
 import {
     View,
-    Text,
     StyleSheet,
     TouchableWithoutFeedback,
     SafeAreaView,
     Keyboard,
-    onPress,
+    TouchableOpacity,
+    Image,
+    ScrollView,
 } from "react-native";
 
 // Component imports
@@ -22,29 +19,65 @@ import NearestMRTSection from "../components/filters/nearestMRTSection";
 import ButtonsSection from "../components/filters/buttonsSection";
 import BottomBar from "../components/bottomBar";
 
+import BackButton from "../assets/commons/back_logo.png";
+import { FlatList } from "react-native-gesture-handler";
+
 // Main Component
 const SearchFilterPage = ({ navigation }) => {
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [selectedBudget, setSelectedBudget] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedMRT, setSelectedMRT] = useState([]);
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
 
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
             <SafeAreaView style={styles.container}>
-                <View style={styles.contentContainer}>
-                    <Header1 text='Filter' />
-                    <CategorySection />
-                    <BudgetSection />
-                    <DateSection title="Date-time of the Outing" />
-                    <NearestMRTSection />
+                <ScrollView 
+                    style={styles.contentContainer}>
+
+                
+                        
+                    <View style={styles.headerContainer}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                            <Image 
+                                source={BackButton} 
+                                style={styles.backButtonImage} 
+                            />
+                        </TouchableOpacity>
+                        <Header1 text='Filter' />
+                    </View>
+                    <CategorySection 
+                        selectedCategories={selectedCategories}
+                        setSelectedCategories={setSelectedCategories}
+                    />
+                    <BudgetSection 
+                        selectedBudget={selectedBudget}
+                        setSelectedBudget={setSelectedBudget}
+                    />
+                    <DateSection 
+                        title="Date-time of the Outing"
+                        selectedDate={selectedDate}
+                        setSelectedDate={setSelectedDate}
+                    />
+                    <NearestMRTSection 
+                        selectedMRT={selectedMRT}
+                        setSelectedMRT={setSelectedMRT}
+                    />
+
                     <View style={styles.buttonsContainer}>
-                        <ButtonsSection title='Reset' onPress={() => { navigation.navigate('searchFilterPage') }} />
+                        {/* <ButtonsSection title='Reset' onPress={navigation.navigate('searchFilterPage')} /> */}
                         <ButtonsSection title='Apply' onPress={() => { navigation.navigate('listingPage') }} />
                     </View>
-                </View>
-                <BottomBar/>
-                          
+                </ScrollView>
+                {!isKeyboardVisible && <BottomBar navigation={navigation} />}
             </SafeAreaView>
         </TouchableWithoutFeedback>
     );
 };
+
+
 
 // Styles
 const styles = StyleSheet.create({
@@ -53,15 +86,29 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     contentContainer:{
-        paddingHorizontal: 10,
-        paddingVertical: 15,
+        paddingHorizontal: 20,
     },
     buttonsContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         paddingHorizontal: 50,
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    backButton: {
+        marginRight: 10,
+    },
+    backButtonText: {
+        fontSize: 24,
+        color: '#000',
+    },
+    backButtonImage: {
+        width: 30, 
+        height: 30 
     },
 });
 
 export default SearchFilterPage;
-
