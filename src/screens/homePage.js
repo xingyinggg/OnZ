@@ -31,12 +31,10 @@ import SportsCatergoryLogo from "../assets/categories/sports_logo.png";
 import EntertainmentCatergoryLogo from "../assets/categories/entertainment_logo.png";
 import CultureCatergoryLogo from "../assets/categories/culture_logo.png";
 
-// import swipeFeatureLogo from "../assets/swipeFeature_logo.png";
-
-
 const HomePage = ({ navigation }) => {
     // State variables
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+    const [searchInput, setSearchInput] = useState("");
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener(
@@ -57,6 +55,14 @@ const HomePage = ({ navigation }) => {
             keyboardDidShowListener.remove();
         };
     }, []);
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            setSearchInput(""); // Reset the search input when the component mounts
+        });
+
+        return unsubscribe;
+    }, [navigation]);
 
     // TO DO: link to DB
     const popularPlaces = [
@@ -96,6 +102,7 @@ const HomePage = ({ navigation }) => {
         { id: '6', name: 'Leisure', imageSource: EntertainmentCatergoryLogo, page: 'listingPage' },
         { id: '7', name: 'Culture', imageSource: CultureCatergoryLogo, page: 'listingPage' },
     ];
+
     return (
         // Dismiss keyboard when user taps outside of the text input field
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
@@ -104,35 +111,25 @@ const HomePage = ({ navigation }) => {
                     ListHeaderComponent={
                         <>
                             <View style={styles.welcome}>
-                                <Header2
-                                    text='Welcome back '
-                                />
-                                <Header1
-                                    text='username'
-                                />
-                                <Header2
-                                    text='!'
-                                />
+                                <Header2 text='Welcome back ' />
+                                <Header1 text='username' />
+                                <Header2 text='!' />
                             </View>
 
                             <View style={styles.searchContainer}>
-                                <Image
-                                    source={SearchLogo}
-                                    style={styles.searchIcon}
-                                />
+                                <Image source={SearchLogo} style={styles.searchIcon} />
 
                                 <TextInput
                                     style={styles.searchInput}
                                     placeholder="Search Places"
                                     placeholderTextColor="#585858"
+                                    value={searchInput}
+                                    onChangeText={setSearchInput}
                                     onSubmitEditing={() => navigation.navigate('listingPage')}
                                 />
 
                                 <TouchableOpacity onPress={() => navigation.navigate('searchFilterPage')}>
-                                    <Image
-                                        source={FilterLogo}
-                                        style={styles.filterIcon}
-                                    />
+                                    <Image source={FilterLogo} style={styles.filterIcon} />
                                 </TouchableOpacity>
                             </View>
 
@@ -144,10 +141,7 @@ const HomePage = ({ navigation }) => {
                                 renderItem={({ item }) => (
                                     <TouchableOpacity onPress={() => navigation.navigate(item.page)}>
                                         <View style={styles.categoryItem}>
-                                            <Image
-                                                source={item.imageSource}
-                                                style={styles.categoryImage}
-                                            />
+                                            <Image source={item.imageSource} style={styles.categoryImage} />
                                             <Text style={styles.categoryText}>{item.name}</Text>
                                         </View>
                                     </TouchableOpacity>
@@ -156,21 +150,11 @@ const HomePage = ({ navigation }) => {
                                 contentContainerStyle={styles.categoriesContainer}
                                 showsHorizontalScrollIndicator={false}
                             />
-                            {/* <TouchableOpacity onPress={() => navigation.navigate('createOutingsPage')}>
-                                <Image
-                                    source={swipeFeatureLogo}
-                                    style={styles.swipeAlignment}
-                                />
-                            </TouchableOpacity> */}
 
-                            <OnzToggle
-                                targetScreen = 'createOutingsPage'
-                            />
+                            <OnzToggle targetScreen='createOutingsPage' />
 
-<View style={styles.popularNowContainer}>
-                                <Header1
-                                    text='Popular Now'
-                                />
+                            <View style={styles.popularNowContainer}>
+                                <Header1 text='Popular Now' />
                             </View>
                         </>
                     }
@@ -254,10 +238,6 @@ const styles = StyleSheet.create({
     },
     categoryText: {
         fontSize: 14,
-    },
-    swipeAlignment: {
-        alignSelf: 'center',
-        marginBottom: 10,
     },
     popularNowContainer: {
         marginTop: 10,
