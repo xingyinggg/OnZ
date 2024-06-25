@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     backButtonImage: {
         width: 30, 
         height: 30,
+        marginTop: 10,
     },
 });
 
