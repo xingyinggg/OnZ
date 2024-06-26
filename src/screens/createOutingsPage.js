@@ -37,7 +37,8 @@ export default LoginPage = ({ navigation }) => {
                         <Text style={styles.buttonText} >Create Outing</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.button} >
+                    
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('outingsFilterPage')}>
                         <Image source= {require('../assets/roomPage/joinRoom_logo.png')} style={styles.icon}/>
                         <Text style={styles.buttonText}>Join Room</Text>
                     </TouchableOpacity>

@@ -1,9 +1,12 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { MultipleSelectList } from 'react-native-dropdown-select-list';
+import React , {useState} from 'react';
+import { View, Text, StyleSheet, ScrollView, Modal, FlatList, TouchableOpacity,TextInput, TouchableWithoutFeedback,CheckBox} from 'react-native';
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+import {MaterialIcons as Icon} from '@expo/vector-icons';
+
 
 const NearestMRTSection = () => {
-  const [selected, setSelected] = React.useState([]);
+  const [selectedStations, setSelectedStations] = useState([]);
+  console.log('Selected Stations:', selectedStations);
 
   const data = [
     { key: '1', value: 'Admiralty' },
@@ -15,69 +18,92 @@ const NearestMRTSection = () => {
     { key: '7', value: 'Bedok' },
   ];
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Nearest MRT</Text>
-      <View style={styles.dropdownContainer}>
-        <MultipleSelectList
-          setSelected={(val) => setSelected(val)}
-          data={data}
-          save="value"
-          placeholder="Search"
-          boxStyles={styles.dropdownBox}
-          inputStyles={styles.dropdownInput}
-          dropdownTextStyles={styles.dropdownText}
-          selectedItemStyles={styles.selectedItem} // Style for selected items
-          selectedItemTextStyles={styles.selectedItemText} // Style for selected items' text
-        />
-              {selected.length === 0 ? (
-        <View style={{ marginBottom: 50 }} />
-      ) : (
-        <View style={{ marginBottom: 200 }} />
-      )}
-      </View>
+  
+
+return (
+  <View style={styles.container}>
+            <Text style={styles.title}>Nearest MRT</Text>
+            <View>
+                <SectionedMultiSelect
+                items={data}
+                IconRenderer={Icon}
+                uniqueKey="key"
+                displayKey='value'
+                selectText="Choose some MRT stations"
+                searchPlaceholderText="Search stations"
+                showDropDowns={true}
+                onSelectedItemsChange={setSelectedStations}
+                selectedItems={selectedStations}
+                styles={{
+                    // selectToggleIcon:  
+                    selectToggle: styles.multiSelectBox,
+                    selectToggleText: styles.selectText,
+                    chipContainer: styles.multiSelectChipContainer,
+                    chipText: styles.multiSelectChipText,
+                    selectToggleIconComponent: styles.selectToggleIcon,
+                     
+                  }}
+                />
+            </View>
+            {/* <MultipleSelectList
+                setSelected={handleSelect}
+                data={data}
+                save="value"
+                placeholder="Search"
+                boxStyles={styles.dropdownBox}
+                inputStyles={styles.dropdownInput}
+                dropdownStyles={styles.dropdown}
+                dropdownTextStyles={styles.dropdownText}
+                checkBoxStyles={styles.checkBox}
+            /> */}
 
     </View>
-  );
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  dropdownContainer: {
-    borderColor: '#6EC1D4',
-    borderWidth: 1,
-    borderRadius: 20,
-    padding: 10,
-    maxHeight: 100, // Adjust this value as needed for your layout
-  },
-  dropdownBox: {
-    borderColor: '#fff',
-    borderWidth: 1,
-    borderRadius: 10,
-  },
-  dropdownInput: {
-    color: '#6EC1D4',
-    fontSize: 15,
-  },
-  dropdownText: {
-    color: '#',
-    fontSize: 15,
-  },
-  selectedItem: {
-    backgroundColor: '#6EC1D4', // Blue background for selected items
-    marginVertical: 2, // Reduce vertical margin between selected items
-    padding: 5, // Adjust padding for selected items
-  },
-  selectedItemText: {
-    color: '#A0CED9', // White text color for selected items
-  },
+    container: {
+        // marginBottom: 20,
+        // //alignItems: 'center',
+        width: '100%',
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    selectToggleIcon: {
+        color: '#6EC1D4',
+    },
+    multiSelectBox: {
+        borderColor: '#6EC1D4',
+        borderWidth: 1,
+        borderRadius: 20,
+        width: '100%',
+        padding: 10,
+        marginBottom: 8,
+        justifyContent: 'space-between', // This aligns the text and the icon
+        alignItems: 'center',
+
+    },
+    selectText: {
+        paddingHorizontal: 20,
+        color: '#6EC1D4',
+        marginRight: 8,
+    },
+    multiSelectChipContainer: {
+        backgroundColor: '#A0CED9',
+        borderColor:'#A0CED9',
+        borderRadius: 20,
+        padding: 8,
+        // margin: 5,
+        marginBottom: 5,
+
+    },
+    multiSelectChipText: {
+        color: '#fff',
+        fontSize: 15
+    },
 });
 
 export default NearestMRTSection;

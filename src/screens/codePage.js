@@ -1,7 +1,9 @@
-import { 
+import 
     React, 
-    useState,
-} from "react";
+    {useState,
+    useEffect,
+    }
+ from "react";
 import {
     View,
     Text,
@@ -10,6 +12,9 @@ import {
     SafeAreaView,
     Keyboard,
     TextInput,
+    KeyboardAvoidingView,
+    Platform,
+    
 } from "react-native";
 
 // Component imports
@@ -24,17 +29,39 @@ export default LoginPage = ({ navigation }) => {
         setRoomCode(text);
     };
 
-    const handleOnzButton = (text) => {
+    const handleOnzButton = () => {
         console.log("RoomCode: " + roomCode);
         // navigation.navigate('')
     }
+
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            () => {
+                setKeyboardVisible(true);
+            }
+        );
+        const keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            () => {
+                setKeyboardVisible(false);
+            }
+        );
+
+        return () => {
+            keyboardDidHideListener.remove();
+            keyboardDidShowListener.remove();
+        };
+    }, []);
+
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
 
             {/* Main container, contains all the elements of the page */}
             <SafeAreaView style={styles.container}>
-
-                <View style={styles.innerContainer}>
+                <View style={styles.content}>
                     {/*title*/}
                     <Text style={styles.headerText}>Enter Your Outing Code</Text>
 
@@ -48,6 +75,7 @@ export default LoginPage = ({ navigation }) => {
                             keyboardType="numeric"
                             value={roomCode}
                             placeholder={'OUTING CODE'}
+                            textAlign="center"
                         />
                     </View>
 
@@ -59,12 +87,10 @@ export default LoginPage = ({ navigation }) => {
                         title={'OnZ!'}
                     />
                 </View>
-
-                <View style={{ height: 375 }} />
-
-
-                <BottomBar navigation={navigation}/>
-
+                
+            
+                {!isKeyboardVisible && <BottomBar navigation={navigation} />}
+            
             </SafeAreaView>
         </TouchableWithoutFeedback>
     );
@@ -76,18 +102,17 @@ const styles = StyleSheet.create({
     // Add different styles here, each item is a style object
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#FFFFFF',
         // alignItems: 'center',
-        justifyContent: 'center',
-        
+        justifyContent: 'space-between',
         
     },
-    innerContainer: {
+    content: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
         justifyContent: 'center',
-        
+        alignItems: 'center',
+        // width: '100%',
+        paddingBottom: 300,
     },
     headerText: {
         marginTop: 200,
@@ -107,6 +132,6 @@ const styles = StyleSheet.create({
     fieldText:{
         fontSize: 16,
         color: '#8F8F8F',
-        alignContent: 'center',
+        textAlign: 'center',
     }
 });
