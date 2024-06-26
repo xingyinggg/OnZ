@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/auth");
 const cors = require("cors");
-
+const bodyParser = require("body-parser");
 
 dotenv.config();
 
@@ -14,6 +14,7 @@ const app = express();
 //create application
 
 //middleware
+app.use(bodyParser.urlencoded({extended: false})); //help with parsing request body
 app.use(express.json());
 app.use(cors());
 
