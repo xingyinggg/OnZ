@@ -28,7 +28,7 @@ import LikesPage from './src/screens/likesPage';
 import OutingsPage from './src/screens/outingsPage';
 import PlaceDetailPage from './src/screens/placeDetailPage';
 import SearchFilterPage from './src/screens/searchFilterPage';
-// import FilterPage from './src/screens/filterPage'
+import OutingsFilterPage from './src/screens/outingsFilterPage';
 import CodePage from './src/screens/codePage';
 
 
@@ -159,10 +159,10 @@ export default function App() {
           component={CodePage}
         />
 
-        {/* <Stack.Screen
-          name='filterPage'
-          component={FilterPage}
-        /> */}
+        <Stack.Screen
+          name='outingsFilterPage'
+          component={OutingsFilterPage}
+        />
 
       </Stack.Navigator>
     </NavigationContainer>

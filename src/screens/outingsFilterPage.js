@@ -18,7 +18,6 @@ import DateSection from "../components/filters/dateSection";
 import NearestMRTSection from "../components/filters/nearestMRTSection";
 import ButtonsSection from "../components/filters/buttonsSection";
 import BottomBar from "../components/bottomBar";
-import ButtonField from "../components/buttonField";
 
 import BackButton from "../assets/commons/back_logo.png";
 import { FlatList } from "react-native-gesture-handler";
@@ -28,35 +27,17 @@ const SearchFilterPage = ({ navigation }) => {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedBudget, setSelectedBudget] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
-    const [selectedStations, setSelectedStations] = useState([]);
+    const [selectedMRT, setSelectedMRT] = useState([]);
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
-
-    const resetFilters = () => {
-        setSelectedCategories([]);
-        setSelectedBudget([]);
-        setSelectedDate(null);
-        // setSelectedTimes({ start: null, end: null });
-        setSelectedStations([]);
-      };
-    
-      const applyFilters = () => {
-        const filters = {
-          categories: selectedCategories,
-          budgets: selectedBudget,
-          date: selectedDate,
-        //   times: selectedTimes,
-          stations: selectedStations,
-        };
-        console.log('Applying filters:', filters);
-        // Here you would send `filters` to your backend or perform the filtering logic
-      };
 
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
             <SafeAreaView style={styles.container}>
                 <ScrollView 
                     style={styles.contentContainer}>
+
+                
                         
                     <View style={styles.headerContainer}>
                         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
@@ -81,23 +62,13 @@ const SearchFilterPage = ({ navigation }) => {
                         setSelectedDate={setSelectedDate}
                     />
                     <NearestMRTSection 
-                        selectedStations={selectedStations}
-                        setSelectedStations={setSelectedStations}
+                        selectedMRT={selectedMRT}
+                        setSelectedMRT={setSelectedMRT}
                     />
 
                     <View style={styles.buttonsContainer}>
                         {/* <ButtonsSection title='Reset' onPress={navigation.navigate('searchFilterPage')} /> */}
-                        {/* <ButtonsSection title='Apply' onPress={() => { navigation.navigate('listingPage') }} /> */}
-                        <ButtonField
-                            onPress={resetFilters}
-                            title={'Reset'}
-                        />
-
-                        <ButtonField
-                            onPress={applyFilters}
-                            title={'Apply'}
-                        />
-
+                        <ButtonsSection title='Apply' onPress={() => { navigation.navigate('listingPage') }} />
                     </View>
                 </ScrollView>
                 {!isKeyboardVisible && <BottomBar navigation={navigation} />}
@@ -118,7 +89,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     buttonsContainer: {
-        marginTop: 10,
         flexDirection: 'row',
         justifyContent: 'center',
         paddingHorizontal: 50,

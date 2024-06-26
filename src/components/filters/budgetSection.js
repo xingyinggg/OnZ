@@ -4,13 +4,13 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 const categories = ['FOC', '$', '$$', '$$$'];
 
 const BudgetSection = () => {
-    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [selectedBudget, setSelectedBudget] = useState([]);
 
     const toggleCategory = (category) => {
-        if (selectedCategories.includes(category)) {
-            setSelectedCategories(selectedCategories.filter(item => item !== category));
+        if (selectedBudget.includes(category)) {
+            setSelectedBudget(selectedBudget.filter(item => item !== category));
         } else {
-            setSelectedCategories([...selectedCategories, category]);
+            setSelectedBudget([...selectedBudget, category]);
         }
     };
 
@@ -24,13 +24,13 @@ const BudgetSection = () => {
                         key={index} 
                         style={[
                             styles.categoryButton, 
-                            selectedCategories.includes(category) && styles.selectedCategoryButton
+                            selectedBudget.includes(category) && styles.selectedCategoryButton
                         ]}
                         onPress={() => toggleCategory(category)}
                     >
                         <Text style={[
                             styles.categoryText, 
-                            selectedCategories.includes(category) && styles.selectedCategoryText
+                            selectedBudget.includes(category) && styles.selectedCategoryText
                         ]}>
                             {category}
                         </Text>
