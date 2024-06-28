@@ -1,14 +1,14 @@
 //const path = require('path');
 
-const http = require('http');
-const express = require('express');
+// const http = require('http');
+// const express = require('express');
 
-const app = express();
+// const app = express();
 
-const taskRouter = require('./routes/taskRouter.js');
+// const taskRouter = require('./routes/taskRouter.js');
 
-app.use(taskRouter);
+// app.use(taskRouter);
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
-server.listen(3000);
+// server.listen(3000);

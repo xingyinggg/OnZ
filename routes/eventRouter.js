@@ -10,3 +10,5 @@ router.get('/allEvents', getAllEvents);
 router.get('/oneEvent', getEventByID);
 
 router.get('/findEvents', findEventsByFilter);
+
+module.exports = router;
