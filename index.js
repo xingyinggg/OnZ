@@ -3,11 +3,17 @@ const dotenv = require("dotenv");
 const authRoutes = require("./routes/authRouter");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 dotenv.config();
 
 
 const PORT = Number.parseInt(process.env.PORT);
+const DB_HOSTNAME = process.env.DB_HOSTNAME;
+const DB_PORT = process.env.DB_PORT;
+const DB_NAME = process.env.DB_NAME;
+
+const DB_URI = `mongodb://${DB_HOSTNAME}:${DB_PORT}/${DB_NAME}`;
 
 //------------------------
 const app = express();
@@ -18,6 +24,19 @@ app.use(bodyParser.urlencoded({ extended: false })); //help with parsing request
 app.use(express.json());
 app.use(cors());
 
+//connect to DB
+mongoose.connect(DB_URI);
+
+//verify connection to DB
+const db = mongoose.connection;
+db.on("error", () => {
+    console.log("[ERROR] Failed to connect to DB!");
+});
+db.once("open", () => {
+    console.log("[SYSTEM] Connected to MongoDB successfully!");
+});
+
+
 //health check endpoint
 app.get("/", (req, res) => {
     return res.status(200).json({
@@ -26,7 +45,7 @@ app.get("/", (req, res) => {
 })
 
 //routes
-app.use(authRoutes);
+app.use("/auth", authRoutes);
 
 //start server
 app.listen(PORT, () => {
