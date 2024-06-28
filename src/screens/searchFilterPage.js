@@ -5,8 +5,6 @@ import {
     TouchableWithoutFeedback,
     SafeAreaView,
     Keyboard,
-    TouchableOpacity,
-    Image,
     ScrollView,
 } from "react-native";
 
@@ -19,9 +17,7 @@ import NearestMRTSection from "../components/filters/nearestMRTSection";
 import ButtonsSection from "../components/filters/buttonsSection";
 import BottomBar from "../components/bottomBar";
 import ButtonField from "../components/buttonField";
-
-import BackButton from "../assets/commons/back_logo.png";
-import { FlatList } from "react-native-gesture-handler";
+import BackButton from "../components/backButton";
 
 // Main Component
 const SearchFilterPage = ({ navigation }) => {
@@ -51,40 +47,30 @@ const SearchFilterPage = ({ navigation }) => {
         };
     }, []);
 
-
     const resetFilters = () => {
         setSelectedCategories([]);
         setSelectedBudget([]);
         setSelectedDate(null);
-        // setSelectedTimes({ start: null, end: null });
         setSelectedStations([]);
-      };
-    
-      const applyFilters = () => {
+    };
+
+    const applyFilters = () => {
         const filters = {
-          categories: selectedCategories,
-          budgets: selectedBudget,
-          date: selectedDate,
-        //   times: selectedTimes,
-          stations: selectedStations,
+            categories: selectedCategories,
+            budgets: selectedBudget,
+            date: selectedDate,
+            stations: selectedStations,
         };
         console.log('Applying filters:', filters);
         // Here you would send `filters` to your backend or perform the filtering logic
-      };
+    };
 
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
             <SafeAreaView style={styles.container}>
-                <ScrollView 
-                    style={styles.contentContainer}>
-                        
+                <ScrollView style={styles.contentContainer}>
                     <View style={styles.headerContainer}>
-                        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-                            <Image 
-                                source={BackButton} 
-                                style={styles.backButtonImage} 
-                            />
-                        </TouchableOpacity>
+                        <BackButton navigation={navigation} />
                         <Header1 text='Filter' />
                     </View>
                     <CategorySection 
@@ -106,18 +92,14 @@ const SearchFilterPage = ({ navigation }) => {
                     />
 
                     <View style={styles.buttonsContainer}>
-                        {/* <ButtonsSection title='Reset' onPress={navigation.navigate('searchFilterPage')} /> */}
-                        {/* <ButtonsSection title='Apply' onPress={() => { navigation.navigate('listingPage') }} /> */}
                         <ButtonField
                             onPress={resetFilters}
                             title={'Reset'}
                         />
-
                         <ButtonField
                             onPress={applyFilters}
                             title={'Apply'}
                         />
-
                     </View>
                 </ScrollView>
                 {!isKeyboardVisible && <BottomBar navigation={navigation} />}
@@ -126,15 +108,13 @@ const SearchFilterPage = ({ navigation }) => {
     );
 };
 
-
-
 // Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
     },
-    contentContainer:{
+    contentContainer: {
         paddingHorizontal: 20,
     },
     buttonsContainer: {
@@ -147,17 +127,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 20,
-    },
-    backButton: {
-        marginRight: 10,
-    },
-    backButtonText: {
-        fontSize: 24,
-        color: '#000',
-    },
-    backButtonImage: {
-        width: 30, 
-        height: 30 
     },
 });
 
