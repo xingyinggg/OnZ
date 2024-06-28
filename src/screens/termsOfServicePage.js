@@ -14,18 +14,10 @@ import {
 // Component imports
 import BackButtonLogo from "../assets/commons/back_logo.png";
 import Header1 from "../components/texts/header1";
+import BackButton from "../components/backButton";
 
 // Main Component
-const BackButton = ({ navigation }) => {
-    return (
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-            <Image 
-                source={BackButtonLogo} 
-                style={styles.backButtonImage} 
-            />
-        </TouchableOpacity>
-    );
-};
+
 
 export default TermsOfService = ({ navigation }) => {
     return (

@@ -25,11 +25,14 @@ import ListingPage from './src/screens/listingPage';
 import AccountPage from './src/screens/accountPage';
 import CreateOutingsPage from './src/screens/createOutingsPage';
 import LikesPage from './src/screens/likesPage';
-import OutingsPage from './src/screens/outingsPage';
 import PlaceDetailPage from './src/screens/placeDetailPage';
 import SearchFilterPage from './src/screens/searchFilterPage';
 import OutingsFilterPage from './src/screens/outingsFilterPage';
 import CodePage from './src/screens/codePage';
+
+// Outings  
+import OutingsPage from './src/screens/outings/outingsPage';
+import OutingsDescriptionPage from './src/screens/outings/outingsDescription';
 
 
 export default function App() {
@@ -162,6 +165,11 @@ export default function App() {
         <Stack.Screen
           name='outingsFilterPage'
           component={OutingsFilterPage}
+        />
+
+        <Stack.Screen
+          name='outingsDescriptionPage'
+          component={OutingsDescriptionPage}
         />
 
       </Stack.Navigator>
