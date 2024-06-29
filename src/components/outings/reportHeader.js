@@ -1,22 +1,22 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-// const ReportList = ({ reportTitle, reportDate, participants }) => {
-//     // Ensure participants is always an array
-//     const participantsList = Array.isArray(participants) ? participants : [];
+const ReportHeader = ({ reportTitle, reportDate, participants }) => {
+    // Ensure participants is always an array
+    const participantsList = Array.isArray(participants) ? participants : [];
 
-//     return (
-//         <View style={styles.list}>
-//             <View style={styles.header}>
-//                 <Text style={styles.title}>{reportTitle}</Text>
-//                 <Text style={styles.date}>{reportDate}</Text>
-//             </View>
-//             <Text style={styles.participants}>
-//                 {participantsList.join(', ')}
-//             </Text>
-//         </View>
-//     );
-// };
+    return (
+        <View style={styles.list}>
+            <View style={styles.header}>
+                <Text style={styles.title}>{reportTitle}</Text>
+                <Text style={styles.date}>{reportDate}</Text>
+            </View>
+            <Text style={styles.participants}>
+                {participantsList.join(', ')}
+            </Text>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     list: {
@@ -25,22 +25,22 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 20,
         margin: 10,
-        backgroundColor: '#fff',
+        backgroundColor: '#DBE5E7',
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 10,
     },
     title: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#585858',
+        fontSize: 24,
+        color: '#000000',
+        fontFamily: 'Karma-Bold',
+        marginRight: 40,
     },
     date: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#585858',
+        fontSize: 24,
+        color: '#000000',
+        fontFamily: 'Karma-Bold'
     },
     participants: {
         fontSize: 14,
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ReportList;
+export default ReportHeader;
