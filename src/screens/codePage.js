@@ -30,9 +30,14 @@ export default LoginPage = ({ navigation }) => {
     };
 
     const handleOnzButton = () => {
-        console.log("RoomCode: " + roomCode);
-        // navigation.navigate('')
-    }
+        if (roomCode) {
+            console.log("OutingCode: " + roomCode);
+            navigation.navigate('swipingCard');
+
+        } else {
+            alert('Please enter your outing code.');
+        }
+    };
 
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 

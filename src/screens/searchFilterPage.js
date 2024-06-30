@@ -47,13 +47,6 @@ const SearchFilterPage = ({ navigation }) => {
         };
     }, []);
 
-    const resetFilters = () => {
-        setSelectedCategories([]);
-        setSelectedBudget([]);
-        setSelectedDate(null);
-        setSelectedStations([]);
-    };
-
     const applyFilters = () => {
         const filters = {
             categories: selectedCategories,
@@ -92,10 +85,7 @@ const SearchFilterPage = ({ navigation }) => {
                     />
 
                     <View style={styles.buttonsContainer}>
-                        <ButtonField
-                            onPress={resetFilters}
-                            title={'Reset'}
-                        />
+
                         <ButtonField
                             onPress={applyFilters}
                             title={'Apply'}
