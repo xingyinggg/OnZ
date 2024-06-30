@@ -18,6 +18,7 @@ import {
 import TextInputField from "../../components/textInputField";
 import { TouchableOpacity } from "react-native";
 import Header1 from "../../components/texts/header1";
+import BackButton from "../../components/backButton";
 
 // Main Component
 export default forgetPasswordPage = ({ navigation }) => {
@@ -73,6 +74,10 @@ export default forgetPasswordPage = ({ navigation }) => {
             {/* Main container, contains all the elements of the page */}
             <SafeAreaView style={styles.container}>
 
+                <View style={styles.headerRow}>
+                    <BackButton navigation={navigation} />
+                </View>
+
                 {/*title*/}
                 <Header1
                     text='Reset Password'
@@ -121,6 +126,12 @@ const styles = StyleSheet.create({
         fontSize: 25,
         marginBottom: 10,
         fontFamily: 'Karma-Bold',
+    },
+    headerRow: {
+        position: 'absolute',
+        top: 20, // Adjust as needed
+        left: 20, // Adjust as needed
+        zIndex: 1,
     },
     bodyText: {
         fontsize: 12,
