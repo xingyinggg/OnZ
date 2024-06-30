@@ -3,34 +3,32 @@ import { View, Text, StyleSheet } from 'react-native';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
-const NearestMRTSection = ({ selectedStations, setSelectedStations }) => {
+const NumberOfActivitiesSection = ({ selectedNumberOfActivities, setSelectedNumberOfActivities }) => {
   const data = [
-    { key: '1', value: 'Admiralty' },
-    { key: '2', value: 'Aljunied' },
-    { key: '3', value: 'Ang Mo Kio' },
-    { key: '4', value: 'Bartley' },
-    { key: '5', value: 'Bayfront' },
-    { key: '6', value: 'Beauty World' },
-    { key: '7', value: 'Bedok' },
+    { key: '5', value: 5 },
+    { key: '10', value: 10 },
+    { key: '15', value: 15 },
+    { key: '20', value: 20 }
   ];
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Nearest MRT</Text>
+      <Text style={styles.title}>Limit Number of Suggested Activities</Text>
       <View>
         <SectionedMultiSelect
           items={data}
           IconRenderer={Icon}
           uniqueKey="key"
           displayKey="value"
-          selectText="Choose some MRT stations"
-          searchPlaceholderText="Search stations"
+          single // Ensure only one selection
+          selectText="Select a Number"
+          searchPlaceholderText="Search a Number"
           showDropDowns={true}
           onSelectedItemsChange={(selectedItems) => {
-            setSelectedStations(selectedItems);
-            console.log('Selected Stations:', selectedItems);
+            setSelectedNumberOfActivities(selectedItems);
+            console.log('Selected Number of Activities:', selectedItems);
           }}
-          selectedItems={selectedStations}
+          selectedItems={selectedNumberOfActivities}
           styles={{
             selectToggle: styles.multiSelectBox,
             selectToggleText: styles.selectText,
@@ -86,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NearestMRTSection;
+export default NumberOfActivitiesSection;

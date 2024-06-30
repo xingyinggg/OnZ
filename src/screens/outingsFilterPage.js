@@ -1,52 +1,82 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     StyleSheet,
     TouchableWithoutFeedback,
     SafeAreaView,
     Keyboard,
-    TouchableOpacity,
-    Image,
     ScrollView,
 } from "react-native";
 
 // Component imports
 import Header1 from "../components/texts/header1";
+import BottomBar from "../components/bottomBar";
+import ButtonField from "../components/buttonField";
+import BackButton from "../components/backButton";
+
+// Sections 
 import CategorySection from "../components/filters/categorySection";
 import BudgetSection from "../components/filters/budgetSection";
 import DateSection from "../components/filters/dateSection";
 import NearestMRTSection from "../components/filters/nearestMRTSection";
-import ButtonsSection from "../components/filters/buttonsSection";
-import BottomBar from "../components/bottomBar";
-
-import BackButton from "../assets/commons/back_logo.png";
-import { FlatList } from "react-native-gesture-handler";
+import ChooseYourDestinationSection from "../components/filters/chooseYourDestinationSection";
+import GetResultsBySection from "../components/filters/getResultsBySection";
+import NumberOfActivitiesSection from "../components/filters/numberOfActivitiesSection";
 
 // Main Component
 const SearchFilterPage = ({ navigation }) => {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedBudget, setSelectedBudget] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
-    const [selectedMRT, setSelectedMRT] = useState([]);
+    const [selectedTime, setSelectedTime] = useState({ start: null, end: null });
+    const [selectedStations, setSelectedStations] = useState([]);
+    const [selectedChoice, setSelectedChoice] = useState([]);
+    const [selectedResultsDate, setSelectedResultsDate] = useState(null);
+    const [selectedNumberOfActivities, setSelectedNumberOfActivities] = useState([]);
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            () => {
+                setKeyboardVisible(true);
+            }
+        );
+        const keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            () => {
+                setKeyboardVisible(false);
+            }
+        );
+
+        return () => {
+            keyboardDidHideListener.remove();
+            keyboardDidShowListener.remove();
+        };
+    }, []);
+
+    const applyFilters = () => {
+        const filters = {
+            categories: selectedCategories,
+            budgets: selectedBudget,
+            date: selectedDate,
+            time: selectedTime,
+            stations: selectedStations,
+            choice: selectedChoice,
+            resultsDate: selectedResultsDate,
+            numberOfActivities: selectedNumberOfActivities,
+        };
+        console.log('Applying filters:', filters);
+        // Here you would send `filters` to your backend or perform the filtering logic
+    };
 
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
             <SafeAreaView style={styles.container}>
-                <ScrollView 
-                    style={styles.contentContainer}>
-
-                
-                        
+                <ScrollView style={styles.contentContainer}>
                     <View style={styles.headerContainer}>
-                        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-                            <Image 
-                                source={BackButton} 
-                                style={styles.backButtonImage} 
-                            />
-                        </TouchableOpacity>
-                        <Header1 text='Filter' />
+                        <BackButton navigation={navigation} />
+                        <Header1 text='Create an Outing' />
                     </View>
                     <CategorySection 
                         selectedCategories={selectedCategories}
@@ -60,15 +90,30 @@ const SearchFilterPage = ({ navigation }) => {
                         title="Date-time of the Outing"
                         selectedDate={selectedDate}
                         setSelectedDate={setSelectedDate}
+                        selectedTime={selectedTime}
+                        setSelectedTime={setSelectedTime}
                     />
                     <NearestMRTSection 
-                        selectedMRT={selectedMRT}
-                        setSelectedMRT={setSelectedMRT}
+                        selectedStations={selectedStations}
+                        setSelectedStations={setSelectedStations}
                     />
-
+                    <ChooseYourDestinationSection
+                        selectedChoice={selectedChoice}
+                        setSelectedChoice={setSelectedChoice}
+                    />
+                    <GetResultsBySection
+                        selectedResultsDate={selectedResultsDate}
+                        setSelectedResultsDate={setSelectedResultsDate}
+                    />
+                    <NumberOfActivitiesSection
+                        selectedNumberOfActivities={selectedNumberOfActivities}
+                        setSelectedNumberOfActivities={setSelectedNumberOfActivities}
+                    />
                     <View style={styles.buttonsContainer}>
-                        {/* <ButtonsSection title='Reset' onPress={navigation.navigate('searchFilterPage')} /> */}
-                        <ButtonsSection title='Apply' onPress={() => { navigation.navigate('listingPage') }} />
+                        <ButtonField
+                            onPress={applyFilters}
+                            title={'Apply'}
+                        />
                     </View>
                 </ScrollView>
                 {!isKeyboardVisible && <BottomBar navigation={navigation} />}
@@ -77,18 +122,18 @@ const SearchFilterPage = ({ navigation }) => {
     );
 };
 
-
-
 // Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
     },
-    contentContainer:{
+    contentContainer: {
         paddingHorizontal: 20,
+        marginBottom: 20,
     },
     buttonsContainer: {
+        marginTop: 10,
         flexDirection: 'row',
         justifyContent: 'center',
         paddingHorizontal: 50,
@@ -97,17 +142,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 20,
-    },
-    backButton: {
-        marginRight: 10,
-    },
-    backButtonText: {
-        fontSize: 24,
-        color: '#000',
-    },
-    backButtonImage: {
-        width: 30, 
-        height: 30 
     },
 });
 
