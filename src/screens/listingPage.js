@@ -84,11 +84,12 @@ const ListingPage = ({ navigation }) => {
         return unsubscribe;
     }, [navigation]);
 
-    const renderHeader = () => (
-        <View>
+    // Return statement, what the component will render
+    return (
+        <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
+            <SafeAreaView style={styles.container}>
             <View style={styles.headerContainer}>
                 <BackButton navigation={navigation} />
-
                 <View style={styles.searchContainer}>
                     <Image
                         source={SearchLogo}
@@ -105,15 +106,8 @@ const ListingPage = ({ navigation }) => {
                     />
                 </View>
             </View>
-        </View>
-    );
 
-    // Return statement, what the component will render
-    return (
-        <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
-            <SafeAreaView style={styles.container}>
                 <FlatList
-                    ListHeaderComponent={renderHeader}
                     data={searches}
                     renderItem={({ item }) => (
                         <TouchableOpacity onPress={() => navigation.navigate('placeDetailsPage')}>
@@ -145,6 +139,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 5,
+        paddingHorizontal: 20,
+        marginTop: 10,
     },
     contentContainer: {
         paddingHorizontal: 10,
