@@ -22,7 +22,6 @@ import ListingPage from './src/screens/listingPage';
 
 
 // 
-import AccountPage from './src/screens/accountPage';
 import CreateOutingsPage from './src/screens/createOutingsPage';
 import LikesPage from './src/screens/likesPage';
 import PlaceDetailPage from './src/screens/placeDetailPage';
@@ -36,6 +35,10 @@ import SwipingCard from './src/screens/swipingCard';
 // Outings  
 import OutingsPage from './src/screens/outings/outingsPage';
 import OutingsDescriptionPage from './src/screens/outings/outingsDescription';
+
+// Account
+import AccountPage from './src/screens/account/accountPage';
+import ChangeProfilePicturePage from './src/screens/account/changeProfilePicturePage';
 
 
 export default function App() {
@@ -178,6 +181,11 @@ export default function App() {
         <Stack.Screen
           name='outingsDescriptionPage'
           component={OutingsDescriptionPage}
+        />
+
+        <Stack.Screen
+          name='changeProfilePicturePage'
+          component={ChangeProfilePicturePage}
         />
 
       </Stack.Navigator>
