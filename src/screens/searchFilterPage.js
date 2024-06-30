@@ -50,17 +50,8 @@ const SearchFilterPage = ({ navigation }) => {
             keyboardDidShowListener.remove();
         };
     }, []);
-
-
-    const resetFilters = () => {
-        setSelectedCategories([]);
-        setSelectedBudget([]);
-        setSelectedDate(null);
-        // setSelectedTimes({ start: null, end: null });
-        setSelectedStations([]);
-      };
     
-      const applyFilters = () => {
+    const applyFilters = () => {
         const filters = {
           categories: selectedCategories,
           budgets: selectedBudget,
@@ -106,12 +97,7 @@ const SearchFilterPage = ({ navigation }) => {
                     />
 
                     <View style={styles.buttonsContainer}>
-                        {/* <ButtonsSection title='Reset' onPress={navigation.navigate('searchFilterPage')} /> */}
-                        {/* <ButtonsSection title='Apply' onPress={() => { navigation.navigate('listingPage') }} /> */}
-                        <ButtonField
-                            onPress={resetFilters}
-                            title={'Reset'}
-                        />
+
 
                         <ButtonField
                             onPress={applyFilters}

@@ -30,6 +30,9 @@ import PlaceDetailPage from './src/screens/placeDetailPage';
 import SearchFilterPage from './src/screens/searchFilterPage';
 import OutingsFilterPage from './src/screens/outingsFilterPage';
 import CodePage from './src/screens/codePage';
+import SwipingCard from './src/screens/swipingCard';
+
+
 
 
 export default function App() {
@@ -145,7 +148,7 @@ export default function App() {
         />
 
         <Stack.Screen 
-          name="placeDetailsPage"
+          name="placeDetailPage"
           component={PlaceDetailPage}
         />
 
@@ -163,6 +166,12 @@ export default function App() {
           name='outingsFilterPage'
           component={OutingsFilterPage}
         />
+
+        <Stack.Screen
+          name='swipingCard'
+          component={SwipingCard}
+        />
+
 
       </Stack.Navigator>
     </NavigationContainer>
