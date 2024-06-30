@@ -189,10 +189,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     contentContainer: {
-        paddingHorizontal: 20,
+        paddingHorizontal: '5%',
     },
     welcome: {
-        marginTop: 20,
+        marginTop: '5%',
         flexDirection: 'row',
         // alignItems: 'center',
     },
@@ -201,8 +201,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 15,
-        paddingVertical: 10,
+        paddingHorizontal: '5%',
+        paddingVertical: '3%',
     },
     searchIcon: {
         width: 20,
