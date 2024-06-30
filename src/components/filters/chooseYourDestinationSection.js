@@ -1,37 +1,36 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const categories = ['Food', 'Crafts', 'Pets', 'Outdoor', 'Leisure', 'Sports', 'Culture'];
+const chooseChoice = ['By Yourself', 'With Others'];
 
-const CategorySection = ({ selectedCategories, setSelectedCategories }) => {
-    const toggleCategory = (category) => {
-        if (selectedCategories.includes(category)) {
-            setSelectedCategories(selectedCategories.filter(item => item !== category));
+const ChooseYourDestinationSection = ({ selectedChoice, setSelectedChoice }) => {
+    const toggleCategory = (choice) => {
+        if (selectedChoice === choice) {
+            setSelectedChoice('');
         } else {
-            const updatedCategories = [...selectedCategories, category];
-            setSelectedCategories(updatedCategories);
-            console.log('Selected categories:', updatedCategories);
+            setSelectedChoice(choice);
+            console.log('Choose Your Destination Yourself:', choice);
         }
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Category</Text>
+            <Text style={styles.title}>Choose Your Destination</Text>
             <View style={styles.categoryContainer}>
-                {categories.map((category, index) => (
+                {chooseChoice.map((choice, index) => (
                     <TouchableOpacity 
                         key={index} 
                         style={[
                             styles.categoryButton, 
-                            selectedCategories.includes(category) && styles.selectedCategoryButton
+                            selectedChoice === choice && styles.selectedCategoryButton
                         ]}
-                        onPress={() => toggleCategory(category)}
+                        onPress={() => toggleCategory(choice)}
                     >
                         <Text style={[
                             styles.categoryText, 
-                            selectedCategories.includes(category) && styles.selectedCategoryText
+                            selectedChoice === choice && styles.selectedCategoryText
                         ]}>
-                            {category}
+                            {choice}
                         </Text>
                     </TouchableOpacity>
                 ))}
@@ -61,6 +60,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 18,
         margin: 6,
         backgroundColor: '#fff',
+        width: '46%',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     selectedCategoryButton: {
         backgroundColor: '#A0CED9',
@@ -75,4 +77,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CategorySection;
+export default ChooseYourDestinationSection;
+

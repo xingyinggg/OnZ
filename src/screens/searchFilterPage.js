@@ -14,7 +14,6 @@ import CategorySection from "../components/filters/categorySection";
 import BudgetSection from "../components/filters/budgetSection";
 import DateSection from "../components/filters/dateSection";
 import NearestMRTSection from "../components/filters/nearestMRTSection";
-import ButtonsSection from "../components/filters/buttonsSection";
 import BottomBar from "../components/bottomBar";
 import ButtonField from "../components/buttonField";
 import BackButton from "../components/backButton";
@@ -24,6 +23,7 @@ const SearchFilterPage = ({ navigation }) => {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedBudget, setSelectedBudget] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedTime, setSelectedTime] = useState({ start: null, end: null });
     const [selectedStations, setSelectedStations] = useState([]);
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
@@ -52,6 +52,7 @@ const SearchFilterPage = ({ navigation }) => {
             categories: selectedCategories,
             budgets: selectedBudget,
             date: selectedDate,
+            time: selectedTime,
             stations: selectedStations,
         };
         console.log('Applying filters:', filters);
@@ -78,14 +79,14 @@ const SearchFilterPage = ({ navigation }) => {
                         title="Date-time of the Outing"
                         selectedDate={selectedDate}
                         setSelectedDate={setSelectedDate}
+                        selectedTime={selectedTime}
+                        setSelectedTime={setSelectedTime}
                     />
                     <NearestMRTSection 
                         selectedStations={selectedStations}
                         setSelectedStations={setSelectedStations}
                     />
-
                     <View style={styles.buttonsContainer}>
-
                         <ButtonField
                             onPress={applyFilters}
                             title={'Apply'}

@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-const DateSection = () => {
+const DateSection = ({ selectedDate, setSelectedDate, selectedTime, setSelectedTime }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState({ start: null, end: null });
   const [pickerMode, setPickerMode] = useState("date");
   const [timeType, setTimeType] = useState(null);
 

@@ -3,14 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const categories = ['FOC', '$', '$$', '$$$'];
 
-const BudgetSection = () => {
-    const [selectedBudget, setSelectedBudget] = useState([]);
-
+const BudgetSection = ({ selectedBudget, setSelectedBudget }) => {
     const toggleCategory = (category) => {
         if (selectedBudget.includes(category)) {
             setSelectedBudget(selectedBudget.filter(item => item !== category));
         } else {
-            setSelectedBudget([...selectedBudget, category]);
+            const updatedBudget = [...selectedBudget, category];
+            setSelectedBudget(updatedBudget);
+            console.log('Selected budget:', updatedBudget);
         }
     };
 
@@ -63,9 +63,8 @@ const styles = StyleSheet.create({
         borderColor: '#6EC1D4',
         borderWidth: 1,
         borderRadius: 20,
-        padding: 5,
+        padding: 10,
         paddingHorizontal: 22,
-        margin: 10,
         backgroundColor: '#fff',
     },
     selectedCategoryButton: {
