@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const AutoIncrement = require("mongoose-sequence")(mongoose);
 
-const account = new mongoose.Schema({
+const event = new mongoose.Schema({
     eventID: { type: Number, unique: true },
     eventName: String,
     location: String,
@@ -15,4 +15,4 @@ const account = new mongoose.Schema({
 account.plugin(AutoIncrement, { inc_field: 'userID' });
 
 
-module.exports = mongoose.model("account", account)
+module.exports = mongoose.model("event", event)

@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRouter");
 const roomRoutes = require("./routes/roomRouter");
+const eventRoutes = require("./routes/eventRouter");
 
 dotenv.config();
 
@@ -47,7 +48,8 @@ app.get("/", (req, res) => {
 
 //routes
 app.use("/auth", authRoutes);
-app.use("/room", roomRoutes)
+app.use("/room", roomRoutes);
+app.use("/event", eventRoutes);
 
 //start server
 app.listen(PORT, () => {
