@@ -17,6 +17,7 @@ const createNewUser = async (req, res) => {
             message: "Username alrady exists"
         });
     };
+    // Encrypt the PW here
     // Add to DB
     const createdUser = await Accounts.create(newUser);
     // Return 201, createdUser
@@ -48,7 +49,23 @@ const userLogin = async (req, res) => {
     });
 };
 
+const retrieveUserByID = async (req, res) => {
+    const UserID = req.params.id;
+
+    const existingUser = await Accounts.findOne({
+        userID: UserID
+    });
+
+    if (!existingUser) {
+        return res.status(404).json({
+            message: "UserID not found"
+        });
+    };
+    return res.status(200).json(existingUser);
+};
+
 module.exports = {
     createNewUser,
-    userLogin
+    userLogin,
+    retrieveUserByID
 }
