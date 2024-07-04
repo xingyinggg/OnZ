@@ -16,6 +16,7 @@ const SwipingCard = ({ navigation }) => {
       location: 'Location 1', 
       rating: 4.5 ,
       price: '$',
+      fullLocation: '35 Selegie Road #02-08/09/10/11/12 Parklane Shopping Mall #01-08 Parklane Shopping Mall, 188307'
     },
 
     { id: 2, 
@@ -26,11 +27,21 @@ const SwipingCard = ({ navigation }) => {
       rating: 4.0 ,
       price: '$$'
     },
-    // Add more cards...
+    { id: 3, 
+      text: 'Card 3', 
+      uri: [placeholderUri, placeholderUri, placeholderUri], 
+      description: 'Description for Card 2', 
+      location: 'Location 2', 
+      rating: 4.0 ,
+      price: '$$'
+    },
+
   ]);
 
   const nopeOpacity = useSharedValue(10);
   const likeOpacity = useSharedValue(10);
+
+  const [isSwipedAll, setIsSwipedAll] = useState(false);
 
   const renderCard = (card) => (
     <Animated.View key={card.id} style={styles.cardContainer}>
@@ -40,14 +51,18 @@ const SwipingCard = ({ navigation }) => {
         <View style={styles.cardInfo}> 
           
           <View style={styles.cardDetails}>
-
-            <Text style={styles.cardText}>{card.text}</Text>
-            <Text style={styles.cardLocation}>{card.location}</Text>
-
-            <View style={styles.cardFooter}>
-              <Text style={styles.cardRating}><Ionicons name="star-outline" size={16} color="black" /> {card.rating} Rating</Text>
-              <Text style={styles.cardPrice}>{card.price}</Text>
+          <Text style={styles.cardText}>{card.text}</Text>
+          <View style={styles.row}>
+            <Ionicons name="location-outline" size={18} color="#A0CED9" />
+            <Text style={styles.cardLocation}> {card.location}</Text>
+          </View>
+          <View style={styles.cardFooter}>
+            <View style={styles.row}>
+            <Ionicons name="star-outline" size={18} color="black" /> 
+            <Text style={styles.cardRating}> {card.rating} / 5</Text>
             </View>
+            <Text style={styles.cardPrice}>{card.price}</Text>
+          </View>
 
           </View>
 
@@ -58,22 +73,33 @@ const SwipingCard = ({ navigation }) => {
     </Animated.View>
   );
 
-  const onSwiped = (cardIndex, direction) => {
-    console.log(direction === 'left' ? `Nope: ${cards[cardIndex].text}` : `Liked: ${cards[cardIndex].text}`);
-    nopeOpacity.value = 10;
-    likeOpacity.value = 10;
+  const onSwipedLeft = (cardIndex) => {
+    console.log(`Nope: ${cards[cardIndex].text}`);
+    likeOpacity.value = withTiming(1);
+    nopeOpacity.value = withTiming(1);
+    // nopeOpacity.value = withTiming(1, { duration: 500 }); // Reset opacity after swipe
+  };
+  
+  const onSwipedRight = (cardIndex) => {
+    console.log(`Liked: ${cards[cardIndex].text}`);
+    likeOpacity.value = withTiming(1);
+    nopeOpacity.value = withTiming(1);
+    // likeOpacity.value = withTiming(1, { duration: 500 }); // Reset opacity after swipe
   };
 
   const onSwiping = (x) => {
     if (x < -70) {
-        nopeOpacity.value = withTiming(1);
+      nopeOpacity.value = withTiming(1);
+      likeOpacity.value = withTiming(0); // Ensure likeOpacity is hidden when swiping left
     } else if (x > 70) {
-        likeOpacity.value = withTiming(1);
+      likeOpacity.value = withTiming(1);
+      nopeOpacity.value = withTiming(0); // Ensure nopeOpacity is hidden when swiping right
     } else {
-        nopeOpacity.value = withTiming(0);
-        likeOpacity.value = withTiming(0);
+      likeOpacity.value = withTiming(1);
+      nopeOpacity.value = withTiming(1);
     }
   };
+  
 
   const nopeAnimatedStyle = useAnimatedStyle(() => ({
     opacity: nopeOpacity.value,
@@ -84,19 +110,31 @@ const SwipingCard = ({ navigation }) => {
     opacity: likeOpacity.value,
   }));
 
+  const onSwipedAll = () => {
+    setIsSwipedAll(true);
+    likeOpacity.value = withTiming(0);
+    nopeOpacity.value = withTiming(0);
+  };
+
   return (
     <View style={styles.container}>
-    <Swiper
-      cards={cards}
-      renderCard={(card, index) => renderCard(card, index)}
-      onSwipedLeft={(cardIndex) => onSwiped(cardIndex, 'left')}
-      onSwipedRight={(cardIndex) => onSwiped(cardIndex, 'right')}
-      onSwiping={(x) => onSwiping(x)}
-      cardIndex={0}
-      backgroundColor={'#f0f0f0'}
-      stackSize={3}
-    />
-
+       {isSwipedAll ? (
+        <Text style={styles.swipedAllText}>You have finished swiping!</Text>
+      ) : (
+      <Swiper
+        cards={cards}
+        renderCard={(card, index) => renderCard(card, index)}
+        onSwipedLeft={(cardIndex) => onSwipedLeft(cardIndex, 'left')}
+        onSwipedRight={(cardIndex) => onSwipedRight(cardIndex, 'right')}
+        onSwiping={(x) => onSwiping(x)}
+        onSwipedAll={onSwipedAll}
+        cardIndex={0}
+        backgroundColor={'#f0f0f0'}
+        stackSize={3}
+        horizontalSwipe={true} // Restrict to horizontal swipe only
+        verticalSwipe={false} // Disable vertical swipe
+      />
+       )}
     <View style={styles.bottomContainer}>
         <Animated.View style={[styles.iconContainer, nopeAnimatedStyle]}>
           <Ionicons name="close-circle" size={60} color="#585858" />
@@ -156,6 +194,10 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontFamily: 'Karma-Bold'
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   cardLocation: {
     fontSize: 16,
     color: 'grey',
@@ -163,6 +205,7 @@ const styles = StyleSheet.create({
   cardFooter: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    // alignItems:'center',
     marginTop: 8,
   },
   cardRating: {
@@ -171,7 +214,7 @@ const styles = StyleSheet.create({
   },
   cardPrice: {
     marginRight: 10,
-    fontSize: 14,
+    fontSize: 18,
     // fontFamily: 'Karma-Bold',
     color: 'black',
   },
@@ -201,6 +244,11 @@ const styles = StyleSheet.create({
   like: {
     right: 20,
     color: '#A0CED9',
+  },
+  swipedAllText: {
+    fontSize: 24,
+    fontFamily: 'Karma-Bold',
+    color: 'black',
   },
 });
 

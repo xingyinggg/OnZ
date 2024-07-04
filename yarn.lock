@@ -1282,6 +1282,11 @@
     dotenv-expand "~11.0.6"
     getenv "^1.0.0"
 
+"@expo/html-elements@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@expo/html-elements/-/html-elements-0.10.1.tgz#ec2625370cf1d4cb78efa954df45d422532d5ab6"
+  integrity sha512-3PTmtkV15D7+lykXVtvkH1jQ5Y6JE+e3zCaoMMux7z2cSLGQUNwDEUwG37gew3OEB1/E4/SEWgjvg8m7E6/e2Q==
+
 "@expo/image-utils@^0.5.0":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@expo/image-utils/-/image-utils-0.5.1.tgz#06fade141facebcd8431355923d30f3839309942"
@@ -1591,6 +1596,11 @@
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
+"@react-native-clipboard/clipboard@^1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@react-native-clipboard/clipboard/-/clipboard-1.14.1.tgz#835f82fc86881a0808a8405f2576617bb5383554"
+  integrity sha512-SM3el0A28SwoeJljVNhF217o0nI4E7RfalLmuRQcT1/7tGcxUjgFa3jyrEndYUct8/uxxK5EUNGUu1YEDqzxqw==
+
 "@react-native-community/checkbox@^0.5.17":
   version "0.5.17"
   resolved "https://registry.yarnpkg.com/@react-native-community/checkbox/-/checkbox-0.5.17.tgz#80dd335ca5c61ac2ca4525a21d8fef3f7a021ef7"
@@ -1757,6 +1767,11 @@
   integrity sha512-4BO0t3geMNNw9cIIm9p9FNUzwMXexdzD4pAH0AaUAycs3BS71HLrX8jHbrI7nzq/+8O7cLAXn5Gudte+YpTV8Q==
   dependencies:
     invariant "^2.2.4"
+
+"@react-native-community/react-native-clipboard@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/react-native-clipboard/-/react-native-clipboard-1.0.1.tgz#91ad2e77c54e33de609a23d9be9276f47a96d189"
+  integrity sha512-FeVdKwnujjIJsr3ZdzA/6LH6O+lJPyxjCq+MEtarm6mC6XHSH0YYJhfbL8fn+RlRymwH6ct10u9syIz7GrAn7A==
 
 "@react-native/assets-registry@0.74.84":
   version "0.74.84"
@@ -5793,6 +5808,11 @@ react-native-calendar-picker@^8.0.4:
     node-git-hooks "^1.0.1"
     prop-types "^15.6.0"
     recyclerlistview "^3.0.0"
+
+react-native-clipboard@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-clipboard/-/react-native-clipboard-0.0.5.tgz#3e3f57f32f6785fff05453f88fbcc0a34ed47828"
+  integrity sha512-0tKNkVyYAQ+79SbTYIoa+5NATLOZkk4c1wQJoloWbRj0PcYPt06+jCC+S9jFs9UxZTRkbdZI+pWblQWwO5N2hg==
 
 react-native-date-picker@^5.0.4:
   version "5.0.4"
