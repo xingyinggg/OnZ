@@ -66,7 +66,7 @@ export default LoginPage = ({ navigation }) => {
 
             {/* Main container, contains all the elements of the page */}
             <SafeAreaView style={styles.container}>
-                <View style={styles.content}>
+                <KeyboardAvoidingView style={styles.content}>
                     {/*title*/}
                     <Text style={styles.headerText}>Enter Your Outing Code</Text>
 
@@ -81,6 +81,7 @@ export default LoginPage = ({ navigation }) => {
                             value={roomCode}
                             placeholder={'OUTING CODE'}
                             textAlign="center"
+                            onSubmitEditing={handleOnzButton} 
                         />
                     </View>
 
@@ -91,7 +92,7 @@ export default LoginPage = ({ navigation }) => {
                         onPress={handleOnzButton}
                         title={'OnZ!'}
                     />
-                </View>
+                </KeyboardAvoidingView>
                 
             
                 {!isKeyboardVisible && <BottomBar navigation={navigation} />}
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
         paddingBottom: 300,
     },
     headerText: {
-        marginTop: 200,
+        paddingTop: "40%",
         fontSize: 24,
         marginBottom: 10,
         fontFamily: 'Karma-Bold'
@@ -133,8 +134,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         justifyContent: 'center',
         alignContent: 'center',
+        alignItems: 'center'
     },
     fieldText:{
+        height: 56,
         fontSize: 16,
         color: '#8F8F8F',
         textAlign: 'center',
