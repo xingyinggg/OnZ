@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
@@ -72,6 +72,7 @@ const SwipingCard = ({ navigation }) => {
       <Animated.Text style={[styles.swipeText, styles.like]}>✓</Animated.Text> */}
     </Animated.View>
   );
+  const swiperRef = useRef(null);
 
   const onSwipedLeft = (cardIndex) => {
     console.log(`Nope: ${cards[cardIndex].text}`);
@@ -116,12 +117,20 @@ const SwipingCard = ({ navigation }) => {
     nopeOpacity.value = withTiming(0);
   };
 
+  const handleNope = () => {
+    swiperRef.current.swipeLeft();
+  };
+
+  const handleLike = () => {
+    swiperRef.current.swipeRight();
+  };
   return (
     <View style={styles.container}>
        {isSwipedAll ? (
         <Text style={styles.swipedAllText}>You have finished swiping!</Text>
       ) : (
       <Swiper
+        ref={swiperRef}
         cards={cards}
         renderCard={(card, index) => renderCard(card, index)}
         onSwipedLeft={(cardIndex) => onSwipedLeft(cardIndex, 'left')}
@@ -136,13 +145,18 @@ const SwipingCard = ({ navigation }) => {
       />
        )}
     <View style={styles.bottomContainer}>
-        <Animated.View style={[styles.iconContainer, nopeAnimatedStyle]}>
+    <Animated.View style={[styles.iconContainer, nopeAnimatedStyle]}>
+    <TouchableOpacity onPress={handleNope} style={[styles.iconContainer, styles.nope]}>
           <Ionicons name="close-circle" size={60} color="#585858" />
-        </Animated.View>
-        <Animated.View style={[styles.iconContainer, likeAnimatedStyle]}>
-          <Ionicons name="checkmark-circle" size={60} color="#A0CED9" />
-        </Animated.View>
+        </TouchableOpacity>
+    </Animated.View>
+    <Animated.View style={[styles.iconContainer, likeAnimatedStyle]}>
+      <TouchableOpacity onPress={handleLike} style={[styles.iconContainer, styles.like]}>
+        <Ionicons name="checkmark-circle" size={60} color="#A0CED9" />
+      </TouchableOpacity>
+    </Animated.View>
     </View>
+    
 
   </View>
   );

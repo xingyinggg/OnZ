@@ -29,7 +29,7 @@ import SearchFilterPage from './src/screens/searchFilterPage';
 import OutingsFilterPage from './src/screens/outingsFilterPage';
 import CodePage from './src/screens/codePage';
 import SwipingCard from './src/screens/swipingCard';
-
+import OutingRoomPage from './src/screens/outingRoomPage';
 
 
 // Outings  
@@ -186,6 +186,11 @@ export default function App() {
         <Stack.Screen
           name='changeProfilePicturePage'
           component={ChangeProfilePicturePage}
+        />
+
+        <Stack.Screen
+          name='outingRoomPage'
+          component={OutingRoomPage}
         />
 
       </Stack.Navigator>

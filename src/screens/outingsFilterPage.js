@@ -68,6 +68,7 @@ const SearchFilterPage = ({ navigation }) => {
         };
         console.log('Applying filters:', filters);
         // Here you would send `filters` to your backend or perform the filtering logic
+        navigation.navigate('outingRoomPage');
     };
 
     return (
