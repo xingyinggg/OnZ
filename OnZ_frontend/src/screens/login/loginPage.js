@@ -14,6 +14,7 @@ import {
     Image,
 } from "react-native";
 // import CheckBox from "@react-native-community/checkbox";
+import axios from 'axios';
 
 
 // Component imports
@@ -49,7 +50,18 @@ export default LoginPage = ({ navigation }) => {
         // TODO: Add login functionality here, link to backend, navigate to home page
         console.log("Username: " + username);
         console.log("Password: " + password);
-        navigation.navigate('homePage')
+        // navigation.navigate('homePage')
+        const userData={
+            username: username,
+            password: password
+        }
+
+        axios
+            .post("http://localhost:3000/login", userData)
+            .them(res => console.log(res.data))
+            .catch(e => console.log(e))
+
+
     }
 
     // Return statement, what the component will render
