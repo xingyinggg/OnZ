@@ -20,7 +20,7 @@ import {
 // Component imports
 import BottomBar from "../components/bottomBar";
 import ButtonField from "../components/buttonField";
-import BackButton from "../components/BackButton";
+import BackButton from "../components/backButton";
 
 // Main Component
 export default LoginPage = ({ navigation }) => {

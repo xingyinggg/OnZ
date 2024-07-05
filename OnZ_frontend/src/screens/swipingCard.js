@@ -5,7 +5,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 import { Ionicons } from '@expo/vector-icons';
 
 // component import
-import BackButton from '../components/BackButton';
+import BackButton from '../components/backButton';
 
 const placeholderUri = 'https://via.placeholder.com/200';
 
