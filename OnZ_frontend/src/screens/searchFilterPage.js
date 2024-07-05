@@ -16,7 +16,7 @@ import DateSection from "../components/filters/dateSection";
 import NearestMRTSection from "../components/filters/nearestMRTSection";
 import BottomBar from "../components/bottomBar";
 import ButtonField from "../components/buttonField";
-import BackButton from "../components/backButton";
+import BackButton from "../components/BackButton";
 
 // Main Component
 const SearchFilterPage = ({ navigation }) => {
