@@ -20,7 +20,7 @@ import {
 // Component imports
 import BottomBar from "../components/bottomBar";
 import ButtonField from "../components/buttonField";
-import BackButton from "../components/backButton";
+import BackButton from "../components/BackButton";
 
 // Main Component
 export default LoginPage = ({ navigation }) => {
@@ -99,6 +99,7 @@ export default LoginPage = ({ navigation }) => {
                         title={'OnZ!'}
                     />
                 </KeyboardAvoidingView>
+                </View>
                 
             
                 {!isKeyboardVisible && <BottomBar navigation={navigation} />}
