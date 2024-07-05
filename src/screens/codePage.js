@@ -71,7 +71,9 @@ export default LoginPage = ({ navigation }) => {
                     <BackButton navigation={navigation} />
                 </View>
                 <View style={styles.content}>
-                    {/*title*/}
+                <KeyboardAvoidingView style={styles.content}>
+
+                  {/*title*/}
                     <Text style={styles.headerText}>Enter Your Outing Code</Text>
 
                     {/*code input*/}
@@ -85,6 +87,7 @@ export default LoginPage = ({ navigation }) => {
                             value={roomCode}
                             placeholder={'OUTING CODE'}
                             textAlign="center"
+                            onSubmitEditing={handleOnzButton} 
                         />
                     </View>
 
@@ -95,7 +98,7 @@ export default LoginPage = ({ navigation }) => {
                         onPress={handleOnzButton}
                         title={'OnZ!'}
                     />
-                </View>
+                </KeyboardAvoidingView>
                 
             
                 {!isKeyboardVisible && <BottomBar navigation={navigation} />}
@@ -136,7 +139,7 @@ const styles = StyleSheet.create({
         paddingBottom: 180,
     },
     headerText: {
-        marginTop: 200,
+        paddingTop: "40%",
         fontSize: 24,
         marginBottom: 10,
         fontFamily: 'Karma-Bold'
@@ -149,8 +152,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         justifyContent: 'center',
         alignContent: 'center',
+        alignItems: 'center'
     },
     fieldText:{
+        height: 56,
         fontSize: 16,
         color: '#8F8F8F',
         textAlign: 'center',
