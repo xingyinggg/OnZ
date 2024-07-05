@@ -60,6 +60,17 @@ export default RegisterPage = ({ navigation }) => {
         console.log("Username: " + username);
         console.log("Password: " + password);
         console.log("Confirm Password: " + confirmPassword);
+        const userData={
+            email: email,
+            username: username,
+            password: password
+        }
+
+        axios
+            .post("http://localhost:8081/registerPage", userData)
+            .them(res => console.log(res.data))
+            .catch(e => console.log(e))
+
     }
 
     // Return statement, what the component will render
