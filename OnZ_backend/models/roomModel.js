@@ -8,7 +8,7 @@ const room = new mongoose.Schema({
 })
 
 // Apply the auto-increment pugin to UserID
-roomUser.plugin(AutoIncrement, { inc_field: 'roomID' });
+room.plugin(AutoIncrement, { inc_field: 'roomID' });
 
 
 module.exports = mongoose.model("room", room)

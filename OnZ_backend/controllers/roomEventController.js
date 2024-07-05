@@ -1,5 +1,5 @@
 const RoomEvents = require("../models/roomEventModel");
-const RoomUser = require("../models/roomUser");
+const RoomUser = require("../models/roomUserModel");
 const Event = require("../models/eventModel");
 
 // GET endpoint to retrieve a list of all Events
