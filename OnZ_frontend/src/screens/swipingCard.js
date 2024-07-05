@@ -1,110 +1,103 @@
-import React, { useState, useRef} from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
+
+// component import
+import BackButton from '../components/BackButton';
 
 const placeholderUri = 'https://via.placeholder.com/200';
 
 const SwipingCard = ({ navigation }) => {
-
   const [cards] = useState([
-    { id: 1, 
-      text: 'Isle Eating House', 
-      uri: [require('../assets/isleEatingHouse.jpg'), placeholderUri, placeholderUri], 
-      description: 'Flicker and flobber, the wibble wobbles wane. Zizzle zazzle, the quirkle quirks quizzically. Flambastic flumph, the gorgle gorks gaily. Noodle noggin, the squeegee squawks squishily. Blorp and blunder, the snizzle snazzles swiftly. Whiffle whuffle, the twizzle twines twinkly. Bumble bramble, the chortle chirps cheerily. Dabble and dribble, the fluggle flings fuzzily. Quibble and quabble, the frizzle frits friskily. Zibble zabble, the drabble dinks delightfully.', 
-      location: 'Location 1', 
-      rating: 4.5 ,
+    {
+      id: 1,
+      text: 'Isle Eating House',
+      uri: [require('../assets/isleEatingHouse.jpg'), placeholderUri, placeholderUri],
+      description: 'Flicker and flobber, the wibble wobbles wane. Zizzle zazzle, the quirkle quirks quizzically. Flambastic flumph, the gorgle gorks gaily. Noodle noggin, the squeegee squawks squishily. Blorp and blunder, the snizzle snazzles swiftly. Whiffle whuffle, the twizzle twines twinkly. Bumble bramble, the chortle chirps cheerily. Dabble and dribble, the fluggle flings fuzzily. Quibble and quabble, the frizzle frits friskily. Zibble zabble, the drabble dinks delightfully.',
+      location: 'Location 1',
+      rating: 4.5,
       price: '$',
       fullLocation: '35 Selegie Road #02-08/09/10/11/12 Parklane Shopping Mall #01-08 Parklane Shopping Mall, 188307'
     },
-
-    { id: 2, 
-      text: 'Card 2', 
-      uri: [placeholderUri, placeholderUri, placeholderUri], 
-      description: 'Description for Card 2', 
-      location: 'Location 2', 
-      rating: 4.0 ,
+    {
+      id: 2,
+      text: 'Card 2',
+      uri: [placeholderUri, placeholderUri, placeholderUri],
+      description: 'Description for Card 2',
+      location: 'Location 2',
+      rating: 4.0,
       price: '$$'
     },
-    { id: 3, 
-      text: 'Card 3', 
-      uri: [placeholderUri, placeholderUri, placeholderUri], 
-      description: 'Description for Card 2', 
-      location: 'Location 2', 
-      rating: 4.0 ,
+    {
+      id: 3,
+      text: 'Card 3',
+      uri: [placeholderUri, placeholderUri, placeholderUri],
+      description: 'Description for Card 2',
+      location: 'Location 2',
+      rating: 4.0,
       price: '$$'
     },
-
   ]);
 
   const nopeOpacity = useSharedValue(10);
   const likeOpacity = useSharedValue(10);
-
   const [isSwipedAll, setIsSwipedAll] = useState(false);
 
   const renderCard = (card) => (
     <Animated.View key={card.id} style={styles.cardContainer}>
       <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('placeDetailPage', { card })}>
-      <Image source={typeof card.uri[0] === 'string' ? { uri: card.uri[0] } : card.uri[0]} style={styles.cardImage} />
-        
-        <View style={styles.cardInfo}> 
-          
+        <Image source={typeof card.uri[0] === 'string' ? { uri: card.uri[0] } : card.uri[0]} style={styles.cardImage} />
+        <View style={styles.cardInfo}>
           <View style={styles.cardDetails}>
-          <Text style={styles.cardText}>{card.text}</Text>
-          <View style={styles.row}>
-            <Ionicons name="location-outline" size={18} color="#A0CED9" />
-            <Text style={styles.cardLocation}> {card.location}</Text>
-          </View>
-          <View style={styles.cardFooter}>
+            <Text style={styles.cardText}>{card.text}</Text>
             <View style={styles.row}>
-            <Ionicons name="star-outline" size={18} color="black" /> 
-            <Text style={styles.cardRating}> {card.rating} / 5</Text>
+              <Ionicons name="location-outline" size={18} color="#A0CED9" />
+              <Text style={styles.cardLocation}> {card.location}</Text>
             </View>
-            <Text style={styles.cardPrice}>{card.price}</Text>
+            <View style={styles.cardFooter}>
+              <View style={styles.row}>
+                <Ionicons name="star-outline" size={18} color="black" />
+                <Text style={styles.cardRating}> {card.rating} / 5</Text>
+              </View>
+              <Text style={styles.cardPrice}>{card.price}</Text>
+            </View>
           </View>
-
-          </View>
-
         </View>
       </TouchableOpacity>
-      {/* <Animated.Text style={[styles.swipeText, styles.nope]}>X</Animated.Text>
-      <Animated.Text style={[styles.swipeText, styles.like]}>✓</Animated.Text> */}
     </Animated.View>
   );
+
   const swiperRef = useRef(null);
 
   const onSwipedLeft = (cardIndex) => {
     console.log(`Nope: ${cards[cardIndex].text}`);
     likeOpacity.value = withTiming(1);
     nopeOpacity.value = withTiming(1);
-    // nopeOpacity.value = withTiming(1, { duration: 500 }); // Reset opacity after swipe
   };
-  
+
   const onSwipedRight = (cardIndex) => {
     console.log(`Liked: ${cards[cardIndex].text}`);
     likeOpacity.value = withTiming(1);
     nopeOpacity.value = withTiming(1);
-    // likeOpacity.value = withTiming(1, { duration: 500 }); // Reset opacity after swipe
   };
 
   const onSwiping = (x) => {
     if (x < -70) {
       nopeOpacity.value = withTiming(1);
-      likeOpacity.value = withTiming(0); // Ensure likeOpacity is hidden when swiping left
+      likeOpacity.value = withTiming(0);
     } else if (x > 70) {
       likeOpacity.value = withTiming(1);
-      nopeOpacity.value = withTiming(0); // Ensure nopeOpacity is hidden when swiping right
+      nopeOpacity.value = withTiming(0);
     } else {
       likeOpacity.value = withTiming(1);
       nopeOpacity.value = withTiming(1);
     }
   };
-  
 
   const nopeAnimatedStyle = useAnimatedStyle(() => ({
     opacity: nopeOpacity.value,
-    
   }));
 
   const likeAnimatedStyle = useAnimatedStyle(() => ({
@@ -124,47 +117,62 @@ const SwipingCard = ({ navigation }) => {
   const handleLike = () => {
     swiperRef.current.swipeRight();
   };
+
   return (
     <View style={styles.container}>
-      
-       {isSwipedAll ? (
-        <Text style={styles.swipedAllText}>You have finished swiping!</Text>
-      ) : (
-      <Swiper
-        ref={swiperRef}
-        cards={cards}
-        renderCard={(card, index) => renderCard(card, index)}
-        onSwipedLeft={(cardIndex) => onSwipedLeft(cardIndex, 'left')}
-        onSwipedRight={(cardIndex) => onSwipedRight(cardIndex, 'right')}
-        onSwiping={(x) => onSwiping(x)}
-        onSwipedAll={onSwipedAll}
-        cardIndex={0}
-        backgroundColor={'#f0f0f0'}
-        stackSize={3}
-        horizontalSwipe={true} // Restrict to horizontal swipe only
-        verticalSwipe={false} // Disable vertical swipe
-      />
-       )}
-    <View style={styles.bottomContainer}>
-    <Animated.View style={[styles.iconContainer, nopeAnimatedStyle]}>
-    <TouchableOpacity onPress={handleNope} style={[styles.iconContainer, styles.nope]}>
-          <Ionicons name="close-circle" size={60} color="#585858" />
-        </TouchableOpacity>
-    </Animated.View>
-    <Animated.View style={[styles.iconContainer, likeAnimatedStyle]}>
-      <TouchableOpacity onPress={handleLike} style={[styles.iconContainer, styles.like]}>
-        <Ionicons name="checkmark-circle" size={60} color="#A0CED9" />
-      </TouchableOpacity>
-    </Animated.View>
+      <View style={styles.headerContainer}>
+        <BackButton navigation={navigation} />
+      </View>
+      <View style={styles.swiperContainer}>
+        {isSwipedAll ? (
+          <Text style={styles.swipedAllText}>You have finished swiping!</Text>
+        ) : (
+          <Swiper
+            ref={swiperRef}
+            cards={cards}
+            renderCard={(card, index) => renderCard(card, index)}
+            onSwipedLeft={(cardIndex) => onSwipedLeft(cardIndex, 'left')}
+            onSwipedRight={(cardIndex) => onSwipedRight(cardIndex, 'right')}
+            onSwiping={(x) => onSwiping(x)}
+            onSwipedAll={onSwipedAll}
+            cardIndex={0}
+            backgroundColor={'#f0f0f0'}
+            stackSize={3}
+            horizontalSwipe={true}
+            verticalSwipe={false}
+          />
+        )}
+      </View>
+      <View style={styles.bottomContainer}>
+        <Animated.View style={[styles.iconContainer, nopeAnimatedStyle]}>
+          <TouchableOpacity onPress={handleNope} style={[styles.iconContainer, styles.nope]}>
+            <Ionicons name="close-circle" size={60} color="#585858" />
+          </TouchableOpacity>
+        </Animated.View>
+        <Animated.View style={[styles.iconContainer, likeAnimatedStyle]}>
+          <TouchableOpacity onPress={handleLike} style={[styles.iconContainer, styles.like]}>
+            <Ionicons name="checkmark-circle" size={60} color="#A0CED9" />
+          </TouchableOpacity>
+        </Animated.View>
+      </View>
     </View>
-    
-
-  </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerContainer: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    zIndex: 1,
+  },
+  swiperContainer: {
+    marginTop: 60,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -220,7 +228,6 @@ const styles = StyleSheet.create({
   cardFooter: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // alignItems:'center',
     marginTop: 8,
   },
   cardRating: {
@@ -230,7 +237,6 @@ const styles = StyleSheet.create({
   cardPrice: {
     marginRight: 10,
     fontSize: 18,
-    // fontFamily: 'Karma-Bold',
     color: 'black',
   },
   bottomContainer: {
