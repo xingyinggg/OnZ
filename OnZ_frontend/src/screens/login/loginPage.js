@@ -57,7 +57,7 @@ export default LoginPage = ({ navigation }) => {
         }
 
         axios
-            .post("http://localhost:3000/login", userData)
+            .post("http://localhost:3000/loginPage", userData)
             .them(res => console.log(res.data))
             .catch(e => console.log(e))
 

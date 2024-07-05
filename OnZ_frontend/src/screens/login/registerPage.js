@@ -15,6 +15,7 @@ import {
 } from "react-native";
 // import CheckBox from "@react-native-community/checkbox";
 import CheckBox from "expo-checkbox";
+import axios from 'axios';
 
 
 // Component imports
@@ -54,7 +55,7 @@ export default RegisterPage = ({ navigation }) => {
         setConfirmPassword(text);
     };
 
-    const handleRegister = () => {
+    function handleRegister(){
         // TODO: Add login functionality here, link to backend, navigate to home page
         console.log("Email: " + email);
         console.log("Username: " + username);
@@ -67,8 +68,8 @@ export default RegisterPage = ({ navigation }) => {
         }
 
         axios
-            .post("http://localhost:8081/registerPage", userData)
-            .them(res => console.log(res.data))
+            .post("http://10.124.13.145:8001/registerPage", userData)
+            .then(res => console.log(res.data))
             .catch(e => console.log(e))
 
     }
