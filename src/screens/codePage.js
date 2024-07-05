@@ -20,6 +20,7 @@ import {
 // Component imports
 import BottomBar from "../components/bottomBar";
 import ButtonField from "../components/buttonField";
+import BackButton from "../components/backButton";
 
 // Main Component
 export default LoginPage = ({ navigation }) => {
@@ -66,6 +67,9 @@ export default LoginPage = ({ navigation }) => {
 
             {/* Main container, contains all the elements of the page */}
             <SafeAreaView style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <BackButton navigation={navigation} />
+                </View>
                 <View style={styles.content}>
                     {/*title*/}
                     <Text style={styles.headerText}>Enter Your Outing Code</Text>
@@ -112,12 +116,24 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         
     },
+    headerContainer: {
+        position: 'absolute',
+        top: 20,
+        left: 20,
+        zIndex: 1,
+    },
+    contentContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 50,
+    },
     content: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         // width: '100%',
-        paddingBottom: 300,
+        paddingBottom: 180,
     },
     headerText: {
         marginTop: 200,

@@ -1,13 +1,9 @@
 // Standard imports
-import { 
-    React, 
-    useState,
-} from "react";
+import React from "react";
 import {
     View,
     Text,
     StyleSheet,
-    Button,
     TouchableWithoutFeedback,
     SafeAreaView,
     Keyboard,
@@ -17,53 +13,59 @@ import {
 
 // Component imports
 import BottomBar from "../components/bottomBar";
+import BackButton from "../components/backButton";
 
 // Main Component
-export default LoginPage = ({ navigation }) => {
-
-
+const LoginPage = ({ navigation }) => {
 
     // Return statement, what the component will render
     return (
-
         // Dismiss keyboard when user taps outside of the text input field
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
 
             {/* Main container, contains all the elements of the page */}
             <SafeAreaView style={styles.container}>
-                <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('codePage')}>
-                        <Image source= {require('../assets/roomPage/createOuting_logo.png')} style={styles.icon}/>
-                        <Text style={styles.buttonText} >Create Outing</Text>
-                    </TouchableOpacity>
-
-                    
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('outingsFilterPage')}>
-                        <Image source= {require('../assets/roomPage/joinRoom_logo.png')} style={styles.icon}/>
-                        <Text style={styles.buttonText}>Join Room</Text>
-                    </TouchableOpacity>
+                <View style={styles.headerContainer}>
+                    <BackButton navigation={navigation} />
                 </View>
+                <View style={styles.contentContainer}>
+                    <View style={styles.buttonsContainer}>
+                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('codePage')}>
+                            <Image source={require('../assets/roomPage/createOuting_logo.png')} style={styles.icon} />
+                            <Text style={styles.buttonText}>Create Outing</Text>
+                        </TouchableOpacity>
 
-                <View style={{ height: 280 }} />
-
+                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('outingsFilterPage')}>
+                            <Image source={require('../assets/roomPage/joinRoom_logo.png')} style={styles.icon} />
+                            <Text style={styles.buttonText}>Join Room</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 <BottomBar navigation={navigation} />
-
             </SafeAreaView>
         </TouchableWithoutFeedback>
     );
 };
 
+export default LoginPage;
+
 // Styles
 const styles = StyleSheet.create({
-
-    // Add different styles here, each item is a style object
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        //alignItems: 'center',
-        justifyContent: 'flex-end',
-        width: '100%',
-        // flexDirection: 'column'
+    },
+    headerContainer: {
+        position: 'absolute',
+        top: 20,
+        left: 20,
+        zIndex: 1,
+    },
+    contentContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 50,
     },
     buttonsContainer: {
         flexDirection: 'row',
@@ -80,18 +82,15 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: 110,
         height: 150,
-        // margin: 5,
     },
     buttonText: {
         color: '#6EC1D4',
         fontSize: 18,
-        textAlign:'center',
-        width: '80%'
+        textAlign: 'center',
+        width: '80%',
     },
     icon: {
         fontSize: 28,
         marginBottom: 10,
     },
-   
-
 });
