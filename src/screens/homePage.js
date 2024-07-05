@@ -160,7 +160,7 @@ const HomePage = ({ navigation }) => {
                     }
                     data={popularPlaces}
                     renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => navigation.navigate('placeDetailsPage')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('placeDetailPage')}>
                             <RowDescription
                                 imageSource={item.imageSource}
                                 name={item.name}

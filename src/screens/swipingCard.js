@@ -126,6 +126,7 @@ const SwipingCard = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
+      
        {isSwipedAll ? (
         <Text style={styles.swipedAllText}>You have finished swiping!</Text>
       ) : (
