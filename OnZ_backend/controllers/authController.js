@@ -2,7 +2,7 @@ const Accounts = require("../models/authModel");
 
 const createNewUser = async (req, res) => {
     // Take user details from req body
-    const {email, username,password, confirmPassword} = req.body;
+    const {email, username, password, confirmPassword} = req.body;
     // console.log("DEBUG USER:", newUser);
 
     if(email ==="" || username === ""|| password ===""||confirmPassword===""){
@@ -31,7 +31,10 @@ const createNewUser = async (req, res) => {
     };
     // Encrypt the PW here
     // Add to DB
-    const createdUser = await Accounts.create(email, username,password);
+    const createdUser = await Accounts.create(
+        {email: email, 
+        username: username,
+        password: password});
     // Return 201, createdUser
     return res.status(201).json(createdUser)
 }

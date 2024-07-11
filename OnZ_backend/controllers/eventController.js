@@ -31,23 +31,65 @@ const getEventByID = async (req, res) => {
 
 // GET endpoint to retrieve a list of events that fulfil the filter
 const findEventsByFilter = async (req, res) => {
-    const { budget, category, datetime, location } = req.query;
+    const {
+        selectedCategories,
+        selectedBudget,
+        selectedDate,
+        selectedTime,
+        selectedStations,
+        selectedChoice,
+        selectedResultsDate,
+        selectedNumberOfActivities
+    } = req.body;
 
+    // Create an empty query object
     const query = {};
 
-    if (budget) {
-        query.budget = { $lte: parseFloat(budget) };
+    // Add budget condition to the query if budget is provided
+    if (selectedBudget.length > 0) {
+        query.upperPriceRange = { $lte: Math.max(...selectedBudget.map(b => parseFloat(b))) };
     }
-    if (category) {
-        query.category = category;
-    }
-    if (location) {
-        query.location = location;
-    }
-    if (date) {
 
+    // Add category condition to the query if categories are provided
+    if (selectedCategories.length > 0) {
+        query.category = { $in: selectedCategories.map(category => category.toLowerCase()) };
     }
-}
+
+    // Add location condition to the query if stations are provided
+    if (selectedStations.length > 0) {
+        query.location = { $in: selectedStations.map(station => station.toLowerCase()) };
+    }
+
+    // Add date condition to the query if date is provided
+    if (selectedDate) {
+        const date = new Date(selectedDate);
+        if (!isNaN(date)) {
+            query.date = { $gte: date };
+        }
+    }
+
+    // Add time range condition if start and end times are provided
+    if (selectedTime.start && selectedTime.end) {
+        query.time = {
+            $gte: new Date(selectedTime.start),
+            $lte: new Date(selectedTime.end)
+        };
+    }
+
+    // You may want to handle other filters (selectedChoice, selectedResultsDate, selectedNumberOfActivities) similarly if they are relevant for your schema
+
+    try {
+        // Find events based on the constructed query
+        const events = await Event.find(query);
+
+        // Return the list of events that fulfill the filter
+        res.status(200).json(events);
+    } catch (error) {
+        // Handle errors and return a 500 status with the error message
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
     getAllEvents,
     getEventByID,
