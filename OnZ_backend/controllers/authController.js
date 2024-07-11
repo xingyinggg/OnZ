@@ -2,24 +2,36 @@ const Accounts = require("../models/authModel");
 
 const createNewUser = async (req, res) => {
     // Take user details from req body
-    const newUser = req.body;
+    const {email, username,password, confirmPassword} = req.body;
     // console.log("DEBUG USER:", newUser);
+
+    if(email ==="" || username === ""|| password ===""||confirmPassword===""){
+        return res.status(401).json({
+            message: "All fields not filled up."
+        });
+    }
+
+    if (password !== confirmPassword){
+        return res.status(402).json({
+            message: "Passwords do not match"
+        });
+    }
 
     // Check if username already exist
     const existingUser = await Accounts.findOne({
-        username: newUser.username
+        username: username
     });
     // console.log("DEBUG CHECK USER:", existingUser);
     // If exist, return 400 bad req
     if (existingUser) {
         // console.log("ABCDEFG")
         return res.status(400).json({
-            message: "Username alrady exists"
+            message: "Username already exists"
         });
     };
     // Encrypt the PW here
     // Add to DB
-    const createdUser = await Accounts.create(newUser);
+    const createdUser = await Accounts.create(email, username,password);
     // Return 201, createdUser
     return res.status(201).json(createdUser)
 }

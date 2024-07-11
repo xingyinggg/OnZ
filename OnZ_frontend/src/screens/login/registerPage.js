@@ -12,6 +12,7 @@ import {
     SafeAreaView,
     Keyboard,
     Image,
+    Alert
 } from "react-native";
 // import CheckBox from "@react-native-community/checkbox";
 import CheckBox from "expo-checkbox";
@@ -37,6 +38,7 @@ export default RegisterPage = ({ navigation }) => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isSelected, setSelection] = useState(false);
+    const [error, setError] = useState(null);
 
     // Functions
     const handleEmailInput = (text) => {
@@ -56,22 +58,52 @@ export default RegisterPage = ({ navigation }) => {
     };
 
     function handleRegister(){
-        // TODO: Add login functionality here, link to backend, navigate to home page
+        //TODO: Add login functionality here, link to backend, navigate to home page
         console.log("Email: " + email);
         console.log("Username: " + username);
         console.log("Password: " + password);
         console.log("Confirm Password: " + confirmPassword);
+    
         const userData={
             email: email,
             username: username,
-            password: password
+            password: password,
+            confirmPassword: confirmPassword
         }
 
         axios
-            .post("http://10.124.13.145:8001/registerPage", userData)
-            .then(res => console.log(res.data))
-            .catch(e => console.log(e))
+            .post("http://10.124.2.108:3000/auth/user", userData)
+            .then(res => {
+                console.log(res.data);
+                if (res.data == '"message": "Passwords do not match"') {
+                }
+                else {navigation.navigate('loginPage')}
 
+            })
+            .catch(e =>{
+            console.log(e);
+            let errorMessage='';
+            if (e.response) {
+                if (e.response.status === 400) {
+                    errorMessage = 'Username already exists';
+                } else if (e.response.status === 401) {
+                    errorMessage = 'Please fill up all fields';
+                } else if (e.response.status === 402) {
+                    errorMessage = 'Passwords do not match';
+                } 
+            }
+            // else {
+            //     console.log('Error message:', e.message);
+            // }
+            setError(errorMessage);
+            Alert.alert(
+                'Registration Failed',
+                errorMessage,
+                [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                { cancelable: false }
+            );
+            })
+        
     }
 
     // Return statement, what the component will render
@@ -176,12 +208,12 @@ export default RegisterPage = ({ navigation }) => {
 
                 <ButtonField
                 onPress={handleRegister} 
-                title= 'REGISTER'
+                title= 'REGISTER'   
                 />
 
                 {/* Terms of Services and Privacy Policy */}
                 <Text style={styles.termsOfService}>
-                    By clicking login, you agree to our{' '}
+                    By clicking register, you agree to our{' '}
                     <TouchableOpacity onPress={() => navigation.navigate('termsOfServicePage')}>
                         <Text style={styles.termsOfService1}>Terms of Service and Privacy Policy</Text>
                     </TouchableOpacity>

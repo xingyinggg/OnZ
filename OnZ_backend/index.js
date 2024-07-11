@@ -39,7 +39,6 @@ db.once("open", () => {
     console.log("[SYSTEM] Connected to MongoDB successfully!");
 });
 
-
 //health check endpoint
 app.get("/", (req, res) => {
     return res.status(200).json({
@@ -52,6 +51,8 @@ app.use("/auth", authRoutes);
 app.use("/room", roomRoutes);
 app.use("/event", eventRoutes);
 app.use("/roomEvent", roomEventRoutes);
+
+
 
 //start server
 app.listen(PORT, () => {
