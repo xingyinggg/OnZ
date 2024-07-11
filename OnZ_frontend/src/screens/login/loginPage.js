@@ -12,6 +12,7 @@ import {
     SafeAreaView,
     Keyboard,
     Image,
+    Alert
 } from "react-native";
 // import CheckBox from "@react-native-community/checkbox";
 import axios from 'axios';
@@ -36,6 +37,7 @@ export default LoginPage = ({ navigation }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isSelected, setSelection] = useState(false);
+    const [error, setError] = useState(null);
 
     // Functions
     const handleUsernameInput = (text) => {
@@ -46,7 +48,7 @@ export default LoginPage = ({ navigation }) => {
         setPassword(text);
     };
 
-    const handleLogin = () => {
+    function handleLogin() {
         // TODO: Add login functionality here, link to backend, navigate to home page
         console.log("Username: " + username);
         console.log("Password: " + password);
@@ -57,10 +59,22 @@ export default LoginPage = ({ navigation }) => {
         }
 
         axios
-            .post("http://localhost:3000/loginPage", userData)
-            .them(res => console.log(res.data))
-            .catch(e => console.log(e))
-
+            .post("http://10.124.2.108:3000/auth/login", userData)
+            .then(res => {
+                console.log(res.data);
+                if (res.data == '"message": "successfully logged in"') {
+                    navigation.navigate('homePage');
+                }
+            })
+                .catch(e =>{
+                console.log(e);
+                setError('Login failed. Please check your credentials and try again.');
+                Alert.alert(
+                    'Login Failed',
+                    'Please check your credentials and try again.',
+                    [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                    { cancelable: false })}
+                )
 
     }
 
