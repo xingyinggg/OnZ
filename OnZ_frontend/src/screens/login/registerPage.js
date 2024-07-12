@@ -222,14 +222,14 @@ export default RegisterPage = ({ navigation }) => {
 
                 {/* Add space between Terms of Services and Register */}
                 {/* <View>View style={{ height: 60 }}</View> */}
-                <View style={{ height: 80 }} />
+                <View style={{ height: 60 }} />
 
                 {/* Register */}      
                 <View style={ {flexDirection: 'row',justifyContent: 'center', alignItems: 'center'} }>
                 <TouchableOpacity onPress={() => navigation.navigate('loginPage')}>
-                    <Header3>
-                        Have An Account? Login!
-                    </Header3>
+                    <Header3
+                        text='Have An Account? Login!'
+                    />
                 </TouchableOpacity>
                 </View>         
 

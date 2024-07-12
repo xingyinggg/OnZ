@@ -59,13 +59,14 @@ export default LoginPage = ({ navigation }) => {
         }
 
         axios
-            .post("http://10.124.2.108:3000/auth/login", userData)
+            .post("http://10.124.2.108:3000/login", userData)
             .then(res => {
                 console.log(res.status);
                 if (res.status == 200) {
                     console.log("Login successful, navigating to homepage")
                     navigation.navigate('homePage');
                 }
+                
             })
                 .catch(e =>{
                 console.log(e);
