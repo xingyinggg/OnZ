@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -47,7 +48,7 @@ app.get("/", (req, res) => {
 })
 
 //routes
-app.use("/auth", authRoutes);
+app.use("/", authRoutes);
 app.use("/room", roomRoutes);
 app.use("/event", eventRoutes);
 app.use("/roomEvent", roomEventRoutes);

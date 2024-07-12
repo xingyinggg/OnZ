@@ -1,4 +1,7 @@
+require('dotenv').config();
+
 const Accounts = require("../models/authModel");
+const jwt = require("jsonwebtoken");
 
 const createNewUser = async (req, res) => {
     // Take user details from req body
@@ -39,13 +42,14 @@ const createNewUser = async (req, res) => {
     return res.status(201).json(createdUser)
 }
 
-const userLogin = async (req, res) => {
+const userLogin = async (req, res, next) => {
     // Take user details from req body
     const loginUser = req.body;
     // Check if username already exist
     const existingUser = await Accounts.findOne({
         username: loginUser.username
     });
+
     // If not exist, invalid login details
     if (!existingUser) {
         return res.status(401).json({
@@ -54,8 +58,10 @@ const userLogin = async (req, res) => {
     };
     // If password matches, user logins
     if (loginUser.password === existingUser.password) {
+        const accessToken = jwt.sign(loginUser, process.env.ACCESS_TOKEN_SECRET);
         return res.status(200).json({
-            message: "successfully logged in"
+            message: "successfully logged in",
+            accessToken: accessToken
         });
     };
     // Else, invalid login details
@@ -63,6 +69,19 @@ const userLogin = async (req, res) => {
         message: "invalid login details"
     });
 };
+
+function authenticateToken(req, res, next){
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if(token == null) return res.sendStatus(403);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=>{
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    })
+}
 
 const retrieveUserByID = async (req, res) => {
     const UserID = req.params.id;
@@ -82,5 +101,6 @@ const retrieveUserByID = async (req, res) => {
 module.exports = {
     createNewUser,
     userLogin,
-    retrieveUserByID
+    retrieveUserByID,
+    authenticateToken
 }
