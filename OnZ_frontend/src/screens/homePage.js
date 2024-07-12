@@ -112,7 +112,6 @@ const HomePage = ({ navigation }) => {
                         <>
                             <View style={styles.welcome}>
                                 <Header2 text='Welcome back ' />
-                                <Header1 text='username' />
                                 <Header2 text='!' />
                             </View>
 
@@ -160,7 +159,7 @@ const HomePage = ({ navigation }) => {
                     }
                     data={popularPlaces}
                     renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => navigation.navigate('placeDetailsPage')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('placeDetailPage')}>
                             <RowDescription
                                 imageSource={item.imageSource}
                                 name={item.name}
