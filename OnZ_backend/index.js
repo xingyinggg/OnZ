@@ -17,8 +17,7 @@ const DB_HOSTNAME = process.env.DB_HOSTNAME;
 const DB_PORT = process.env.DB_PORT;
 const DB_NAME = process.env.DB_NAME;
 
-const DB_URI = `mongodb://${DB_HOSTNAME}:${DB_PORT}/${DB_NAME}`;
-
+const DB_URI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/?retryWrites=true&w=majority&appName=OnZ`;
 //------------------------
 const app = express();
 //create application
