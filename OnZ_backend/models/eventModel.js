@@ -6,11 +6,14 @@ const SchemaTypes = mongoose.Schema.Types;
 const event = new mongoose.Schema({
     eventID: { type: Number, unique: true },
     eventName: String,
-    location: String,
-    upperPriceRange: Number,
-    lowerPriceRange: Number,
+    description: String,
+    fullAddress: String,
+    street: String,
     category: String,
-    description: String
+    rating: Number,
+    googleMapWebsite: String,
+    website: String,
+    
 })
 
 // Apply the auto-increment pugin to eventID
