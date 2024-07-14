@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        // width: '100%',
+        width: '100%',
         paddingBottom: 180,
     },
     headerText: {
@@ -160,5 +160,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#8F8F8F',
         textAlign: 'center',
+        alignItems: 'center'
     }
 });

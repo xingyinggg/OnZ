@@ -5,7 +5,6 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 import { Ionicons } from '@expo/vector-icons';
 
 // component import
-import BackButton from '../components/backButton';
 
 const placeholderUri = 'https://via.placeholder.com/200';
 
@@ -72,13 +71,13 @@ const SwipingCard = ({ navigation }) => {
   const swiperRef = useRef(null);
 
   const onSwipedLeft = (cardIndex) => {
-    console.log(`Nope: ${cards[cardIndex].text}`);
+    console.log('Nope: ${cards[cardIndex].text}');
     likeOpacity.value = withTiming(1);
     nopeOpacity.value = withTiming(1);
   };
 
   const onSwipedRight = (cardIndex) => {
-    console.log(`Liked: ${cards[cardIndex].text}`);
+    console.log('Liked: ${cards[cardIndex].text}');
     likeOpacity.value = withTiming(1);
     nopeOpacity.value = withTiming(1);
   };
@@ -103,7 +102,6 @@ const SwipingCard = ({ navigation }) => {
   const likeAnimatedStyle = useAnimatedStyle(() => ({
     opacity: likeOpacity.value,
   }));
-
   const onSwipedAll = () => {
     setIsSwipedAll(true);
     likeOpacity.value = withTiming(0);
@@ -120,10 +118,9 @@ const SwipingCard = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
+      {/* <View style={styles.headerContainer}>
         <BackButton navigation={navigation} />
-      </View>
-      <View style={styles.swiperContainer}>
+      </View> */}
         {isSwipedAll ? (
           <Text style={styles.swipedAllText}>You have finished swiping!</Text>
         ) : (
@@ -142,7 +139,7 @@ const SwipingCard = ({ navigation }) => {
             verticalSwipe={false}
           />
         )}
-      </View>
+  
       <View style={styles.bottomContainer}>
         <Animated.View style={[styles.iconContainer, nopeAnimatedStyle]}>
           <TouchableOpacity onPress={handleNope} style={[styles.iconContainer, styles.nope]}>
@@ -161,18 +158,6 @@ const SwipingCard = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  headerContainer: {
-    position: 'absolute',
-    top: 20,
-    left: 20,
-    zIndex: 1,
-  },
-  swiperContainer: {
-    marginTop: 60,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
