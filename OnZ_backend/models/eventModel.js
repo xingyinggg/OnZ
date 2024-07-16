@@ -13,6 +13,7 @@ const event = new mongoose.Schema({
     rating: Number,
     googleMapWebsite: String,
     website: String,
+    priceRange: String,
     
 })
 
