@@ -1,4 +1,5 @@
 const Events = require("../models/eventModel");
+const Stations = require("../models/stationModel");
 
 // GET endpoint to retrieve a list of all Events
 const getAllEvents = async (req, res) => {
@@ -29,17 +30,25 @@ const getEventByID = async (req, res) => {
     }
 };
 
+const retrieveStation = async (req, res) => {
+    // Query the DB for a list of all tasks
+    const allStations = await Stations.find({});
+
+    // Respond to the user
+    return res.status(200).json(allStations);
+};
+
 // GET endpoint to retrieve a list of events that fulfil the filter
 const findEventsByFilter = async (req, res) => {
     const {
         selectedCategories,
         selectedBudget,
-        selectedDate,
-        selectedTime,
+        // selectedDate,
+        // selectedTime,
         selectedStations,
         selectedChoice,
-        selectedResultsDate,
-        selectedNumberOfActivities
+        // selectedResultsDate,
+        selectedNumberOfActivities,
     } = req.body;
 
     // Create an empty query object
@@ -47,9 +56,9 @@ const findEventsByFilter = async (req, res) => {
 
     // Add budget condition to the query if budget is provided
     // 30
-    // if (selectedBudget.length > 0) {
-    //     query.upperPriceRange = { $lte: Math.max(...selectedBudget.map(b => parseFloat(b))) };
-    // }
+    if (selectedBudget.length > 0) {
+        query.upperPriceRange = { $lte: Math.max(...selectedBudget.map(b => parseFloat(b))) };
+    }
 
     // Add category condition to the query if categories are provided
     if (selectedCategories && selectedCategories.length > 0) {
@@ -96,5 +105,6 @@ const findEventsByFilter = async (req, res) => {
 module.exports = {
     getAllEvents,
     getEventByID,
-    findEventsByFilter
+    findEventsByFilter,
+    retrieveStation
 };

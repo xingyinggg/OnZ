@@ -8,6 +8,7 @@ const authRoutes = require("./routes/authRouter");
 const roomRoutes = require("./routes/roomRouter");
 const eventRoutes = require("./routes/eventRouter");
 const roomEventRoutes = require("./routes/roomEventRouter");
+const stationRoutes = require("./routes/stationRouter");
 
 dotenv.config();
 
@@ -51,6 +52,7 @@ app.get("/", (req, res) => {
 app.use("/", authRoutes);
 app.use("/room", roomRoutes);
 app.use("/event", eventRoutes);
+app.use("/event", stationRoutes);
 app.use("/roomEvent", roomEventRoutes);
 
 

@@ -1,5 +1,5 @@
 const Rooms = require("../models/roomModel");
-const RoomUsers = require("../models/roomUserModel");
+// const RoomUsers = require("../models/roomUserModel");
 
 const createNewRoom = async (req, res) => {
     // Take details from req body
@@ -15,17 +15,19 @@ const joinRoom = async (req, res) => {
 
     // Check if the room exists
     const checkRoom = await Rooms.findOne({
-        RoomID: joinExRoom.RoomID
+        roomID: joinExRoom.roomID
     });
     // If doesn't exist, invalid room
     if (!checkRoom) {
         return res.status(401).json({
             message: "invalid room"
         });
-    };
-    // Add to DB (room joined)
-    const joinedRoom = await RoomUsers.create(joinExRoom);
-    return res.status(200).json(joinedRoom);
+    }
+    // retrieve the userid
+    const user = joinExRoom.userID;
+    checkRoom.users.push({ users: user });
+    await checkRoom.save();
+    return res.status(200).json(checkRoom);
 
 
 };

@@ -4,7 +4,8 @@ const AutoIncrement = require("mongoose-sequence")(mongoose);
 const room = new mongoose.Schema({
     roomID: { type: Number, unique: true },
     roomName: String,
-    ownerID: Number
+    ownerID: Number,
+    users: [{ id: String }]
 })
 
 // Apply the auto-increment pugin to UserID
