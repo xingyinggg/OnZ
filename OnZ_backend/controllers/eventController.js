@@ -46,12 +46,13 @@ const findEventsByFilter = async (req, res) => {
     const query = {};
 
     // Add budget condition to the query if budget is provided
-    if (selectedBudget.length > 0) {
-        query.upperPriceRange = { $lte: Math.max(...selectedBudget.map(b => parseFloat(b))) };
-    }
+    // 30
+    // if (selectedBudget.length > 0) {
+    //     query.upperPriceRange = { $lte: Math.max(...selectedBudget.map(b => parseFloat(b))) };
+    // }
 
     // Add category condition to the query if categories are provided
-    if (selectedCategories.length > 0) {
+    if (selectedCategories && selectedCategories.length > 0) {
         query.category = { $in: selectedCategories.map(category => category.toLowerCase()) };
     }
 
@@ -61,32 +62,34 @@ const findEventsByFilter = async (req, res) => {
     }
 
     // Add date condition to the query if date is provided
-    if (selectedDate) {
-        const date = new Date(selectedDate);
-        if (!isNaN(date)) {
-            query.date = { $gte: date };
-        }
-    }
+    // if (selectedDate) {
+    //     const date = new Date(selectedDate);
+    //     if (!isNaN(date)) {
+    //         query.date = { $gte: date };
+    //     }
+    // }
 
     // Add time range condition if start and end times are provided
-    if (selectedTime.start && selectedTime.end) {
-        query.time = {
-            $gte: new Date(selectedTime.start),
-            $lte: new Date(selectedTime.end)
-        };
-    }
+    // if (selectedTime.start && selectedTime.end) {
+    //     query.time = {
+    //         $gte: new Date(selectedTime.start),
+    //         $lte: new Date(selectedTime.end)
+    //     };
+    // }
 
     // You may want to handle other filters (selectedChoice, selectedResultsDate, selectedNumberOfActivities) similarly if they are relevant for your schema
 
     try {
         // Find events based on the constructed query
         const events = await Event.find(query);
-
+        if (events == null) {
+            return res.status(402).json({ err: "No events found." });
+        }
         // Return the list of events that fulfill the filter
-        res.status(200).json(events);
+        return res.status(200).json(events);
     } catch (error) {
         // Handle errors and return a 500 status with the error message
-        res.status(500).json({ error: error.message });
+        return res.status(500).json({ error: error.message });
     }
 };
 
