@@ -75,13 +75,13 @@ const SearchFilterPage = ({ navigation }) => {
                         selectedBudget={selectedBudget}
                         setSelectedBudget={setSelectedBudget}
                     />
-                    <DateSection 
+                    {/* <DateSection 
                         title="Date-time of the Outing"
                         selectedDate={selectedDate}
                         setSelectedDate={setSelectedDate}
                         selectedTime={selectedTime}
                         setSelectedTime={setSelectedTime}
-                    />
+                    /> */}
                     <NearestMRTSection 
                         selectedStations={selectedStations}
                         setSelectedStations={setSelectedStations}
