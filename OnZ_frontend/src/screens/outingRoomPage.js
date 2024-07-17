@@ -18,8 +18,24 @@ import ButtonField from "../components/buttonField";
 
 // Main Component
 const OutingRoomPage = ({navigation}) => {
-    const outingCode = '123 456';
+    const [outingCode, setOutingCode] = useState('');
     const [username, setUsername] = useState('');
+
+    useEffect(() => {
+      // Fetch the room code from the backend
+      const fetchRoomCode = async () => {
+          try {
+              const response = await axios.post('http://10.124.2.108:3000/room/create', {
+                  // Include any necessary payload for room creation
+              });
+              setOutingCode(response.data.roomCode); // Assuming the backend response contains the room code in roomCode field
+          } catch (error) {
+              console.error("Error fetching room code:", error);
+          }
+      };
+
+      fetchRoomCode();
+  }, []);
   
     const copyToClipboard = () => {
       Clipboard.setString(outingCode);

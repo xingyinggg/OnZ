@@ -30,12 +30,12 @@ const LoginPage = ({ navigation }) => {
                 </View>
                 <View style={styles.contentContainer}>
                     <View style={styles.buttonsContainer}>
-                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('codePage')}>
+                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('outingsFilterPage')}>
                             <Image source={require('../assets/roomPage/createOuting_logo.png')} style={styles.icon} />
                             <Text style={styles.buttonText}>Create Outing</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('outingsFilterPage')}>
+                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('codePage')}>
                             <Image source={require('../assets/roomPage/joinRoom_logo.png')} style={styles.icon} />
                             <Text style={styles.buttonText}>Join Room</Text>
                         </TouchableOpacity>
