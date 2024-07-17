@@ -1,6 +1,6 @@
 // Standard imports
-import { 
-    React, 
+import {
+    React,
     useState,
 } from "react";
 import {
@@ -57,14 +57,14 @@ export default RegisterPage = ({ navigation }) => {
         setConfirmPassword(text);
     };
 
-    function handleRegister(){
+    function handleRegister() {
         //TODO: Add login functionality here, link to backend, navigate to home page
         console.log("Email: " + email);
         console.log("Username: " + username);
         console.log("Password: " + password);
         console.log("Confirm Password: " + confirmPassword);
-    
-        const userData={
+
+        const userData = {
             email: email,
             username: username,
             password: password,
@@ -77,33 +77,40 @@ export default RegisterPage = ({ navigation }) => {
                 console.log(res.data);
                 if (res.data == '"message": "Passwords do not match"') {
                 }
-                else {navigation.navigate('loginPage')}
+                else {
+                    Alert.alert(
+                        'Registration successfull! Please login',
+                        [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                        { cancelable: false }
+                    );
+                    navigation.navigate('loginPage')
+                }
 
             })
-            .catch(e =>{
-            console.log(e);
-            let errorMessage='';
-            if (e.response) {
-                if (e.response.status === 400) {
-                    errorMessage = 'Username already exists';
-                } else if (e.response.status === 401) {
-                    errorMessage = 'Please fill up all fields';
-                } else if (e.response.status === 402) {
-                    errorMessage = 'Passwords do not match';
-                } 
-            }
-            // else {
-            //     console.log('Error message:', e.message);
-            // }
-            setError(errorMessage);
-            Alert.alert(
-                'Registration Failed',
-                errorMessage,
-                [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
-                { cancelable: false }
-            );
+            .catch(e => {
+                console.log(e);
+                let errorMessage = '';
+                if (e.response) {
+                    if (e.response.status === 400) {
+                        errorMessage = 'Username already exists';
+                    } else if (e.response.status === 401) {
+                        errorMessage = 'Please fill up all fields';
+                    } else if (e.response.status === 402) {
+                        errorMessage = 'Passwords do not match';
+                    }
+                }
+                // else {
+                //     console.log('Error message:', e.message);
+                // }
+                setError(errorMessage);
+                Alert.alert(
+                    'Registration Failed',
+                    errorMessage,
+                    [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+                    { cancelable: false }
+                );
             })
-        
+
     }
 
     // Return statement, what the component will render
@@ -116,9 +123,9 @@ export default RegisterPage = ({ navigation }) => {
             <SafeAreaView style={styles.container}>
 
                 {/* Logo */}
-                <Image 
-                    source={OnZLogo} 
-                    style={{ width: 150, height: 150 }} 
+                <Image
+                    source={OnZLogo}
+                    style={{ width: 150, height: 150 }}
                 />
 
                 {/* Add space between the logo and the title */}
@@ -126,7 +133,7 @@ export default RegisterPage = ({ navigation }) => {
                 <View style={{ height: 16 }} />
 
                 {/* Title */}
-                <Header1 
+                <Header1
                     text='REGISTER'
                 />
 
@@ -136,8 +143,8 @@ export default RegisterPage = ({ navigation }) => {
                 <TextInputField
                     value={email}
                     placeholder={"EMAIL"}
-                    onChangeTextFunction = {(text) => { 
-                        handleEmailInput(text); 
+                    onChangeTextFunction={(text) => {
+                        handleEmailInput(text);
                     }}
                 />
 
@@ -148,8 +155,8 @@ export default RegisterPage = ({ navigation }) => {
                 <TextInputField
                     value={username}
                     placeholder={"USERNAME"}
-                    onChangeTextFunction = {(text) => { 
-                        handleUsernameInput(text); 
+                    onChangeTextFunction={(text) => {
+                        handleUsernameInput(text);
                     }}
                 />
 
@@ -158,10 +165,11 @@ export default RegisterPage = ({ navigation }) => {
 
 
                 {/* Password Input Field */}
-                <PasswordField 
-                    onChangeTextFunction={(text) => { 
-                    handlePasswordInput(text)}}
-                    value={password} 
+                <PasswordField
+                    onChangeTextFunction={(text) => {
+                        handlePasswordInput(text)
+                    }}
+                    value={password}
                     placeholder={'PASSWORD'}
                 />
 
@@ -178,10 +186,11 @@ export default RegisterPage = ({ navigation }) => {
                     style={styles.inputField}
                 /> */}
 
-                <PasswordField 
-                    onChangeTextFunction={(text) => { 
-                    handleConfirmPassword(text)}}
-                    value={confirmPassword} 
+                <PasswordField
+                    onChangeTextFunction={(text) => {
+                        handleConfirmPassword(text)
+                    }}
+                    value={confirmPassword}
                     placeholder={'CONFIRM PASSWORD'}
                 />
 
@@ -193,22 +202,22 @@ export default RegisterPage = ({ navigation }) => {
                 <View style={styles.alignment}>
                     <View style={styles.rememberMe}>
                         <CheckBox
-                        value={isSelected}
-                        onValueChange={setSelection}
-                        style={styles.checkbox}
+                            value={isSelected}
+                            onValueChange={setSelection}
+                            style={styles.checkbox}
                         />
                         <Text style={styles.rememberMeText}>Remember Me</Text>
                     </View>
                 </View>
-                
+
 
                 {/* Add space between Remember Me, Forget Password and Login */}
                 {/* <View>View style={{ height: 10 }}</View> */}
                 <View style={{ height: 16 }} />
 
                 <ButtonField
-                onPress={handleRegister} 
-                title= 'REGISTER'   
+                    onPress={handleRegister}
+                    title='REGISTER'
                 />
 
                 {/* Terms of Services and Privacy Policy */}
@@ -224,14 +233,14 @@ export default RegisterPage = ({ navigation }) => {
                 {/* <View>View style={{ height: 60 }}</View> */}
                 <View style={{ height: 60 }} />
 
-                {/* Register */}      
-                <View style={ {flexDirection: 'row',justifyContent: 'center', alignItems: 'center'} }>
-                <TouchableOpacity onPress={() => navigation.navigate('loginPage')}>
-                    <Header3
-                        text='Have An Account? Login!'
-                    />
-                </TouchableOpacity>
-                </View>         
+                {/* Register */}
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('loginPage')}>
+                        <Header3
+                            text='Have An Account? Login!'
+                        />
+                    </TouchableOpacity>
+                </View>
 
 
             </SafeAreaView>
@@ -274,7 +283,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '90%',
         paddingHorizontal: 16,
-      },
+    },
     termsOfService: {
         color: '#000000',
         fontSize: 15,
@@ -291,5 +300,5 @@ const styles = StyleSheet.create({
         color: '#000000',
         fontSize: 12,
         fontWeight: 'bold',
-      },
+    },
 });
