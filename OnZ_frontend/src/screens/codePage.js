@@ -16,6 +16,7 @@ import {
     Platform,
     
 } from "react-native";
+import axios from 'axios';
 
 // Component imports
 import BottomBar from "../components/bottomBar";

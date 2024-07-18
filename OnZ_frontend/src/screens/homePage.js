@@ -12,6 +12,8 @@ import {
     TextInput,
 } from "react-native";
 
+import axios from 'axios';
+
 // Component imports
 import RowDescription from "../components/rowDescription.js";
 import BottomBar from "../components/bottomBar.js";
@@ -35,6 +37,7 @@ const HomePage = ({ navigation }) => {
     // State variables
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [searchInput, setSearchInput] = useState("");
+    const [popularPlaces, setPopularPlaces] = useState([]);
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener(
@@ -65,33 +68,39 @@ const HomePage = ({ navigation }) => {
     }, [navigation]);
 
     // TO DO: link to DB
-    const popularPlaces = [
-        {
-            id: '1',
-            imageSource: require('../assets/tuftClub.jpg'),
-            name: 'Tuft Club',
-            rating: '5.0',
-            location: 'Circular Road',
-            price: '$$',
-        },
-        {
-            id: '2',
-            imageSource: require('../assets/macRitchieReservoirTreetopLoop.jpg'),
-            name: 'MacRitchie Reservoir',
-            rating: '4.6',
-            location: 'Bukit Pierce',
-            price: 'FOC',
-        },
-        {
-            id: '3',
-            imageSource: require('../assets/isleEatingHouse.jpg'),
-            name: 'Isle Eating House',
-            rating: '4.3',
-            location: '35 Selgie Road',
-            price: '$',
-        },
-        // Add more items here
-    ];
+    // const popularPlaces = [
+    //     {
+    //         id: '1',
+    //         imageSource: require('../assets/tuftClub.jpg'),
+    //         name: 'Tuft Club',
+    //         rating: '5.0',
+    //         location: 'Circular Road',
+    //         price: '$$',
+    //     },
+    //     {
+    //         id: '2',
+    //         imageSource: require('../assets/macRitchieReservoirTreetopLoop.jpg'),
+    //         name: 'MacRitchie Reservoir',
+    //         rating: '4.6',
+    //         location: 'Bukit Pierce',
+    //         price: 'FOC',
+    //     },
+    //     {
+    //         id: '3',
+    //         imageSource: require('../assets/isleEatingHouse.jpg'),
+    //         name: 'Isle Eating House',
+    //         rating: '4.3',
+    //         location: '35 Selgie Road',
+    //         price: '$',
+    //     },
+    //     // Add more items here
+    // ];
+
+    useEffect(() => {
+        axios.get('http://10.124.2.108:3000/event/allEvents')
+            .then(response => setPopularPlaces(response.data))
+            .catch(error => console.error(error));
+    }, []);
 
     const categoryData = [
         { id: '1', name: 'Food', imageSource: FoodCatergoryLogo, page: 'listingPage' },
@@ -161,15 +170,14 @@ const HomePage = ({ navigation }) => {
                     renderItem={({ item }) => (
                         <TouchableOpacity onPress={() => navigation.navigate('placeDetailPage')}>
                             <RowDescription
-                                imageSource={item.imageSource}
-                                name={item.name}
+                                name={item.eventName}
                                 rating={item.rating}
-                                location={item.location}
-                                price={item.price}
+                                location={item.street}
+                                price={item.priceRange}
                             />
                         </TouchableOpacity>
                     )}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item._id}
                     contentContainerStyle={styles.contentContainer}
                 />
 
