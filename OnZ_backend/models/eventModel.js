@@ -14,7 +14,7 @@ const event = new mongoose.Schema({
     googleMapWebsite: String,
     website: String,
     priceRange: String,
-    
+    picture: String
 })
 
 // Apply the auto-increment pugin to eventID

@@ -147,7 +147,7 @@ const HomePage = ({ navigation }) => {
                                 horizontal
                                 data={categoryData}
                                 renderItem={({ item }) => (
-                                    <TouchableOpacity onPress={() => navigation.navigate(item.page)}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('listingPage', { category: item.name })}>
                                         <View style={styles.categoryItem}>
                                             <Image source={item.imageSource} style={styles.categoryImage} />
                                             <Text style={styles.categoryText}>{item.name}</Text>
@@ -168,8 +168,9 @@ const HomePage = ({ navigation }) => {
                     }
                     data={popularPlaces}
                     renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => navigation.navigate('placeDetailPage')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('placeDetailPage', { event: item })}>
                             <RowDescription
+                                imageSource={item.picture}
                                 name={item.eventName}
                                 rating={item.rating}
                                 location={item.street}

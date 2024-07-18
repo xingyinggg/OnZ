@@ -1,19 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
+import axios from 'axios';
 
 const NearestMRTSection = ({ selectedStations, setSelectedStations }) => {
-  const data = [
-    { key: '1', value: 'Admiralty' },
-    { key: '2', value: 'Aljunied' },
-    { key: '3', value: 'Ang Mo Kio' },
-    { key: '4', value: 'Bartley' },
-    { key: '5', value: 'Bayfront' },
-    { key: '6', value: 'Beauty World' },
-    { key: '7', value: 'Bedok' },
-  ];
+  const [data, setData] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://10.124.2.108:3000/event/station');
+        const modifiedData = response.data.map(station => ({
+          key: station.stationID,
+          value: station.name
+        }));
+        setData(modifiedData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nearest MRT</Text>
