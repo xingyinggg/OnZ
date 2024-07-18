@@ -8,7 +8,7 @@ import { A } from '@expo/html-elements';
 
 
 const PlaceDetailPage = ({ route, navigation }) => {
-  const { card } = route.params;
+  const { event } = route.params;
   const [imageIndex, setImageIndex] = useState(0);
 
   const copyToClipboard = (text) => {
@@ -17,13 +17,13 @@ const PlaceDetailPage = ({ route, navigation }) => {
 
   const translateY = useSharedValue(0);
 
-  const handleNextImage = () => {
-    setImageIndex((prevIndex) => (prevIndex + 1) % card.uri.length);
-  };
+  // const handleNextImage = () => {
+  //   setImageIndex((prevIndex) => (prevIndex + 1) % card.uri.length);
+  // };
 
-  const handlePrevImage = () => {
-    setImageIndex((prevIndex) => (prevIndex - 1 + card.uri.length) % card.uri.length);
-  };
+  // const handlePrevImage = () => {
+  //   setImageIndex((prevIndex) => (prevIndex - 1 + card.uri.length) % card.uri.length);
+  // };
 
   const gestureHandler = useAnimatedGestureHandler({
     onActive: (event) => {
@@ -49,9 +49,10 @@ const PlaceDetailPage = ({ route, navigation }) => {
             <Ionicons name="arrow-back" size={35} color="#585858" />
           </TouchableOpacity>
 
-          <Image source={typeof card.uri[imageIndex] === 'string' ? { uri: card.uri[imageIndex] } : card.uri[imageIndex]} style={styles.image} />
+          {/* <Image source={typeof card.uri[imageIndex] === 'string' ? { uri: card.uri[imageIndex] } : card.uri[imageIndex]} style={styles.image} /> */}
+        
 
-          <View style={styles.imageNavigation}>
+          {/* <View style={styles.imageNavigation}>
             <TouchableOpacity onPress={handlePrevImage} style={styles.navButton}>
               <View style={styles.navButtonIcon}>
               <Ionicons name="chevron-back" size={35} color="#585858" />
@@ -63,7 +64,7 @@ const PlaceDetailPage = ({ route, navigation }) => {
                 <Ionicons name="chevron-forward" size={35} color="#585858" />
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
 
           {/* </Animated.View> */}
           {/* </PanGestureHandler> */}
@@ -74,33 +75,33 @@ const PlaceDetailPage = ({ route, navigation }) => {
               <View style={styles.cardInfo}>
 
                 <View style={styles.cardDetails}>
-                <Text style={styles.cardText}>{card.text}</Text>
+                <Text style={styles.cardText}>{event.eventName}</Text>
                 <View style={styles.row}>
                   <Ionicons name="location-outline" size={18} color="#A0CED9" />
-                  <Text style={styles.cardLocation}> {card.location}</Text>
+                  <Text style={styles.cardLocation}> {event.street}</Text>
                 </View>
                 <View style={styles.cardFooter}>
                   <View style={styles.row}>
                     <Ionicons name="star-outline" size={18} color="black" /> 
-                    <Text style={styles.cardRating}> {card.rating} / 5</Text>
+                    <Text style={styles.cardRating}> {event.rating} / 5</Text>
                   </View>
                   <View style={styles.priceTag}>
-                    <Text style={styles.cardPrice}>{card.price}</Text>
+                    <Text style={styles.cardPrice}>{event.priceRange}</Text>
                   </View>
                 </View>
 
-                  <Text style={styles.descriptionTitle}>About {card.text}</Text>
-                  <Text style={styles.description}>{card.description}</Text>
+                  <Text style={styles.descriptionTitle}>About {event.eventName}</Text>
+                  <Text style={styles.description}>{event.description}</Text>
 
                   <Text style={styles.descriptionTitle}>Address</Text>
                   
-                  <TouchableOpacity style={styles.row} onPress={copyToClipboard(card.fullLocation)}>
-                    <Text style={styles.fullAddress}>{card.fullLocation}</Text>
+                  <TouchableOpacity style={styles.row} onPress={copyToClipboard(event.fullAddress)}>
+                    <Text style={styles.fullAddress}>{event.fullAddress}</Text>
                     <Ionicons name='copy'size={20} color="#A0CED9" style={styles.copyIcon}/>
                   </TouchableOpacity>
 
                   <Text style={styles.descriptionTitle}>Website</Text>
-                  <A href="https://google.com" style={styles.website}>Go to Google</A>
+                  <A href={event.website} style={styles.website}>{event.website}</A>
               
                 </View>
 

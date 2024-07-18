@@ -11,6 +11,7 @@ import {
     FlatList,
     TouchableOpacity,
 } from "react-native";
+import axios from 'axios';
 
 // Component imports
 import BottomBar from "../components/bottomBar";
@@ -19,13 +20,14 @@ import BackButton from "../components/backButton";
 
 // Asset imports
 import SearchLogo from "../assets/search_logo.png";
-import OnZLogo from "../assets/commons/OnZ_logo.png";
+
 
 // Main Component
-const ListingPage = ({ navigation }) => {
+const ListingPage = ({ route, navigation }) => {
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [searchInput, setSearchInput] = useState("");
-
+    const { category } = route.params;
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener(
@@ -47,35 +49,22 @@ const ListingPage = ({ navigation }) => {
         };
     }, []);
 
-    // TO DO: link to DB
-    const searches = [
-        {
-            id: '1',
-            imageSource: require('../assets/tuftClub.jpg'),
-            name: 'Tuft Club',
-            rating: '5.0',
-            location: 'Circular Road',
-            price: '$$',
-        },
-        {
-            id: '2',
-            imageSource: require('../assets/macRitchieReservoirTreetopLoop.jpg'),
-            name: 'MacRitchie Reservoir',
-            rating: '4.6',
-            location: 'Bukit Pierce',
-            price: 'FOC',
-        },
-        {
-            id: '3',
-            imageSource: require('../assets/isleEatingHouse.jpg'),
-            name: 'Isle Eating House',
-            rating: '4.3',
-            location: '35 Selgie Road',
-            price: '$',
-        },
-        // Add more items here
-    ];
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const response = await axios.get(`http://10.124.2.108:3000/event/category/${category}`);
+                setEvents(response.data);
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            }
+        };
 
+        fetchEvents();
+    }, [category]);
+    
+    
+
+    // TO DO: link to DB
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             setSearchInput(""); // Reset the search input when the component mounts
@@ -108,15 +97,15 @@ const ListingPage = ({ navigation }) => {
             </View>
 
                 <FlatList
-                    data={searches}
+                    data={events}
                     renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => navigation.navigate('placeDetailsPage')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('placeDetailPage', { event: item })}>
                             <RowDescription
-                                imageSource={item.imageSource}
-                                name={item.name}
+                                // imageSource={item.imageSource}
+                                name={item.eventName}
                                 rating={item.rating}
-                                location={item.location}
-                                price={item.price}
+                                location={item.street}
+                                price={item.priceRange}
                             />
                         </TouchableOpacity>
                     )}
