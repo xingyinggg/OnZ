@@ -7,7 +7,7 @@ const router = Router();
 
 router.get('/allEvents', getAllEvents);
 
-router.get('/oneEvent', getEventByID);
+router.get('/oneEvent/:id', getEventByID);
 
 router.get('/findEvents', findEventsByFilter);
 

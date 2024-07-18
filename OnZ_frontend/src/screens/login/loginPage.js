@@ -1,6 +1,6 @@
 // Standard imports
-import { 
-    React, 
+import {
+    React,
     useState,
 } from "react";
 import {
@@ -53,30 +53,31 @@ export default LoginPage = ({ navigation }) => {
         console.log("Username: " + username);
         console.log("Password: " + password);
         // navigation.navigate('homePage')
-        const userData={
+        const userData = {
             username: username,
             password: password
         }
 
         axios
-            .post("http://10.124.2.108:3000/login", userData)
+            .post("http://192.168.6.152:3000/login", userData)
             .then(res => {
                 console.log(res.status);
                 if (res.status == 200) {
                     console.log("Login successful, navigating to homepage")
                     navigation.navigate('homePage');
                 }
-                
+
             })
-                .catch(e =>{
+            .catch(e => {
                 console.log(e);
                 setError('Login failed. Please check your credentials and try again.');
                 Alert.alert(
                     'Login Failed',
                     'Please check your credentials and try again.',
                     [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
-                    { cancelable: false })}
-                )
+                    { cancelable: false })
+            }
+            )
 
     }
 
@@ -90,9 +91,9 @@ export default LoginPage = ({ navigation }) => {
             <SafeAreaView style={styles.container}>
 
                 {/* Logo */}
-                <Image 
-                    source={OnZLogo} 
-                    style={{ width: 150, height: 150 }} 
+                <Image
+                    source={OnZLogo}
+                    style={{ width: 150, height: 150 }}
                 />
 
                 {/* Add space between the logo and the title */}
@@ -110,8 +111,8 @@ export default LoginPage = ({ navigation }) => {
                 <TextInputField
                     value={username}
                     placeholder={"USERNAME"}
-                    onChangeTextFunction = {(text) => { 
-                        handleUsernameInput(text); 
+                    onChangeTextFunction={(text) => {
+                        handleUsernameInput(text);
                     }}
                 />
 
@@ -121,10 +122,11 @@ export default LoginPage = ({ navigation }) => {
 
 
                 {/* Password Input Field */}
-                <PasswordField 
-                    onChangeTextFunction={(text) => { 
-                    handlePasswordInput(text)}}
-                    value={password} 
+                <PasswordField
+                    onChangeTextFunction={(text) => {
+                        handlePasswordInput(text)
+                    }}
+                    value={password}
                     placeholder={'PASSWORD'}
                 />
 
@@ -135,9 +137,9 @@ export default LoginPage = ({ navigation }) => {
                 <View style={styles.alignment}>
                     <View style={styles.rememberMe}>
                         <CheckBox
-                        value={isSelected}
-                        onValueChange={setSelection}
-                        style={styles.checkbox}
+                            value={isSelected}
+                            onValueChange={setSelection}
+                            style={styles.checkbox}
                         />
                         <Text style={styles.rememberMeText}>Remember Me</Text>
                     </View>
@@ -145,7 +147,7 @@ export default LoginPage = ({ navigation }) => {
                         <Text style={styles.forgotPassword}>Forgot Password?</Text>
                     </TouchableOpacity>
                 </View>
-                
+
 
                 {/* Add space between Remember Me, Forget Password and Login */}
                 {/* <View>View style={{ height: 10 }}</View> */}
@@ -153,10 +155,10 @@ export default LoginPage = ({ navigation }) => {
 
                 {/* Login Button */}
                 <ButtonField
-                    onPress={handleLogin} 
-                    title= 'LOGIN'
+                    onPress={handleLogin}
+                    title='LOGIN'
                 />
-                
+
 
                 {/* Terms of Services and Privacy Policy */}
                 <Text style={styles.termsOfService}>
@@ -171,15 +173,15 @@ export default LoginPage = ({ navigation }) => {
                 {/* <View>View style={{ height: 60 }}</View> */}
                 <View style={{ height: 100 }} />
 
-                {/* Register */}      
-                <View style={ {flexDirection: 'row',justifyContent: 'center', alignItems: 'center'} }>
+                {/* Register */}
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => navigation.navigate('registerPage')}>
                         <Header3
                             text="Don't Have An Account? Register now!"
                         />
 
                     </TouchableOpacity>
-                </View>         
+                </View>
 
 
 
@@ -223,7 +225,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '90%',
         paddingHorizontal: 16,
-      },
+    },
     termsOfService: {
         color: '#000000',
         fontSize: 15,
@@ -240,5 +242,5 @@ const styles = StyleSheet.create({
         color: '#000000',
         fontSize: 14,
         fontWeight: 'bold',
-      },
+    },
 });
