@@ -67,34 +67,7 @@ const HomePage = ({ navigation }) => {
         return unsubscribe;
     }, [navigation]);
 
-    // TO DO: link to DB
-    // const popularPlaces = [
-    //     {
-    //         id: '1',
-    //         imageSource: require('../assets/tuftClub.jpg'),
-    //         name: 'Tuft Club',
-    //         rating: '5.0',
-    //         location: 'Circular Road',
-    //         price: '$$',
-    //     },
-    //     {
-    //         id: '2',
-    //         imageSource: require('../assets/macRitchieReservoirTreetopLoop.jpg'),
-    //         name: 'MacRitchie Reservoir',
-    //         rating: '4.6',
-    //         location: 'Bukit Pierce',
-    //         price: 'FOC',
-    //     },
-    //     {
-    //         id: '3',
-    //         imageSource: require('../assets/isleEatingHouse.jpg'),
-    //         name: 'Isle Eating House',
-    //         rating: '4.3',
-    //         location: '35 Selgie Road',
-    //         price: '$',
-    //     },
-    //     // Add more items here
-    // ];
+    
 
     useEffect(() => {
         axios.get('http://10.124.2.108:3000/event/allEvents')
@@ -111,6 +84,24 @@ const HomePage = ({ navigation }) => {
         { id: '6', name: 'Leisure', imageSource: EntertainmentCatergoryLogo, page: 'listingPage' },
         { id: '7', name: 'Culture', imageSource: CultureCatergoryLogo, page: 'listingPage' },
     ];
+
+    //render item function
+    const renderPopularPlaceItem = React.useCallback(({ item }) => {
+        console.log('Rendering item homepage:', item.eventName);
+
+        return (
+        <TouchableOpacity onPress={() => navigation.navigate('placeDetailPage', { event: item })}>
+            <RowDescription
+                imageSource={item.picture}
+                name={item.eventName}
+                rating={item.rating}
+                location={item.street}
+                price={item.priceRange}
+            />
+        </TouchableOpacity>
+        );
+    }, [navigation]);
+
 
     return (
         // Dismiss keyboard when user taps outside of the text input field
@@ -167,19 +158,10 @@ const HomePage = ({ navigation }) => {
                         </>
                     }
                     data={popularPlaces}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => navigation.navigate('placeDetailPage', { event: item })}>
-                            <RowDescription
-                                imageSource={item.picture}
-                                name={item.eventName}
-                                rating={item.rating}
-                                location={item.street}
-                                price={item.priceRange}
-                            />
-                        </TouchableOpacity>
-                    )}
-                    keyExtractor={item => item._id}
+                    renderItem={renderPopularPlaceItem}
+                    keyExtractor={item => item.eventID}
                     contentContainerStyle={styles.contentContainer}
+                    initialNumToRender={20}
                 />
 
                 {!isKeyboardVisible && <BottomBar navigation={navigation} />}

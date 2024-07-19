@@ -4,38 +4,46 @@ import {
     StyleSheet,
     Image
 } from "react-native";
-
+import React, { PureComponent } from 'react';
 import starLogo from '../assets/description/star_logo.png';
 import locationPinLogo from '../assets/description/locationPin_logo.png';
 
 import {Ionicons} from '@expo/vector-icons';
 
 // main component
-export default RowDescription = ({ imageSource, name, rating, location, price }) => {
-    return (
-        <View style={styles.container}>
-            <View style={styles.imageContainer}>
-                <Image source={{ uri: imageSource }} style={styles.image} />
-                <View style={styles.priceTag}>
-                    <Text style={styles.price}>{price}</Text>
-                </View>
-            </View>
-            <View style={styles.textContainer}>
-                <Text style={styles.name}>{name}</Text>
-                <View style={styles.ratingLocationContainer}>
-                    <View style={styles.ratingContainer}>
-                        <Ionicons name="star-outline" size={18} color="black"/>
-                        <Text style={styles.rating}>{rating}</Text>
-                    </View>
-                    <View style={styles.locationContainer}>
-                        <Ionicons name="location-outline" size={18} color="#A0CED9" />
-                        <Text style={styles.location}>{location}</Text>
+
+class RowDescription extends PureComponent {
+    render() {
+        const { imageSource, name, rating, location, price } = this.props;
+        console.log('Rendering RowDescription for', name);
+        
+        return (
+            <View style={styles.container}>
+                <View style={styles.imageContainer}>
+                    <Image source={{ uri: imageSource }} style={styles.image} />
+                    <View style={styles.priceTag}>
+                        <Text style={styles.price}>{price}</Text>
                     </View>
                 </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.name}>{name}</Text>
+                    <View style={styles.ratingLocationContainer}>
+                        <View style={styles.ratingContainer}>
+                            <Ionicons name="star-outline" size={18} color="black" />
+                            <Text style={styles.rating}>{rating}</Text>
+                        </View>
+                        <View style={styles.locationContainer}>
+                            <Ionicons name="location-outline" size={18} color="#A0CED9" />
+                            <Text style={styles.location}>{location}</Text>
+                        </View>
+                    </View>
+                </View>
             </View>
-        </View>
-    );
-};
+        );
+    }
+}
+
+export default RowDescription;
 
 const styles = StyleSheet.create({
     container: {
