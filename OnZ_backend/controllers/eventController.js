@@ -30,6 +30,24 @@ const getEventByID = async (req, res) => {
     }
 };
 
+const getEventByCategory = async (req, res) => {
+    // Query the DB for tasks where done is true
+    const  { category } = req.params;
+
+    try {
+        const eventByCategory = await Events.find({
+            category: category
+        });
+        if (!eventByCategory) {
+            return res.status(404).json({ message: 'Category not found' });
+        }
+        res.status(200).json(eventByCategory);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
 const retrieveStation = async (req, res) => {
     // Query the DB for a list of all tasks
     const allStations = await Stations.find({});
@@ -123,6 +141,7 @@ const findEventsByFilter = async (req, res) => {
 module.exports = {
     getAllEvents,
     getEventByID,
+    getEventByCategory,
     findEventsByFilter,
     retrieveStation,
     getEventByCategory

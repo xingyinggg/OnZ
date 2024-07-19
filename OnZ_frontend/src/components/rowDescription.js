@@ -8,12 +8,14 @@ import {
 import starLogo from '../assets/description/star_logo.png';
 import locationPinLogo from '../assets/description/locationPin_logo.png';
 
+import {Ionicons} from '@expo/vector-icons';
+
 // main component
 export default RowDescription = ({ imageSource, name, rating, location, price }) => {
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image source={imageSource} style={styles.image} />
+                <Image source={{ uri: imageSource }} style={styles.image} />
                 <View style={styles.priceTag}>
                     <Text style={styles.price}>{price}</Text>
                 </View>
@@ -22,11 +24,11 @@ export default RowDescription = ({ imageSource, name, rating, location, price })
                 <Text style={styles.name}>{name}</Text>
                 <View style={styles.ratingLocationContainer}>
                     <View style={styles.ratingContainer}>
-                        <Image source={starLogo} style={styles.icon} />
+                        <Ionicons name="star-outline" size={18} color="black"/>
                         <Text style={styles.rating}>{rating}</Text>
                     </View>
                     <View style={styles.locationContainer}>
-                        <Image source={locationPinLogo} style={styles.icon} />
+                        <Ionicons name="location-outline" size={18} color="#A0CED9" />
                         <Text style={styles.location}>{location}</Text>
                     </View>
                 </View>
