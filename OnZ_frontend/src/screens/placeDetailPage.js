@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView , } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView , Linking, } from 'react-native';
 import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { useSharedValue, useAnimatedStyle, useAnimatedGestureHandler, withSpring } from 'react-native-reanimated';
 import {Ionicons} from '@expo/vector-icons';
@@ -38,6 +38,10 @@ const PlaceDetailPage = ({ route, navigation }) => {
     transform: [{ translateY: translateY.value }],
   }));
 
+  const openLink = (url) => {
+    Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
+};
+
 
   return (
     <GestureHandlerRootView style={styles.container}>
@@ -49,7 +53,7 @@ const PlaceDetailPage = ({ route, navigation }) => {
             <Ionicons name="arrow-back" size={35} color="#585858" />
           </TouchableOpacity>
 
-          {/* <Image source={typeof card.uri[imageIndex] === 'string' ? { uri: card.uri[imageIndex] } : card.uri[imageIndex]} style={styles.image} /> */}
+          <Image source={{uri: event.picture }} style={styles.image} />
         
 
           {/* <View style={styles.imageNavigation}>
@@ -81,13 +85,13 @@ const PlaceDetailPage = ({ route, navigation }) => {
                   <Text style={styles.cardLocation}> {event.street}</Text>
                 </View>
                 <View style={styles.cardFooter}>
-                  <View style={styles.row}>
-                    <Ionicons name="star-outline" size={18} color="black" /> 
-                    <Text style={styles.cardRating}> {event.rating} / 5</Text>
-                  </View>
-                  <View style={styles.priceTag}>
-                    <Text style={styles.cardPrice}>{event.priceRange}</Text>
-                  </View>
+                    <View style={styles.row}>
+                      <Ionicons name="star-outline" size={18} color="black" /> 
+                      <Text style={styles.cardRating}> {event.rating} / 5</Text>
+                    </View>
+                    <View style={styles.priceTag}>
+                      <Text style={styles.cardPrice}>{event.priceRange}</Text>
+                    </View>
                 </View>
 
                   <Text style={styles.descriptionTitle}>About {event.eventName}</Text>
@@ -100,8 +104,21 @@ const PlaceDetailPage = ({ route, navigation }) => {
                     <Ionicons name='copy'size={20} color="#A0CED9" style={styles.copyIcon}/>
                   </TouchableOpacity>
 
-                  <Text style={styles.descriptionTitle}>Website</Text>
-                  <A href={event.website} style={styles.website}>{event.website}</A>
+                  <Text style={styles.descriptionTitle}>Google Maps Link</Text>
+                  <TouchableOpacity onPress={() => openLink(event.googleMapsWebsite)}>
+                          <Text style={styles.website}>{event.googleMapsWebsite}</Text>
+                      </TouchableOpacity>
+
+                  {event.website && (
+                    <>
+                      <Text style={styles.descriptionTitle}>Official Website</Text>
+                      <TouchableOpacity onPress={() => openLink(event.website)}>
+                          <Text style={styles.website}>{event.website}</Text>
+                      </TouchableOpacity>
+                    </>
+                  )}
+
+
               
                 </View>
 
@@ -250,13 +267,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#585858',
     marginBottom: 18,
-    width: "90%"
+    width: "85%"
   },
   copyIcon: {
     top: "-3%",
   },
   website: {
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    colour: '#A0CED9',
+    marginBottom: 18,
   }
 });
 
