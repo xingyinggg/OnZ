@@ -10,7 +10,7 @@ router.get('/allEvents', getAllEvents);
 
 router.get('/oneEvent/:id', getEventByID);
 
-router.get('/findEvents', findEventsByFilter);
+router.get('/findEvents/:query', findEventsByFilter);
 
 router.get('/category/:category', getEventByCategory);
 

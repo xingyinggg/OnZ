@@ -58,7 +58,7 @@ const SearchFilterPage = ({ navigation }) => {
     useEffect(() => {
         const applyFilters = async () => {
             try {
-                const response = await axios.post(`http://10.119.11.247:3000/event/category/${query}`)
+                const response = await axios.get(`http://10.119.11.247:3000/event/findEvents/${query}`)
                 setEvents(response.data);
             } catch (error) {
                 console.error('Error fetching events:', error);
