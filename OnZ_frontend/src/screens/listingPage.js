@@ -52,7 +52,7 @@ const ListingPage = ({ route, navigation }) => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await axios.get(`http://10.124.2.108:3000/event/category/${category}`);
+                const response = await axios.get(`http://10.119.11.247:3000/event/category/${category}`);
                 setEvents(response.data);
             } catch (error) {
                 console.error('Error fetching events:', error);
@@ -61,8 +61,8 @@ const ListingPage = ({ route, navigation }) => {
 
         fetchEvents();
     }, [category]);
-    
-    
+
+
 
     // TO DO: link to DB
     useEffect(() => {
@@ -77,24 +77,24 @@ const ListingPage = ({ route, navigation }) => {
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
             <SafeAreaView style={styles.container}>
-            <View style={styles.headerContainer}>
-                <BackButton navigation={navigation} />
-                <View style={styles.searchContainer}>
-                    <Image
-                        source={SearchLogo}
-                        style={styles.searchIcon}
-                    />
+                <View style={styles.headerContainer}>
+                    <BackButton navigation={navigation} />
+                    <View style={styles.searchContainer}>
+                        <Image
+                            source={SearchLogo}
+                            style={styles.searchIcon}
+                        />
 
-                    <TextInput
-                        style={styles.searchInput}
-                        placeholder="Search Places"
-                        placeholderTextColor="#585858"
-                        value={searchInput}
-                        onChangeText={setSearchInput}
-                        onSubmitEditing={() => navigation.navigate('listingPage')}
-                    />
+                        <TextInput
+                            style={styles.searchInput}
+                            placeholder="Search Places"
+                            placeholderTextColor="#585858"
+                            value={searchInput}
+                            onChangeText={setSearchInput}
+                            onSubmitEditing={() => navigation.navigate('listingPage')}
+                        />
+                    </View>
                 </View>
-            </View>
 
                 <FlatList
                     data={events}

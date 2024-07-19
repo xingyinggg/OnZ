@@ -55,21 +55,31 @@ const SearchFilterPage = ({ navigation }) => {
         };
     }, []);
 
-    const applyFilters = () => {
-        const filters = {
-            categories: selectedCategories,
-            budgets: selectedBudget,
-            date: selectedDate,
-            time: selectedTime,
-            stations: selectedStations,
-            choice: selectedChoice,
-            resultsDate: selectedResultsDate,
-            numberOfActivities: selectedNumberOfActivities,
+    useEffect(() => {
+        const applyFilters = async () => {
+            try {
+                const response = await axios.post(`http://10.119.11.247:3000/event/category/${query}`)
+                setEvents(response.data);
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            }
+            // const filters = {
+            //     categories: selectedCategories,
+            //     budgets: selectedBudget,
+            //     date: selectedDate,
+            //     time: selectedTime,
+            //     stations: selectedStations,
+            //     choice: selectedChoice,
+            //     resultsDate: selectedResultsDate,
+            //     numberOfActivities: selectedNumberOfActivities,
+            // };
+            // console.log('Applying filters:', filters);
+            // Here you would send `filters` to your backend or perform the filtering logic
         };
-        console.log('Applying filters:', filters);
-        // Here you would send `filters` to your backend or perform the filtering logic
-        navigation.navigate('outingRoomPage');
-    };
+
+        applyFilters();
+    }, [query]);
+    navigation.navigate('outingRoomPage');
 
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
@@ -79,11 +89,11 @@ const SearchFilterPage = ({ navigation }) => {
                         <BackButton navigation={navigation} />
                         <Header1 text='Create an Outing' />
                     </View>
-                    <CategorySection 
+                    <CategorySection
                         selectedCategories={selectedCategories}
                         setSelectedCategories={setSelectedCategories}
                     />
-                    <BudgetSection 
+                    <BudgetSection
                         selectedBudget={selectedBudget}
                         setSelectedBudget={setSelectedBudget}
                     />
@@ -94,7 +104,7 @@ const SearchFilterPage = ({ navigation }) => {
                         selectedTime={selectedTime}
                         setSelectedTime={setSelectedTime}
                     /> */}
-                    <NearestMRTSection 
+                    <NearestMRTSection
                         selectedStations={selectedStations}
                         setSelectedStations={setSelectedStations}
                     />
