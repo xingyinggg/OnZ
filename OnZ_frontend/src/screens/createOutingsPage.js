@@ -16,7 +16,7 @@ import BottomBar from "../components/bottomBar";
 import BackButton from "../components/backButton";
 
 // Main Component
-const LoginPage = ({ navigation }) => {
+const CreateOutingsPage = ({ navigation }) => {
 
     // Return statement, what the component will render
     return (
@@ -47,7 +47,7 @@ const LoginPage = ({ navigation }) => {
     );
 };
 
-export default LoginPage;
+export default CreateOutingsPage;
 
 // Styles
 const styles = StyleSheet.create({

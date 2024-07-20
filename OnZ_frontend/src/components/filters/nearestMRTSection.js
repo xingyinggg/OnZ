@@ -10,7 +10,7 @@ const NearestMRTSection = ({ selectedStations, setSelectedStations }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://10.124.2.108:3000/event/station');
+        const response = await axios.get('http://10.124.13.145:3000/event/station');
         const modifiedData = response.data.map(station => ({
           key: station.stationID,
           value: station.name
