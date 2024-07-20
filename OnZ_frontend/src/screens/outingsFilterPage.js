@@ -58,28 +58,29 @@ const SearchFilterPage = ({ navigation }) => {
     useEffect(() => {
         const applyFilters = async () => {
             try {
-                const response = await axios.get(`http://10.119.11.247:3000/event/findEvents/${query}`)
+                const response = await axios.get(`http://10.119.11.247:3000/event/findEvents/?$${query}`)
                 setEvents(response.data);
             } catch (error) {
                 console.error('Error fetching events:', error);
             }
-            // const filters = {
-            //     categories: selectedCategories,
-            //     budgets: selectedBudget,
-            //     date: selectedDate,
-            //     time: selectedTime,
-            //     stations: selectedStations,
-            //     choice: selectedChoice,
-            //     resultsDate: selectedResultsDate,
-            //     numberOfActivities: selectedNumberOfActivities,
-            // };
-            // console.log('Applying filters:', filters);
-            // Here you would send `filters` to your backend or perform the filtering logic
         };
-
         applyFilters();
     }, [query]);
     navigation.navigate('outingRoomPage');
+    // const filters = {
+    //     categories: selectedCategories,
+    //     budgets: selectedBudget,
+    //     date: selectedDate,
+    //     time: selectedTime,
+    //     stations: selectedStations,
+    //     choice: selectedChoice,
+    //     resultsDate: selectedResultsDate,
+    //     numberOfActivities: selectedNumberOfActivities,
+    // };
+    // console.log('Applying filters:', filters);
+    // Here you would send `filters` to your backend or perform the filtering logic
+
+
 
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
