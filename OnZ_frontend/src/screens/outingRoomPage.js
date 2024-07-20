@@ -1,6 +1,7 @@
 import { 
     React, 
     useState,
+    useEffect,
 } from "react";
 import {
     View,
@@ -25,7 +26,7 @@ const OutingRoomPage = ({navigation}) => {
       // Fetch the room code from the backend
       const fetchRoomCode = async () => {
           try {
-              const response = await axios.post('http://10.124.2.108:3000/room/create', {
+              const response = await axios.post('http://10.124.13.145:3000/room/create', {
                   // Include any necessary payload for room creation
               });
               setOutingCode(response.data.roomCode); // Assuming the backend response contains the room code in roomCode field
