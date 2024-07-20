@@ -18,18 +18,18 @@ import BackButton from "../components/backButton";
 // Sections 
 import CategorySection from "../components/filters/categorySection";
 import BudgetSection from "../components/filters/budgetSection";
-// import DateSection from "../components/filters/dateSection";
+import DateSection from "../components/filters/dateSection";
 import NearestMRTSection from "../components/filters/nearestMRTSection";
 import ChooseYourDestinationSection from "../components/filters/chooseYourDestinationSection";
-// import GetResultsBySection from "../components/filters/getResultsBySection";
+import GetResultsBySection from "../components/filters/getResultsBySection";
 import NumberOfActivitiesSection from "../components/filters/numberOfActivitiesSection";
 
 // Main Component
 const SearchFilterPage = ({ navigation }) => {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedBudget, setSelectedBudget] = useState([]);
-    // const [selectedDate, setSelectedDate] = useState(null);
-    // const [selectedTime, setSelectedTime] = useState({ start: null, end: null });
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedTime, setSelectedTime] = useState({ start: null, end: null });
     const [selectedStations, setSelectedStations] = useState([]);
     const [selectedChoice, setSelectedChoice] = useState([]);
     const [selectedResultsDate, setSelectedResultsDate] = useState(null);
@@ -57,7 +57,6 @@ const SearchFilterPage = ({ navigation }) => {
         };
     }, []);
 
-
     const applyFilters = async () => {
         const query = {
             categories: selectedCategories,
@@ -73,19 +72,19 @@ const SearchFilterPage = ({ navigation }) => {
         console.log('Applying queries:', query);
 
         try {
-            const response = await axios.get(`http://10.124.13.145:3000/event/findEvents`, { params: query });
+            const response = await axios.get(`http://192.168.1.13:3000/event/findEvents`, { params: query });
             setEvents(response.data);
+            console.log(selectedChoice);
+            if (selectedChoice === 'With Others') {
+                navigation.navigate('outingRoomPage');
+            }
+            else{
+                navigation.navigate('swipingCard');
+            }
         } catch (error) {
             console.error('Error fetching events:', error);
         }
     };
-
-    useEffect(() => {
-        applyFilters();
-    }, [selectedCategories, selectedBudget, selectedDate, selectedTime, selectedStations, selectedChoice, selectedResultsDate, selectedNumberOfActivities]);
-
-    // navigation.navigate('outingRoomPage');
-
 
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
