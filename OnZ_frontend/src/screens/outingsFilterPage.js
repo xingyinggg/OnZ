@@ -57,33 +57,32 @@ const SearchFilterPage = ({ navigation }) => {
         };
     }, []);
 
-    const applyFilters = async () => {
-        const query = {
-            categories: selectedCategories,
-            budgets: selectedBudget,
-            date: selectedDate,
-            time: selectedTime,
-            stations: selectedStations,
-            choice: selectedChoice,
-            resultsDate: selectedResultsDate,
-            numberOfActivities: selectedNumberOfActivities,
-        };
-
-        console.log('Applying queries:', query);
-
-        try {
-            const response = await axios.get(`http://10.124.13.145:3000/event/findEvents`, { params: query });
-            setEvents(response.data);
-        } catch (error) {
-            console.error('Error fetching events:', error);
-        }
-    };
-
     useEffect(() => {
+        const applyFilters = async () => {
+            try {
+                const response = await axios.get(`http://10.119.11.247:3000/event/findEvents/?$${query}`)
+                setEvents(response.data);
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            }
+        };
         applyFilters();
-    }, [selectedCategories, selectedBudget, selectedDate, selectedTime, selectedStations, selectedChoice, selectedResultsDate, selectedNumberOfActivities]);
+    }, [query]);
+    navigation.navigate('outingRoomPage');
+    // const filters = {
+    //     categories: selectedCategories,
+    //     budgets: selectedBudget,
+    //     date: selectedDate,
+    //     time: selectedTime,
+    //     stations: selectedStations,
+    //     choice: selectedChoice,
+    //     resultsDate: selectedResultsDate,
+    //     numberOfActivities: selectedNumberOfActivities,
+    // };
+    // console.log('Applying filters:', filters);
+    // Here you would send `filters` to your backend or perform the filtering logic
 
-    // navigation.navigate('outingRoomPage');
+
 
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>

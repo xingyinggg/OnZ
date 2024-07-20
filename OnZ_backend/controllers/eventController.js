@@ -57,6 +57,7 @@ const getEventByCategory = async (req, res) => {
 };
 
 // GET endpoint to retrieve a list of events that fulfil the filter
+
 const findEventsByFilter = async (req, res) => {
     const {
         selectedCategories,
@@ -66,28 +67,42 @@ const findEventsByFilter = async (req, res) => {
         selectedNumberOfActivities,
     } = req.body;
 
+    // const thebody = req.body;
+    console.log("retrieving query");
+
     // Create an empty query object
     const query = {};
 
     // Add budget condition to the query if budget is provided
+    console.log(selectedBudget);
     if (selectedBudget) {
         query.priceRange = selectedBudget;
+        console.log("selecting budget");
     }
 
     // Add category condition to the query if categories are provided
     if (selectedCategories && selectedCategories.length > 0) {
-        query.category = { $in: selectedCategories.map(category => category.toLowerCase()) };
+        query.category = { $in: selectedCategories };
     }
 
     // Add location condition to the query if stations are provided
-    if (selectedStations.length > 0) {
-        query.location = { $in: selectedStations.map(station => station.toLowerCase()) };
-    }
+    // if (selectedStations.length > 0) {
+    //     query.nearestMRT = { $in: selectedStations };
+    // }
+    if (selectedStations && selectedStations.length > 0) {
+        // Ensure selectedStations is an array
+        const stationsArray = Array.isArray(selectedStations) ? selectedStations : [selectedStations];
 
+        // Construct the $or query
+        query.$or = stationsArray.map(station => {
+            return { nearestMRT: { $regex: station, $options: 'i' } };
+        });
+    }
+    console.log(query);
     try {
         // Find events based on the constructed query
-        const events = await Event.find(query);
-        if (events == null) {
+        const events = await Events.find(query);
+        if (!events || events.length === 0) {
             return res.status(402).json({ err: "No events found." });
         }
         // Return the list of events that fulfill the filter
