@@ -57,6 +57,7 @@ const SearchFilterPage = ({ navigation }) => {
         };
     }, []);
 
+
     const applyFilters = async () => {
         const query = {
             categories: selectedCategories,
@@ -84,6 +85,7 @@ const SearchFilterPage = ({ navigation }) => {
     }, [selectedCategories, selectedBudget, selectedDate, selectedTime, selectedStations, selectedChoice, selectedResultsDate, selectedNumberOfActivities]);
 
     // navigation.navigate('outingRoomPage');
+
 
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
