@@ -67,17 +67,12 @@ const findEventsByFilter = async (req, res) => {
         selectedNumberOfActivities,
     } = req.body;
 
-    // const thebody = req.body;
-    console.log("retrieving query");
-
     // Create an empty query object
     const query = {};
 
     // Add budget condition to the query if budget is provided
-    console.log(selectedBudget);
     if (selectedBudget) {
         query.priceRange = selectedBudget;
-        console.log("selecting budget");
     }
 
     // Add category condition to the query if categories are provided
@@ -98,7 +93,7 @@ const findEventsByFilter = async (req, res) => {
             return { nearestMRT: { $regex: station, $options: 'i' } };
         });
     }
-    console.log(query);
+
     try {
         // Find events based on the constructed query
         const events = await Events.find(query);
