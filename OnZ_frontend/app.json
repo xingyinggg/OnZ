@@ -7,10 +7,9 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./src/assets/commons/OnZ_logo.png",
+      "image": "./src/assets/commons/OnZ_Logo_resized.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff",
-      "width": 100
+      "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true
