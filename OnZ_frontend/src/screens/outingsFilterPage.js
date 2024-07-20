@@ -7,6 +7,7 @@ import {
     Keyboard,
     ScrollView,
 } from "react-native";
+import axios from 'axios';
 
 // Component imports
 import Header1 from "../components/texts/header1";
@@ -17,23 +18,24 @@ import BackButton from "../components/backButton";
 // Sections 
 import CategorySection from "../components/filters/categorySection";
 import BudgetSection from "../components/filters/budgetSection";
-import DateSection from "../components/filters/dateSection";
+// import DateSection from "../components/filters/dateSection";
 import NearestMRTSection from "../components/filters/nearestMRTSection";
 import ChooseYourDestinationSection from "../components/filters/chooseYourDestinationSection";
-import GetResultsBySection from "../components/filters/getResultsBySection";
+// import GetResultsBySection from "../components/filters/getResultsBySection";
 import NumberOfActivitiesSection from "../components/filters/numberOfActivitiesSection";
 
 // Main Component
 const SearchFilterPage = ({ navigation }) => {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedBudget, setSelectedBudget] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [selectedTime, setSelectedTime] = useState({ start: null, end: null });
+    // const [selectedDate, setSelectedDate] = useState(null);
+    // const [selectedTime, setSelectedTime] = useState({ start: null, end: null });
     const [selectedStations, setSelectedStations] = useState([]);
     const [selectedChoice, setSelectedChoice] = useState([]);
     const [selectedResultsDate, setSelectedResultsDate] = useState(null);
     const [selectedNumberOfActivities, setSelectedNumberOfActivities] = useState([]);
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener(
@@ -55,31 +57,34 @@ const SearchFilterPage = ({ navigation }) => {
         };
     }, []);
 
-    useEffect(() => {
-        const applyFilters = async () => {
-            try {
-                const response = await axios.get(`http://10.119.11.247:3000/event/findEvents/?$${query}`)
-                setEvents(response.data);
-            } catch (error) {
-                console.error('Error fetching events:', error);
-            }
-        };
-        applyFilters();
-    }, [query]);
-    navigation.navigate('outingRoomPage');
-    // const filters = {
-    //     categories: selectedCategories,
-    //     budgets: selectedBudget,
-    //     date: selectedDate,
-    //     time: selectedTime,
-    //     stations: selectedStations,
-    //     choice: selectedChoice,
-    //     resultsDate: selectedResultsDate,
-    //     numberOfActivities: selectedNumberOfActivities,
-    // };
-    // console.log('Applying filters:', filters);
-    // Here you would send `filters` to your backend or perform the filtering logic
 
+    const applyFilters = async () => {
+        const query = {
+            categories: selectedCategories,
+            budgets: selectedBudget,
+            date: selectedDate,
+            time: selectedTime,
+            stations: selectedStations,
+            choice: selectedChoice,
+            resultsDate: selectedResultsDate,
+            numberOfActivities: selectedNumberOfActivities,
+        };
+
+        console.log('Applying queries:', query);
+
+        try {
+            const response = await axios.get(`http://10.124.13.145:3000/event/findEvents`, { params: query });
+            setEvents(response.data);
+        } catch (error) {
+            console.error('Error fetching events:', error);
+        }
+    };
+
+    useEffect(() => {
+        applyFilters();
+    }, [selectedCategories, selectedBudget, selectedDate, selectedTime, selectedStations, selectedChoice, selectedResultsDate, selectedNumberOfActivities]);
+
+    // navigation.navigate('outingRoomPage');
 
 
     return (

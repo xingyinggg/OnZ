@@ -72,7 +72,7 @@ export default RegisterPage = ({ navigation }) => {
         }
 
         axios
-            .post("http://10.124.2.108:3000/user", userData)
+            .post("http://10.124.13.145:3000/user", userData)
             .then(res => {
                 console.log(res.data);
                 if (res.data == '"message": "Passwords do not match"') {

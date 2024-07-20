@@ -59,7 +59,7 @@ export default LoginPage = ({ navigation }) => {
         }
 
         axios
-            .post("http://10.119.11.247:3000/login", userData)
+            .post("http://10.124.13.145:3000/login", userData)
             .then(res => {
                 console.log(res.status);
                 if (res.status == 200) {
