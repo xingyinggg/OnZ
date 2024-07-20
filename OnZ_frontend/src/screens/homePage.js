@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
     View,
     Text,
@@ -11,7 +11,6 @@ import {
     TouchableOpacity,
     TextInput,
 } from "react-native";
-
 import axios from 'axios';
 
 // Component imports
@@ -24,7 +23,6 @@ import OnzToggle from "../components/onzToggleButton.js";
 // Asset imports
 import FilterLogo from "../assets/filter_logo.png";
 import SearchLogo from "../assets/search_logo.png";
-
 import FoodCatergoryLogo from "../assets/categories/food_logo.png";
 import CraftsCatergoryLogo from "../assets/categories/crafts_logo.png";
 import PetsCatergoryLogo from "../assets/categories/pets_logo.png";
@@ -34,7 +32,6 @@ import EntertainmentCatergoryLogo from "../assets/categories/entertainment_logo.
 import CultureCatergoryLogo from "../assets/categories/culture_logo.png";
 
 const HomePage = ({ navigation }) => {
-    // State variables
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [searchInput, setSearchInput] = useState("");
     const [popularPlaces, setPopularPlaces] = useState([]);
@@ -67,13 +64,24 @@ const HomePage = ({ navigation }) => {
         return unsubscribe;
     }, [navigation]);
 
-    
-
     useEffect(() => {
         axios.get('http://10.124.2.108:3000/event/allEvents')
-            .then(response => setPopularPlaces(response.data))
+            .then(response => {
+                const allEvents = response.data;
+                const shuffledEvents = shuffleArray(allEvents);
+                const selectedEvents = shuffledEvents.slice(0, 10);
+                setPopularPlaces(selectedEvents);
+            })
             .catch(error => console.error(error));
     }, []);
+
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    };
 
     const categoryData = [
         { id: '1', name: 'Food', imageSource: FoodCatergoryLogo, page: 'listingPage' },
@@ -85,11 +93,7 @@ const HomePage = ({ navigation }) => {
         { id: '7', name: 'Culture', imageSource: CultureCatergoryLogo, page: 'listingPage' },
     ];
 
-    //render item function
-    const renderPopularPlaceItem = React.useCallback(({ item }) => {
-        console.log('Rendering item homepage:', item.eventName);
-
-        return (
+    const renderPopularPlaceItem = useCallback(({ item }) => (
         <TouchableOpacity onPress={() => navigation.navigate('placeDetailPage', { event: item })}>
             <RowDescription
                 imageSource={item.picture}
@@ -99,72 +103,62 @@ const HomePage = ({ navigation }) => {
                 price={item.priceRange}
             />
         </TouchableOpacity>
-        );
-    }, [navigation]);
-
+    ), [navigation]);
 
     return (
-        // Dismiss keyboard when user taps outside of the text input field
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
             <SafeAreaView style={styles.container}>
-                <FlatList
-                    ListHeaderComponent={
-                        <>
-                            <View style={styles.welcome}>
-                                <Header2 text='Welcome back ' />
-                                <Header2 text='!' />
-                            </View>
-
-                            <View style={styles.searchContainer}>
-                                <Image source={SearchLogo} style={styles.searchIcon} />
-
-                                <TextInput
-                                    style={styles.searchInput}
-                                    placeholder="Search Places"
-                                    placeholderTextColor="#585858"
-                                    value={searchInput}
-                                    onChangeText={setSearchInput}
-                                    onSubmitEditing={() => navigation.navigate('listingPage')}
+                <View style={styles.content}>
+                    <View style={styles.headerContainer}>
+                        <Header2 text='Welcome back ' />
+                        <Header2 text='!' />
+                    </View>
+                    <View style={styles.searchContainer}>
+                        <Image source={SearchLogo} style={styles.searchIcon} />
+                        <TextInput
+                            style={styles.searchInput}
+                            placeholder="Search Places"
+                            placeholderTextColor="#585858"
+                            value={searchInput}
+                            onChangeText={setSearchInput}
+                            onSubmitEditing={() => navigation.navigate('listingPage')}
+                        />
+                        <TouchableOpacity onPress={() => navigation.navigate('searchFilterPage')}>
+                            <Image source={FilterLogo} style={styles.filterIcon} />
+                        </TouchableOpacity>
+                    </View>
+                    <FlatList
+                        ListHeaderComponent={
+                            <>
+                                <FlatList
+                                    horizontal
+                                    data={categoryData}
+                                    renderItem={({ item }) => (
+                                        <TouchableOpacity onPress={() => navigation.navigate('listingPage', { category: item.name })}>
+                                            <View style={styles.categoryItem}>
+                                                <Image source={item.imageSource} style={styles.categoryImage} />
+                                                <Text style={styles.categoryText}>{item.name}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    )}
+                                    keyExtractor={item => item.id}
+                                    contentContainerStyle={styles.categoriesContainer}
+                                    showsHorizontalScrollIndicator={false}
                                 />
-
-                                <TouchableOpacity onPress={() => navigation.navigate('searchFilterPage')}>
-                                    <Image source={FilterLogo} style={styles.filterIcon} />
-                                </TouchableOpacity>
-                            </View>
-
-                            <View style={{ height: 10 }} />
-
-                            <FlatList
-                                horizontal
-                                data={categoryData}
-                                renderItem={({ item }) => (
-                                    <TouchableOpacity onPress={() => navigation.navigate('listingPage', { category: item.name })}>
-                                        <View style={styles.categoryItem}>
-                                            <Image source={item.imageSource} style={styles.categoryImage} />
-                                            <Text style={styles.categoryText}>{item.name}</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                )}
-                                keyExtractor={item => item.id}
-                                contentContainerStyle={styles.categoriesContainer}
-                                showsHorizontalScrollIndicator={false}
-                            />
-
-                            <OnzToggle targetScreen='createOutingsPage' />
-
-                            <View style={styles.popularNowContainer}>
-                                <Header1 text='Popular Now' />
-                            </View>
-                        </>
-                    }
-                    data={popularPlaces}
-                    renderItem={renderPopularPlaceItem}
-                    keyExtractor={item => item.eventID}
-                    contentContainerStyle={styles.contentContainer}
-                    initialNumToRender={20}
-                />
-
-                {!isKeyboardVisible && <BottomBar navigation={navigation} />}
+                                <OnzToggle targetScreen='createOutingsPage' />
+                                <View style={styles.popularNowContainer}>
+                                    <Header1 text='Popular Now' />
+                                </View>
+                            </>
+                        }
+                        data={popularPlaces}
+                        renderItem={renderPopularPlaceItem}
+                        keyExtractor={item => item.eventID}
+                        contentContainerStyle={styles.popularContentContainer}
+                        initialNumToRender={20}
+                    />
+                </View>
+                {!isKeyboardVisible && <BottomBar style={styles.bottomBar} navigation={navigation} />}
             </SafeAreaView>
         </TouchableWithoutFeedback>
     );
@@ -178,13 +172,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    contentContainer: {
-        paddingHorizontal: '5%',
+    content: {
+        flex: 1,
+        paddingHorizontal: 20, // Add padding to the container to ensure space around the edges
     },
-    welcome: {
+    headerContainer: {
         marginTop: '5%',
         flexDirection: 'row',
-        // alignItems: 'center',
+        alignItems: 'center',
     },
     searchContainer: {
         backgroundColor: '#DBE5E7',
@@ -193,6 +188,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: '5%',
         paddingVertical: '3%',
+        marginVertical: 10,
     },
     searchIcon: {
         width: 20,
@@ -210,7 +206,7 @@ const styles = StyleSheet.create({
     categoriesContainer: {
         flexDirection: 'row',
         marginVertical: 10,
-        marginBottom: 15,
+        paddingBottom: 15,
     },
     categoryItem: {
         backgroundColor: '#E0F7FA',
@@ -230,7 +226,16 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     popularNowContainer: {
-        marginTop: 10,
-        justifyContent: 'left',
+        marginTop: 20,
+        marginBottom: 10,
+    },
+    popularContentContainer: {
+        paddingBottom: 20, // Add padding to the bottom of the popular content
+    },
+    bottomBar: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
     },
 });
