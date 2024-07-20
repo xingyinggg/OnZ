@@ -65,11 +65,11 @@ const HomePage = ({ navigation }) => {
     }, [navigation]);
 
     useEffect(() => {
-        axios.get('http://10.124.2.108:3000/event/allEvents')
+        axios.get('http://192.168.1.13:3000/event/allEvents')
             .then(response => {
                 const allEvents = response.data;
                 const shuffledEvents = shuffleArray(allEvents);
-                const selectedEvents = shuffledEvents.slice(0, 10);
+                const selectedEvents = shuffledEvents.slice(0, 5);
                 setPopularPlaces(selectedEvents);
             })
             .catch(error => console.error(error));

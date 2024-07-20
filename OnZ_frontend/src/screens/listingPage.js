@@ -52,7 +52,7 @@ const ListingPage = ({ route, navigation }) => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await axios.get(`http://10.119.11.247:3000/event/category/${category}`);
+                const response = await axios.get(`http://10.124.13.145:3000/event/category/${category}`);
                 setEvents(response.data);
             } catch (error) {
                 console.error('Error fetching events:', error);
