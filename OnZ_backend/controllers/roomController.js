@@ -29,7 +29,6 @@ const joinRoom = async (req, res) => {
     await checkRoom.save();
     return res.status(200).json(checkRoom);
 
-
 };
 
 module.exports = {
