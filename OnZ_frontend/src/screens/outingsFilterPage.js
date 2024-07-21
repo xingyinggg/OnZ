@@ -25,14 +25,11 @@ import GetResultsBySection from "../components/filters/getResultsBySection";
 import NumberOfActivitiesSection from "../components/filters/numberOfActivitiesSection";
 
 // Main Component
-const SearchFilterPage = ({ navigation }) => {
+const OutingsFilterPage = ({ navigation }) => {
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [selectedBudget, setSelectedBudget] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [selectedTime, setSelectedTime] = useState({ start: null, end: null });
+    const [selectedBudget, setSelectedBudget] = useState("");
     const [selectedStations, setSelectedStations] = useState([]);
     const [selectedChoice, setSelectedChoice] = useState([]);
-    const [selectedResultsDate, setSelectedResultsDate] = useState(null);
     const [selectedNumberOfActivities, setSelectedNumberOfActivities] = useState([]);
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [events, setEvents] = useState([]);
@@ -61,25 +58,23 @@ const SearchFilterPage = ({ navigation }) => {
         const query = {
             categories: selectedCategories,
             budgets: selectedBudget,
-            date: selectedDate,
-            time: selectedTime,
             stations: selectedStations,
             choice: selectedChoice,
-            resultsDate: selectedResultsDate,
             numberOfActivities: selectedNumberOfActivities,
         };
 
         console.log('Applying queries:', query);
 
         try {
-            const response = await axios.get(`http://192.168.1.13:3000/event/findEvents`, { params: query });
-            setEvents(response.data);
-            console.log(selectedChoice);
+            const response = await axios.get(`http://192.168.1.183:3000/event/findEvents`, {params: query});
+            const filteredEvents = response.data;
+            
+            setEvents(filteredEvents);
+            console.log('events: ',filteredEvents);
             if (selectedChoice === 'With Others') {
-                navigation.navigate('outingRoomPage');
-            }
-            else{
-                navigation.navigate('swipingCard');
+                navigation.navigate('outingRoomPage', { events: filteredEvents });
+            } else if (selectedChoice === 'By Yourself') {
+                navigation.navigate('swipingCard', {  events: filteredEvents });
             }
         } catch (error) {
             console.error('Error fetching events:', error);
@@ -161,4 +156,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SearchFilterPage;
+export default OutingsFilterPage;
