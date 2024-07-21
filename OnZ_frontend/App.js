@@ -19,6 +19,7 @@ import NewPasswordPage from './src/screens/passwords/newPasswordPage';
 //  Home pages
 import HomePage from './src/screens/homePage';
 import ListingPage from './src/screens/listingPage';
+import ListingPage1 from './src/screens/listingPage1';
 
 
 // 
@@ -121,6 +122,11 @@ export default function App() {
         <Stack.Screen
           name="listingPage"
           component={ListingPage}
+        />
+
+        <Stack.Screen     
+          name="listingPage1"
+          component={ListingPage1}
         />
 
         <Stack.Screen

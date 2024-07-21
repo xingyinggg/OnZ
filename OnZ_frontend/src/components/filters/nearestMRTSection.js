@@ -6,14 +6,15 @@ import axios from 'axios';
 
 const NearestMRTSection = ({ selectedStations, setSelectedStations }) => {
   const [data, setData] = useState([]);
+  const [stations, setStations] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://10.124.13.145:3000/event/station');
+        const response = await axios.get('http://192.168.1.13:3000/event/station');
         const modifiedData = response.data.map(station => ({
-          key: station.stationID,
-          value: station.name
+          id: station.stationID,
+          name: station.name
         }));
         setData(modifiedData);
       } catch (error) {
@@ -23,6 +24,7 @@ const NearestMRTSection = ({ selectedStations, setSelectedStations }) => {
 
     fetchData();
   }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nearest MRT</Text>
@@ -30,14 +32,19 @@ const NearestMRTSection = ({ selectedStations, setSelectedStations }) => {
         <SectionedMultiSelect
           items={data}
           IconRenderer={Icon}
-          uniqueKey="key"
-          displayKey="value"
+          uniqueKey="id"
+          displayKey="name"
           selectText="Choose some MRT stations"
           searchPlaceholderText="Search stations"
           showDropDowns={true}
           onSelectedItemsChange={(selectedItems) => {
             setSelectedStations(selectedItems);
-            console.log('Selected Stations:', selectedItems);
+            const selectedStationNames = selectedItems.map(itemId => {
+              const station = data.find(station => station.id === itemId);
+              return station ? station.name : null;
+            }).filter(name => name !== null);
+            setStations(selectedStationNames);
+            console.log('Selected Stations:', selectedStationNames);
           }}
           selectedItems={selectedStations}
           styles={{
