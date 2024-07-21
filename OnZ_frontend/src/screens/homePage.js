@@ -84,13 +84,13 @@ const HomePage = ({ navigation }) => {
     };
 
     const categoryData = [
-        { id: '1', name: 'Food', imageSource: FoodCatergoryLogo, page: 'listingPage' },
-        { id: '2', name: 'Crafts', imageSource: CraftsCatergoryLogo, page: 'listingPage' },
-        { id: '3', name: 'Pets', imageSource: PetsCatergoryLogo, page: 'listingPage' },
-        { id: '4', name: 'Outdoor', imageSource: OutdoorsCatergoryLogo, page: 'listingPage' },
-        { id: '5', name: 'Sports', imageSource: SportsCatergoryLogo, page: 'listingPage' },
-        { id: '6', name: 'Leisure', imageSource: EntertainmentCatergoryLogo, page: 'listingPage' },
-        { id: '7', name: 'Culture', imageSource: CultureCatergoryLogo, page: 'listingPage' },
+        { id: '1', name: 'Food', imageSource: FoodCatergoryLogo, page: 'listingPage1' },
+        { id: '2', name: 'Crafts', imageSource: CraftsCatergoryLogo, page: 'listingPage1' },
+        { id: '3', name: 'Pets', imageSource: PetsCatergoryLogo, page: 'listingPage1' },
+        { id: '4', name: 'Outdoor', imageSource: OutdoorsCatergoryLogo, page: 'listingPage1' },
+        { id: '5', name: 'Sports', imageSource: SportsCatergoryLogo, page: 'listingPage1' },
+        { id: '6', name: 'Leisure', imageSource: EntertainmentCatergoryLogo, page: 'listingPage1' },
+        { id: '7', name: 'Culture', imageSource: CultureCatergoryLogo, page: 'listingPage1' },
     ];
 
     const renderPopularPlaceItem = useCallback(({ item }) => (
@@ -121,7 +121,7 @@ const HomePage = ({ navigation }) => {
                             placeholderTextColor="#585858"
                             value={searchInput}
                             onChangeText={setSearchInput}
-                            onSubmitEditing={() => navigation.navigate('listingPage')}
+                            onSubmitEditing={() => navigation.navigate('listingPage1')}
                         />
                         <TouchableOpacity onPress={() => navigation.navigate('searchFilterPage')}>
                             <Image source={FilterLogo} style={styles.filterIcon} />
@@ -134,7 +134,7 @@ const HomePage = ({ navigation }) => {
                                     horizontal
                                     data={categoryData}
                                     renderItem={({ item }) => (
-                                        <TouchableOpacity onPress={() => navigation.navigate('listingPage', { category: item.name })}>
+                                        <TouchableOpacity onPress={() => navigation.navigate('listingPage1', { filters: { category: item.name } })}>
                                             <View style={styles.categoryItem}>
                                                 <Image source={item.imageSource} style={styles.categoryImage} />
                                                 <Text style={styles.categoryText}>{item.name}</Text>

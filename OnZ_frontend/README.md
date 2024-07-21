@@ -19,19 +19,26 @@ yarn global add expo-cli
 ```
 git clone https://github.com/xingyinggg/OnZ.git
 ```
+
 ```
 cd OnZ
 ```
 
 **Install Dependencies**:
+
 ```
 yarn install
 ```
 
 **Start the App**:
+
 ```
 yarn expo start
 ```
+
+**Deployment**:
+
+Please type in ipconfig on your terminal to get your IPv4 and change the IP address respectively on all relevant screens.
 
 **Debugging**:
 

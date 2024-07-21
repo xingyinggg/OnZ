@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
     View,
-    Text,
     StyleSheet,
     TouchableWithoutFeedback,
     SafeAreaView,
@@ -23,7 +22,7 @@ import BackButton from "../components/backButton";
 import SearchLogo from "../assets/search_logo.png";
 
 // Main Component
-const ListingPage = ({ route, navigation }) => {
+const ListingPage1 = ({ route, navigation }) => {
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [searchInput, setSearchInput] = useState("");
     const { filters } = route.params;  // Receive filters from route params
@@ -50,16 +49,17 @@ const ListingPage = ({ route, navigation }) => {
     }, []);
 
     useEffect(() => {
+        if (!filters || !filters.category) {
+            Alert.alert('Error', 'Filters are not defined correctly.');
+            return;
+        }
+
         const fetchEvents = async () => {
             try {
                 const response = await axios.get('http://192.168.1.13:3000/event/findEvents', { params: filters });
                 const allEvents = response.data;
 
-                const filteredEvents = allEvents.filter(event => {
-                    const matchesCategory = filters.categories.includes(event.category);
-                    const matchesBudget = filters.budgets.includes(event.priceRange);
-                    return matchesCategory && matchesBudget;
-                });
+                const filteredEvents = allEvents.filter(event => event.category === filters.category);
 
                 setEvents(filteredEvents);
             } catch (error) {
@@ -79,7 +79,6 @@ const ListingPage = ({ route, navigation }) => {
         return unsubscribe;
     }, [navigation]);
 
-    // Return statement, what the component will render
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss(); }}>
             <SafeAreaView style={styles.container}>
@@ -97,34 +96,26 @@ const ListingPage = ({ route, navigation }) => {
                             placeholderTextColor="#585858"
                             value={searchInput}
                             onChangeText={setSearchInput}
-                            onSubmitEditing={() => navigation.navigate('listingPage')}
+                            onSubmitEditing={() => navigation.navigate('listingPage1')}
                         />
                     </View>
                 </View>
-                
-                {events.length === 0 ? (
-                    <View style={styles.noEventsContainer}>
-                        <Text style={styles.noEventsText}>No events available</Text>
-                    </View>
-                ) : (
-                    <FlatList
-                        data={events}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => navigation.navigate('placeDetailPage', { event: item })}>
-                                <RowDescription
-                                    // imageSource={item.imageSource}
-                                    name={item.eventName}
-                                    rating={item.rating}
-                                    location={item.street}
-                                    price={item.priceRange}
-                                />
-                            </TouchableOpacity>
-                        )}
-                        keyExtractor={item => item.id}
-                        contentContainerStyle={styles.contentContainer}
-                    />
-                )}
-                
+
+                <FlatList
+                    data={events}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity onPress={() => navigation.navigate('placeDetailPage', { event: item })}>
+                            <RowDescription
+                                name={item.eventName}
+                                rating={item.rating}
+                                location={item.street}
+                                price={item.priceRange}
+                            />
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={item => item.id}
+                    contentContainerStyle={styles.contentContainer}
+                />
                 {!isKeyboardVisible && <BottomBar navigation={navigation} />}
             </SafeAreaView>
         </TouchableWithoutFeedback>
@@ -166,15 +157,6 @@ const styles = StyleSheet.create({
         flex: 1,
         color: '#000',
     },
-    noEventsContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    noEventsText: {
-        fontSize: 18,
-        color: '#888',
-    },
 });
 
-export default ListingPage;
+export default ListingPage1;

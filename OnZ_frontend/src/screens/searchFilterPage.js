@@ -63,15 +63,13 @@ const SearchFilterPage = ({ navigation }) => {
         console.log('Applying filters:', filters);
         // Here you would send `filters` to your backend or perform the filtering logic
         try {
-            const response = await axios.get(`http://10.124.13.145:3000/event/findEvents`, { params: filters });
+            const response = await axios.get('http://192.168.1.13:3000/event/findEvents', { params: filters });
             setEvents(response.data);
             console.log('Events:', response.data);
+            navigation.navigate('listingPage', { filters, events: response.data });
         } catch (error) {
             console.error('Error fetching events:', error);
         }
-
-        // Navigate to the next page
-        // navigation.navigate('NextPage', { filters, events });
     };
 
     return (
