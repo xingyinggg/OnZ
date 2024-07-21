@@ -7,35 +7,9 @@
 - **Yarn**: You can install Yarn as from [yarnpkg.com](https://classic.yarnpkg.com/en/docs/install).
 
 - **Expo CLI**: Install the Expo CLI globally using npm or Yarn.
-  yarn global add expo-cli
-
-- **Node.js**: Make sure you have Node.js installed. You can download it from Node.js official website. (https://nodejs.org/en)
-
-- **npm**: It comes with Node.js. You can check if npm is installed by running:
 
 ```
-npm -v
-```
-
-- **nodemon**: This tool helps in automatically restarting the node application when file changes are detected. You can install it globally using npm:
-
-```
-npm install -g nodemon
-```
-
-- **.env file**: Please add a .env file at the root folder of the OnZ_backend
-
-```
-PORT=3000
-
-DB_USERNAME=wenqiliu2023
-DB_PASSWORD=DK5MVZJA58oykhEj
-DB_HOST=onz.lzlcqyq.mongodb.net
-DB_PORT=27017
-DB_NAME= "Onz"
-
-ACCESS_TOKEN_SECRET=df1278d57bfd29d55ea42c77b8b8ee031c48f0d07e64590c82a1bc689f810f62466dfe7c009a06c7de62d22a522d66bb6be04160b80c99acdb8271b40b674be7
-REFRESH_TOKEN_SECRET=37146784d644f271c818d01c0b1ac32317d2dfaee0d21d9a5faa1400fcad7b776317483b06513b2e499e80e3da319a9c48a0706eac7abeb125b8a5b68fd1819a
+yarn global add expo-cli
 ```
 
 ## Installation and Usage
@@ -47,11 +21,8 @@ git clone https://github.com/xingyinggg/OnZ.git
 ```
 
 ```
-cd OnZ_frontend
-cd OnZ_backend
+cd OnZ
 ```
-
-**FRONTEND**:
 
 **Install Dependencies**:
 
@@ -90,16 +61,3 @@ Scan the QR code generated in the terminal using your native camera app. This wi
 For Android, install Android Studio and set up an Android emulator. Then press `a` in the terminal to run the app on the emulator.
 
 For iOS, install Xcode and set up an iOS simulator. Then press `i` in the terminal to run the app on the simulator.
-
-**BACKEND**:
-**Install Dependencies**:
-
-```
-npm i
-```
-
-**Start the Server**:
-
-```
-npm run start
-```
