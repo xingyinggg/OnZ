@@ -8,59 +8,31 @@ import { Ionicons } from '@expo/vector-icons';
 
 const placeholderUri = 'https://via.placeholder.com/200';
 
-const SwipingCard = ({ navigation }) => {
-  const [cards] = useState([
-    {
-      id: 1,
-      text: 'Isle Eating House',
-      uri: [require('../assets/isleEatingHouse.jpg'), placeholderUri, placeholderUri],
-      description: 'Flicker and flobber, the wibble wobbles wane. Zizzle zazzle, the quirkle quirks quizzically. Flambastic flumph, the gorgle gorks gaily. Noodle noggin, the squeegee squawks squishily. Blorp and blunder, the snizzle snazzles swiftly. Whiffle whuffle, the twizzle twines twinkly. Bumble bramble, the chortle chirps cheerily. Dabble and dribble, the fluggle flings fuzzily. Quibble and quabble, the frizzle frits friskily. Zibble zabble, the drabble dinks delightfully.',
-      location: 'Location 1',
-      rating: 4.5,
-      price: '$',
-      fullLocation: '35 Selegie Road #02-08/09/10/11/12 Parklane Shopping Mall #01-08 Parklane Shopping Mall, 188307'
-    },
-    {
-      id: 2,
-      text: 'Card 2',
-      uri: [placeholderUri, placeholderUri, placeholderUri],
-      description: 'Description for Card 2',
-      location: 'Location 2',
-      rating: 4.0,
-      price: '$$'
-    },
-    {
-      id: 3,
-      text: 'Card 3',
-      uri: [placeholderUri, placeholderUri, placeholderUri],
-      description: 'Description for Card 2',
-      location: 'Location 2',
-      rating: 4.0,
-      price: '$$'
-    },
-  ]);
+const SwipingCard = ({ navigation, route }) => {
+  const { events } = route.params;
+  const [cards] = useState(events);
 
   const nopeOpacity = useSharedValue(10);
   const likeOpacity = useSharedValue(10);
   const [isSwipedAll, setIsSwipedAll] = useState(false);
 
-  const renderCard = (card) => (
-    <Animated.View key={card.id} style={styles.cardContainer}>
-      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('placeDetailPage', { card })}>
-        <Image source={typeof card.uri[0] === 'string' ? { uri: card.uri[0] } : card.uri[0]} style={styles.cardImage} />
+  const renderCard = (event) => (
+    <Animated.View key={event.eventID} style={styles.cardContainer}>
+      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('placeDetailPage', { event })}>
+        <Image source={{uri: event.picture}} style={styles.cardImage} />
         <View style={styles.cardInfo}>
           <View style={styles.cardDetails}>
-            <Text style={styles.cardText}>{card.text}</Text>
+            <Text style={styles.cardText}>{event.eventName}</Text>
             <View style={styles.row}>
               <Ionicons name="location-outline" size={18} color="#A0CED9" />
-              <Text style={styles.cardLocation}> {card.location}</Text>
+              <Text style={styles.cardLocation}> {event.street}</Text>
             </View>
             <View style={styles.cardFooter}>
               <View style={styles.row}>
                 <Ionicons name="star-outline" size={18} color="black" />
-                <Text style={styles.cardRating}> {card.rating} / 5</Text>
+                <Text style={styles.cardRating}> {event.rating} / 5</Text>
               </View>
-              <Text style={styles.cardPrice}>{card.price}</Text>
+              <Text style={styles.cardPrice}>{event.priceRange}</Text>
             </View>
           </View>
         </View>
@@ -127,7 +99,7 @@ const SwipingCard = ({ navigation }) => {
           <Swiper
             ref={swiperRef}
             cards={cards}
-            renderCard={(card, index) => renderCard(card, index)}
+            renderCard={(event, index) => renderCard(event, index)}
             onSwipedLeft={(cardIndex) => onSwipedLeft(cardIndex, 'left')}
             onSwipedRight={(cardIndex) => onSwipedRight(cardIndex, 'right')}
             onSwiping={(x) => onSwiping(x)}
@@ -164,7 +136,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     width: Dimensions.get('window').width - 40,
-    height: Dimensions.get('window').height - 300,
+    height: Dimensions.get('window').height - 250,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -187,7 +159,7 @@ const styles = StyleSheet.create({
   },
   cardInfo: {
     width: '95%',
-    height: 110,
+    height: 155,
     padding: 5,
     backgroundColor: '#fff',
     borderRadius: 10,
